@@ -1,0 +1,54 @@
+---
+title: "Absolute quantification for lipidomics"
+author:
+- name: Xiaotao Shen PhD (https://www.shenxt.info/)
+- affiliation: School of Medicine, Stanford University
+  name: Chuchu wang PhD
+  url: http://shenxt.info/
+date: "Created on 2021-02-09 and updated on `r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+    toc: no
+  pdf_document:
+    toc: no
+vignette: "%\\VignetteIndexEntry{Vignette Title} \n%\\VignetteEncoding{UTF-8}\n%\\VignetteEngine{knitr::rmarkdown}
+  \n"
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+```
+
+***
+
+## **MS1 data preparation**
+
+The peak table must contain "name" (peak name), "mz" (mass to charge ratio) and "rt" (retention time, unit is second). It can be from any data processing software (XCMS, MS-DIAL and so on).
+
+![](../man/figures/Screen Shot 2020-03-30 at 5.51.02 PM.png)
+
+## MS2 data preparation
+
+The raw MS2 data from DDA or DIA should be transfered to msp, mgf or mzXML format files using [ProteoWizard software](http://proteowizard.sourceforge.net/).
+
+## **Database**
+
+The database must be generated using `constructDatabase()` function. You can also use the public databases we provoded [here](https://github.com/jaspershen/demoData/tree/master/inst/ms2_database).
+
+## Data organization
+
+Place the MS1 peak table, MS2 data and database which you want to use in one folder like below figure shows:
+
+![](../man/figures/Screen Shot 2020-03-30 at 7.05.35 PM.png)
+
+## **Run `identify_metabolites()` function**
+
+We use the demo data in `metID` package to show how to use `metID` to identify metablite without MS2 spectra. Here, we use the in-house database from Michael Snyder lab (`msDatabase_rplc0.0.2`).
+
+> In-house database
+The in-house database in our lab were provided, with RPLC and HILIC mode RT information. They were acquired using Thermo Fisher QE-plus. However, the LC system may be different with your experiments, so if you want to use our in-house database for metabolite identification, please set `rt.match.tol` as 100000000 (no limitation). The in-house database can be downloaded in my [github](https://github.com/jaspershen/metID/tree/master/data).

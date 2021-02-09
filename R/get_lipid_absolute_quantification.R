@@ -2,58 +2,79 @@
 # sxtTools::setwd_project()
 # setwd("demo_data/one_step/")
 # 
-# get_lipid_absolute_quantification(path = ".",
-#            is_info_name_pos = "IS_information.xlsx",
-#            is_info_name_neg = "IS_information.xlsx",
-#            use_manual_is_info = FALSE,
-#            lipid_annotation_table_pos = "lipid_annotation_table_pos.xlsx",
-#            lipid_annotation_table_neg = "lipid_annotation_table_neg.xlsx",
-#            chol_rt = 1169,
-#            output_integrate = TRUE,
-#            forced_targeted_peak_table_name = NULL,
-#            fit.gaussian = TRUE,
-#            integrate_xcms = TRUE,
-#            output_eic = TRUE,
-#            ppm = 40,
-#            rt.tolerance = 180,
-#            threads = 3,
-#            rerun = FALSE,
-#            which_group_for_rt_confirm = "QC",
-#            match_item_pos =
-#              list(
-#                "Cer" = "d18:1 (d7)-15:0 Cer",
-#                "ChE" = c("18:1(d7) Chol Ester", "Cholesterol (d7)"),
-#                "Chol" = "Cholesterol (d7)",
-#                "DG" = "15:0-18:1(d7) DAG",
-#                "LPC" = "18:1(d7) Lyso PC",
-#                "LPE" = "18:1(d7) Lyso PE",
-#                "MG" = "18:1 (d7) MG",
-#                "PA" = "15:0-18:1(d7) PA (Na Salt)",
-#                "PC" = "15:0-18:1(d7) PC",
-#                "PE" = "15:0-18:1(d7) PE",
-#                "PG" = "15:0-18:1(d7) PG (Na Salt)",
-#                "PI" = "15:0-18:1(d7) PI (NH4 Salt)",
-#                "PPE" = "C18(Plasm)-18:1(d9) PE",
-#                "PS" = "15:0-18:1(d7) PS (Na Salt)",
-#                "SM" = "d18:1-18:1(d9) SM",
-#                "TG" = "15:0-18:1(d7)-15:0 TAG"
-#              ),
-#            match_item_neg =
-#              list(
-#                "Cer" = "d18:1 (d7)-15:0 Cer",
-#                "Chol" = "Cholesterol (d7)",
-#                "ChE" = c("18:1(d7) Chol Ester", "Cholesterol (d7)"),
-#                "LPC" = "18:1(d7) Lyso PC",
-#                "LPE" = "18:1(d7) Lyso PE",
-#                "PC" = "15:0-18:1(d7) PC",
-#                "PE" = "15:0-18:1(d7) PE",
-#                "PG" = "15:0-18:1(d7) PG (Na Salt)",
-#                "PI" = "15:0-18:1(d7) PI (NH4 Salt)",
-#                "PPE" = "C18(Plasm)-18:1(d9) PE",
-#                "PS" = "15:0-18:1(d7) PS (Na Salt)",
-#                "SM" = "d18:1-18:1(d9) SM"
-#              )
+# path = "."
+# is_info_name_pos = "IS_information.xlsx"
+# is_info_name_neg = "IS_information.xlsx"
+# use_manual_is_info = FALSE
+# lipid_annotation_table_pos = "lipid_annotation_table_pos.xlsx"
+# lipid_annotation_table_neg = "lipid_annotation_table_neg.xlsx"
+# chol_rt = 1169
+# output_integrate = TRUE
+# forced_targeted_peak_table_name = NULL
+# fit.gaussian = TRUE
+# integrate_xcms = TRUE
+# output_eic = TRUE
+# ppm = 40
+# rt.tolerance = 180
+# threads = 3
+# rerun = FALSE
+# which_group_for_rt_confirm = "QC"
+# match_item_pos =
+#   list(
+#     "Cer" = "d18:1 (d7)-15:0 Cer",
+#     "ChE" = c("18:1(d7) Chol Ester", "Cholesterol (d7)"),
+#     "Chol" = "Cholesterol (d7)",
+#     "DG" = "15:0-18:1(d7) DAG",
+#     "LPC" = "18:1(d7) Lyso PC",
+#     "LPE" = "18:1(d7) Lyso PE",
+#     "MG" = "18:1 (d7) MG",
+#     "PA" = "15:0-18:1(d7) PA (Na Salt)",
+#     "PC" = "15:0-18:1(d7) PC",
+#     "PE" = "15:0-18:1(d7) PE",
+#     "PG" = "15:0-18:1(d7) PG (Na Salt)",
+#     "PI" = "15:0-18:1(d7) PI (NH4 Salt)",
+#     "PPE" = "C18(Plasm)-18:1(d9) PE",
+#     "PS" = "15:0-18:1(d7) PS (Na Salt)",
+#     "SM" = "d18:1-18:1(d9) SM",
+#     "TG" = "15:0-18:1(d7)-15:0 TAG"
 #   )
+# match_item_neg =
+#   list(
+#     "Cer" = "d18:1 (d7)-15:0 Cer",
+#     "Chol" = "Cholesterol (d7)",
+#     "ChE" = c("18:1(d7) Chol Ester", "Cholesterol (d7)"),
+#     "LPC" = "18:1(d7) Lyso PC",
+#     "LPE" = "18:1(d7) Lyso PE",
+#     "PC" = "15:0-18:1(d7) PC",
+#     "PE" = "15:0-18:1(d7) PE",
+#     "PG" = "15:0-18:1(d7) PG (Na Salt)",
+#     "PI" = "15:0-18:1(d7) PI (NH4 Salt)",
+#     "PPE" = "C18(Plasm)-18:1(d9) PE",
+#     "PS" = "15:0-18:1(d7) PS (Na Salt)",
+#     "SM" = "d18:1-18:1(d9) SM"
+#   )
+# 
+# get_lipid_absolute_quantification(
+#   path = path,
+#   is_info_name_pos = is_info_name_pos,
+#   is_info_name_neg = is_info_name_neg,
+#   use_manual_is_info = use_manual_is_info,
+#   lipid_annotation_table_pos = lipid_annotation_table_pos,
+#   lipid_annotation_table_neg = lipid_annotation_table_neg,
+#   chol_rt = chol_rt,
+#   output_integrate = output_integrate,
+#   forced_targeted_peak_table_name = forced_targeted_peak_table_name,
+#   fit.gaussian = fit.gaussian,
+#   integrate_xcms = integrate_xcms,
+#   output_eic = output_eic,
+#   ppm = ppm,
+#   rt.tolerance = rt.tolerance,
+#   threads = threads,
+#   rerun = rerun,
+#   which_group_for_rt_confirm = which_group_for_rt_confirm,
+#   match_item_pos = match_item_pos,
+#   match_item_neg = match_item_neg
+# )
 
 
 #' @title  get_lipid_absolute_quantification
@@ -87,8 +108,6 @@
 #' @import xcms
 #' @import MSnbase
 #' @export
-
-
 
 
 get_lipid_absolute_quantification <-
@@ -199,6 +218,10 @@ get_lipid_absolute_quantification <-
     ############################################################################
     #############################get the RTs of each IS#########################
     ############################################################################
+    cat("-------------------------------------------------------------------\n")
+    cat("Get retention times of all Internal standards...\n")
+    cat("-------------------------------------------------------------------\n")
+    
     ##get the RTs of internal standard in which_group_for_rt_confirm
     if (use_manual_is_info) {
       is_info_table_new_pos =
@@ -259,15 +282,22 @@ get_lipid_absolute_quantification <-
                          file = file.path(path, "Result", "IS_info_table.xlsx"))
     
     
-    
-    
-    
-    
-    
+    ###is there a chol in is_info_table
+    if(any(is_info_table_new$name == "Cholesterol")){
+      idx = which(is_info_table_new$name == "Cholesterol")
+      chol_rt2 = c(is_info_table_new$rt_pos_second[idx], is_info_table_new$rt_neg_second[idx])
+      chol_rt2 = chol_rt2[!is.na(chol_rt2)]
+      if(length(chol_rt2) > 1){
+        chol_rt = chol_rt2[1]
+      }
+    }
     
 ############################################################################
 #############################relative quantification of IS##################
 ############################################################################
+cat("-------------------------------------------------------------------\n")
+cat("Get relative quantification tables...\n")
+cat("-------------------------------------------------------------------\n")
 ###positive mode
 ##get sample information
     sample_info_pos =
@@ -385,6 +415,10 @@ get_lipid_absolute_quantification <-
     ############################################################################
     #############################absolute quantification#######################
     ############################################################################
+    cat("-------------------------------------------------------------------\n")
+    cat("Get absolute quantification tables...\n")
+    cat("-------------------------------------------------------------------\n")
+    
     ###positive mode
     is_quantification_table = readxl::read_xlsx("POS/is_relative_quantification/is_quantification_table.xlsx")
     lipid_quantification_table = readxl::read_xlsx("POS/lipid_relative_quantification/lipid_quantification_table.xlsx")
@@ -447,6 +481,9 @@ get_lipid_absolute_quantification <-
     ############################################################################
     #############################reorganize plot################################
     ############################################################################
+    cat("-------------------------------------------------------------------\n")
+    cat("Generate the peak plots for lipids...\n")
+    cat("-------------------------------------------------------------------\n")
     ###positive mode
     absolute_table_pos <-
       readxl::read_xlsx("Result/lipid_data_um.xlsx")
@@ -469,6 +506,10 @@ get_lipid_absolute_quantification <-
     ############################################################################
     #############################output results################################
     ############################################################################
+    cat("-------------------------------------------------------------------\n")
+    cat("Output results...\n")
+    cat("-------------------------------------------------------------------\n")
+    
     lipid_data <-
       readxl::read_xlsx(file.path(path, "Result/lipid_data_um.xlsx"))
     

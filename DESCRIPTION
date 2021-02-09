@@ -1,16 +1,52 @@
 Package: lipidflow
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
-Authors@R: 
+Authors@R: c(
     person(given = "Xiaotao",
            family = "Shen",
            role = c("aut", "cre"),
            email = "shenxt@stanford.edu",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+           comment = c(ORCID = "0000-0002-9608-9964")),
+        person(given = "Chuchu",
+           family = "Wang",
+           role = c("aut", "ctb"))
+           )
+Description: Absolute quantification for lipidomics data.
+License: GPL-2 | file LICENSE
+URL: https://github.com/jaspershen/lipidflow
+BugReports: https://github.com/jaspershen/lipidflow/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports:
+    BiocParallel,
+    crayon,
+    dplyr,
+    ggplot2,
+    graphics,
+    grDevices,
+    lifecycle,
+    magrittr,
+    methods,
+    MSnbase,
+    openxlsx,
+    pbapply,
+    plyr,
+    RColorBrewer,
+    Rdisop,
+    readr,
+    readxl,
+    stats,
+    stringr,
+    tibble,
+    tidyr,
+    utils,
+    xcms
+Suggests: 
+    knitr,
+    rmarkdown,
+    BiocStyle,
+    RUnit,
+    BiocGenerics,
+    testthat

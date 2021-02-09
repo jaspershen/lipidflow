@@ -1,3 +1,8 @@
 ^lipidflow\.Rproj$
 ^\.Rproj\.user$
 demo_data
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+.RData
+.Rhistory

@@ -19,6 +19,7 @@ get_IS_RT <-
            polarity = c("positive", "negative"),
            threads = 3,
            rerun = FALSE) {
+    
     polarity = match.arg(polarity)
     ##check data
     if (length(grep("mzXML", dir(path))) == 0) {
@@ -54,8 +55,6 @@ get_IS_RT <-
         mz_pos_nh4,
         mz_pos_h_h20,
         mz_pos_nh4_h20,
-        mz_neg_h,
-        mz_neg_ch3cOO,
         stringsAsFactors = FALSE,
         check.names = FALSE
       )
@@ -183,6 +182,7 @@ get_IS_RT <-
         force = TRUE
       )
     }
+    
     
     extract_targeted_peaks(
       path = path,

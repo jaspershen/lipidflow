@@ -1046,6 +1046,7 @@ extract_targeted_peaks <-
            rt.tolerance = 90,
            threads = 3,
            facet = TRUE) {
+
     peak_table <-
       readxl::read_xlsx(file.path(path , targeted_targeted_peak_table_name))
     output_path = file.path(path, output_path_name)
@@ -1107,9 +1108,9 @@ extract_targeted_peaks <-
       
       # plot(result, col = "black", type = "b")
       
-      mpp <- MergeNeighboringPeaksParam(expandRt = 3)
+      mpp <- xcms::MergeNeighboringPeaksParam(expandRt = 3)
       
-      result <- refineChromPeaks(result, param = mpp)
+      result <- xcms::refineChromPeaks(result, param = mpp)
       # plot(result, col = "black", type = "b")
       save(result, file = file.path(output_path, "intermediate_data/result"))
     }
