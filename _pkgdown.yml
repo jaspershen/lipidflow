@@ -70,7 +70,7 @@ reference:
 navbar:
   type: inverse
   structure:
-    left: [home, references, articles, news, contact]
+    left: [home, references, articles, news]
     right: [github, twitter]
   components:
     articles:
@@ -91,9 +91,6 @@ navbar:
     twitter:
       icon: "fab fa-twitter fa-lg"
       href: https://twitter.com/JasperShen1990
-    contact:
-      text: Contact us
-      href: articles/contact_us.html
     news:
       text: News
       menu:
