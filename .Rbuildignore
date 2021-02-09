@@ -6,3 +6,4 @@ demo_data
 ^pkgdown$
 .RData
 .Rhistory
+^\.github$
