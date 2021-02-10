@@ -92,16 +92,21 @@ get_relative_quantification <-
     }
     
     if (targeted_table_type == "is") {
-      targeted_table = readxl::read_xlsx(file.path(path, targeted_table_name))
+      targeted_table = 
+        suppressMessages(readxl::read_xlsx(file.path(path, targeted_table_name)))
       targeted_table = trans_is_table(is_table = targeted_table,
                                       polarity = polarity)
       openxlsx::write.xlsx(targeted_table,
                            file.path(path, "feature_table.xlsx"),
                            asTable = TRUE)
     } else{
-      targeted_table = readxl::read_xlsx(file.path(path, targeted_table_name),
-                                         sheet = 1,
-                                         col_names = FALSE)
+      targeted_table =
+        suppressMessages(readxl::read_xlsx(
+          file.path(path, targeted_table_name),
+          sheet = 1,
+          col_names = FALSE
+        ))
+      
       lipid_table =
         tidy_lipidsearch_data(file = targeted_table,
                               polarity = polarity,
@@ -176,7 +181,7 @@ get_relative_quantification <-
       forced_targeted_peak_table_name = NULL,
       fit.gaussian = TRUE,
       integrate_xcms = TRUE,
-      output_eic = TRUE,
+      output_eic = output_eic,
       output_integrate = TRUE,
       ppm = ppm,
       rt.tolerance = rt.tolerance,

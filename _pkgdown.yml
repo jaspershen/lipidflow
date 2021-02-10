@@ -76,28 +76,15 @@ navbar:
     articles:
       text: Help documents
       menu:
-      - text: "Brief introduction"
-      - text: Brief introduction
-        href: articles/lipidflow.html
       - text: "Absolute quantification of lipidomics"
       - text: Absolute quantification of lipidomics
         href: articles/absolute_quantification.html
-      - text: -------
-      - text: "Others"
-      - text: Other usefull tools
-        href: articles/other_tools.html
-      - text: Test
-        href: https://www.tidyverse.org/blog/2018/12/readxl-1-2-0/
     twitter:
       icon: "fab fa-twitter fa-lg"
       href: https://twitter.com/JasperShen1990
     news:
       text: News
       menu:
-      - text: "Blog posts"
-      - text: "Version 0.4.0"
-        href: articles/metID.html
-      - text: "------------------"
       - text: "Change log"
         href: news/index.html
 toc:

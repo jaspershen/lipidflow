@@ -246,23 +246,23 @@ clean_is_table <- function(x,
         .x = adduct,
         .f = function(x) {
           if (x == "M+H") {
-            return(getMass(getMolecule(formula = "H")))
+            return(Rdisop::getMass(Rdisop::getMolecule(formula = "H")))
           }
           
           if (x == "M+H-H2O") {
-            return(-getMass(getMolecule(formula = "HO")))
+            return(-Rdisop::getMass(Rdisop::getMolecule(formula = "HO")))
           }
           
           if (x == "M+NH4") {
-            return(getMass(getMolecule(formula = "NH4")))
+            return(Rdisop::getMass(Rdisop::getMolecule(formula = "NH4")))
           }
           
           if (x == "M+NH4-H2O") {
-            return(getMass(getMolecule(formula = "NH2")) - getMass(getMolecule(formula = "O")))
+            return(Rdisop::getMass(Rdisop::getMolecule(formula = "NH2")) - Rdisop::getMass(Rdisop::getMolecule(formula = "O")))
           }
           
           if (x == "M+Na") {
-            return(getMass(getMolecule(formula = "Na")))
+            return(Rdisop::getMass(Rdisop::getMolecule(formula = "Na")))
           }
           
           return(NA)
@@ -306,15 +306,15 @@ clean_is_table <- function(x,
         .x = adduct,
         .f = function(x) {
           if (x == "M-H") {
-            return(-getMass(getMolecule(formula = "H")))
+            return(-Rdisop::getMass(Rdisop::getMolecule(formula = "H")))
           }
           
           if (x == "M+CH3COO") {
-            return(getMass(getMolecule(formula = "CH3COO")))
+            return(Rdisop::getMass(Rdisop::getMolecule(formula = "CH3COO")))
           }
           
           if (x == "M+HCOO") {
-            return(getMass(getMolecule(formula = "HCOO")))
+            return(Rdisop::getMass(Rdisop::getMolecule(formula = "HCOO")))
           }
           return(NA)
         }
@@ -496,7 +496,11 @@ get_is_quantify_table <- function(is_table,
           theme_bw()
         ggsave(
           plot,
-          filename = file.path("IS_figure", paste(x[2], ".pdf", sep = "")),
+          filename = file.path("IS_figure", 
+                               paste(x[2] %>% 
+                                       stringr::str_replace_all("\\/", "_") %>% 
+                                       stringr::str_replace_all("\\:", "_"), 
+                                     ".pdf", sep = "")),
           width = 7,
           height = 7
         )
@@ -634,6 +638,11 @@ combine_pos_neg_quantification <- function(path = ".",
     do.call(rbind, .) %>%
     as.data.frame()
   
+  class_data_ug_ml = 
+  class_data_ug_ml %>% 
+    as.data.frame() %>% 
+    tibble::rownames_to_column(var = "Class")
+  
   openxlsx::write.xlsx(
     x = class_data_ug_ml,
     file = file.path(path, "class_data_ug_ml.xlsx"),
@@ -659,6 +668,11 @@ combine_pos_neg_quantification <- function(path = ".",
     do.call(rbind, .) %>%
     as.data.frame()
   
+  class_data_um = 
+    class_data_um %>% 
+    as.data.frame() %>% 
+    tibble::rownames_to_column(var = "Class")
+  
   openxlsx::write.xlsx(
     x = class_data_um,
     file = file.path(path, "class_data_um.xlsx"),
@@ -667,12 +681,11 @@ combine_pos_neg_quantification <- function(path = ".",
   
   plot1 <-
     class_data_ug_ml %>%
-    tibble::rownames_to_column(var = "class") %>%
-    tidyr::pivot_longer(cols = -class,
+    tidyr::pivot_longer(cols = -Class,
                         names_to = "sample_id",
                         values_to = "value") %>%
     ggplot(aes(sample_id, value)) +
-    geom_bar(stat = "identity", position = "fill", aes(fill = class)) +
+    geom_bar(stat = "identity", position = "fill", aes(fill = Class)) +
     theme_bw() +
     labs(x = "") +
     scale_y_continuous(expand = expansion(mult = c(0, 0))) +
@@ -693,14 +706,13 @@ combine_pos_neg_quantification <- function(path = ".",
   
   plot2 <-
     class_data_um %>%
-    tibble::rownames_to_column(var = "class") %>%
-    tidyr::pivot_longer(cols = -class,
+    tidyr::pivot_longer(cols = -Class,
                         names_to = "sample_id",
                         values_to = "value") %>%
     ggplot(aes(sample_id, value)) +
     geom_bar(stat = "identity",
              position = "fill",
-             aes(fill = class)) +
+             aes(fill = Class)) +
     theme_bw() +
     labs(x = "") +
     scale_y_continuous(expand = expansion(mult = c(0, 0))) +
@@ -727,10 +739,12 @@ combine_pos_neg_quantification <- function(path = ".",
   
   class_data_um_per <-
     class_data_um %>%
+    tibble::column_to_rownames(var = "Class") %>% 
     apply(2, function(x) {
       x * 100 / sum(x)
     }) %>%
-    as.data.frame()
+    as.data.frame() %>% 
+    tibble::rownames_to_column(var = "Class")
   
   openxlsx::write.xlsx(
     x = cbind(variable_info_abs, express_data_abs_ug_ml),
@@ -833,7 +847,7 @@ tidy_lipidsearch_data <-
       
       mz <-
         lipid_table %>%
-        dplyr::select(contains("ObsMz")) %>%
+        dplyr::select(contains("CalcMz")) %>%
         apply(1, function(x) {
           mean(as.numeric(x), na.rm = TRUE)
         })
@@ -1048,7 +1062,7 @@ extract_targeted_peaks <-
            facet = TRUE) {
 
     peak_table <-
-      readxl::read_xlsx(file.path(path , targeted_targeted_peak_table_name))
+      suppressMessages(readxl::read_xlsx(file.path(path , targeted_targeted_peak_table_name)))
     output_path = file.path(path, output_path_name)
     
     dir.create(output_path, showWarnings = FALSE)
@@ -1092,9 +1106,9 @@ extract_targeted_peaks <-
     if (any(dir(file.path(output_path, "intermediate_data/")) == "result")) {
       load(file.path(output_path, "intermediate_data/result"))
     } else{
-      result <- findChromPeaks(
+      result <- xcms::findChromPeaks(
         object = result_raw,
-        param = CentWaveParam(
+        param = xcms::CentWaveParam(
           peakwidth = c(5, 30),
           snthresh = 2,
           ppm = ppm,
@@ -1116,7 +1130,7 @@ extract_targeted_peaks <-
     }
     
     peak_value <-
-      chromPeaks(result) %>%
+      xcms::chromPeaks(result) %>%
       as.data.frame()
     
     peak_value <-
@@ -1140,7 +1154,7 @@ extract_targeted_peaks <-
     peak_value <-
       peak_value %>%
       dplyr::select(-c(row, column)) %>%
-      dplyr::select(name, sample, everything())
+      dplyr::select(name, sample, dplyr::everything())
     
     raw_info <- result@.Data
     
@@ -1188,7 +1202,7 @@ extract_targeted_peaks <-
     ###check missing value
     if (fit.gaussian) {
       for (temp_name in output_quantification_table$name) {
-        cat(temp_name, "\n")
+        cat(temp_name, " ")
         for (temp_sample in colnames(output_quantification_table)[-c(1:2)]) {
           # cat(temp_sample, " ")
           value <-
@@ -1212,11 +1226,12 @@ extract_targeted_peaks <-
             if (sum(!is.na(xy$y)) <= 6) {
               value <- 0
             } else{
+              
               fit_result <-
                 try(expr = fit_gaussian(x = xy$x, y = xy$y),
                     silent = TRUE)
               
-              if (class(fit_result$y) == "try-error") {
+              if (class(fit_result)[1] == "try-error") {
                 xy <-
                   data.frame(xy, z = 0)
               } else{
@@ -1257,7 +1272,7 @@ extract_targeted_peaks <-
               #                         upper = max(xy$x))$value, silent = TRUE
               # )
               
-              if (class(value1) == "try-error") {
+              if (class(value1)[1] == "try-error") {
                 value1 <- NA
               }
               #
@@ -1274,7 +1289,7 @@ extract_targeted_peaks <-
                 try(expr = shapiro.test(x = xy$z)$p.value > 0.05,
                     silent = TRUE)
               
-              if (class(item1) == "try-error") {
+              if (class(item1)[1] == "try-error") {
                 item1 <- FALSE
               }
               
@@ -1318,7 +1333,7 @@ extract_targeted_peaks <-
     output_quantification_table <-
       output_quantification_table %>%
       dplyr::left_join(peak_table[, c("name", "mz", "adduct")], by = "name") %>%
-      dplyr::select(name, mz, rt, adduct, everything())
+      dplyr::select(name, mz, rt, adduct, dplyr::everything())
     
     if (from_lipid_search) {
       output_quantification_table <-
@@ -1585,8 +1600,6 @@ extract_targeted_peaks <-
                 paste(
                   name %>%
                     stringr::str_replace_all("\\:", "_") %>%
-                    stringr::str_replace_all("\\(", "_") %>%
-                    stringr::str_replace_all("\\)", "_") %>%
                     stringr::str_replace_all("\\/", "_"),
                   "html",
                   sep = "."
@@ -1638,11 +1651,31 @@ fit_gaussian <-
     controlList <- nls.control(maxiter = 100,
                                minFactor = 1 / 512,
                                warnOnly = TRUE)
+    
+    gaussian1 <-
+      function(x,
+               center = 0,
+               width = 1,
+               height = NULL,
+               floor = 0) {
+        # adapted from Earl F. Glynn;  Stowers Institute for Medical Research, 2007
+        twoVar <- 2 * width * width
+        sqrt2piVar <- sqrt(pi * twoVar)
+        y <- exp(-(x - center) ^ 2 / twoVar) / sqrt2piVar
+        
+        # by default, the height is such that the curve has unit volume
+        if (!is.null (height)) {
+          scalefactor <- sqrt2piVar
+          y <- y * scalefactor * height
+        }
+        y + floor
+      }
+    
     if (!fit.floor) {
       starts <- list(center = start.center,
                      width = start.width,
                      height = start.height)
-      nlsAns <- try(nls(y ~ gaussian(x, center, width, height),
+      nlsAns <- try(nls(y ~ gaussian1(x, center, width, height),
                         start = starts,
                         control = controlList))
     } else {
@@ -1656,7 +1689,7 @@ fit_gaussian <-
         floor = start.floor
       )
       nlsAns <- try(nls(
-        y ~ gaussian(x, center, width, height,
+        y ~ gaussian1(x, center, width, height,
                      floor),
         start = starts,
         control = controlList
@@ -1672,7 +1705,7 @@ fit_gaussian <-
         0
       }
       yAns <-
-        try(expr = gaussian(x, centerAns, widthAns, heightAns, floorAns),
+        try(expr = gaussian1(x, centerAns, widthAns, heightAns, floorAns),
             silent = TRUE)
       if (class(yAns) == "try-error") {
         residualAns <- y - 0
@@ -2120,7 +2153,6 @@ get_quantification_data2 <-
            lipid_tag,
            lipid_table,
            match_item) {
-    cat("Calculate absolute quantification...\n")
     expression_data_abs <-
       cal_abs(
         lipid_tag = lipid_tag,
@@ -2219,8 +2251,8 @@ from_quantification_table_to_rt_table <-
       unlist()
     unique_name = unique(table$name)
     
-    wb <- createWorkbook()
-    modifyBaseFont(wb, fontSize = 14, fontName = "Times New Roma")
+    wb <- openxlsx::createWorkbook()
+    openxlsx::modifyBaseFont(wb, fontSize = 14, fontName = "Times New Roma")
     ##add sheet to wb
     unique_name %>%
       purrr::walk(
@@ -2228,14 +2260,14 @@ from_quantification_table_to_rt_table <-
           x =
             x %>%
             stringr::str_replace_all("\\:", "_")
-          addWorksheet(wb, sheetName = x, gridLines = TRUE)
+          openxlsx::addWorksheet(wb, sheetName = x, gridLines = TRUE)
         }
       )
     
     ##write table to wb
     1:length(unique_name) %>%
       purrr::walk(function(idx) {
-        freezePane(wb,
+        openxlsx::freezePane(wb,
                    sheet = idx,
                    firstRow = TRUE,
                    firstCol = TRUE)
@@ -2272,7 +2304,7 @@ from_quantification_table_to_rt_table <-
         }
         
         
-        writeDataTable(
+        openxlsx::writeDataTable(
           wb,
           sheet = idx,
           x = temp,
@@ -2281,7 +2313,7 @@ from_quantification_table_to_rt_table <-
         )
       })
     
-    saveWorkbook(wb,
+    openxlsx::saveWorkbook(wb,
                  file.path(path, "IS_RT_table_for_check.xlsx"),
                  overwrite = TRUE)
     

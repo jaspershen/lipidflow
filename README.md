@@ -9,10 +9,10 @@
 
 ## About
 
-`lipidflow` is a R packge which is used for metabolite identification based
-on in-house database and public database based on accurate mass (m/z),
-rentention time (RT) and/or MS2
-spectra.
+`lipidflow` is a R package which is used for absolute quantification for
+lipidomics data.
+
+<img src="man/figures/Figure_2.jpg" align="left" alt="" width="100%" />
 
 ## Installation
 
@@ -29,16 +29,16 @@ devtools::install_github("jaspershen/lipidflow")
 ## Usage
 
 Please see the [Get
-started](https://jaspershen.github.io/lipidflow/articles/lipidflow.html) page to
-get the instruction of `lipidflow`.
+started](https://jaspershen.github.io/lipidflow/articles/lipidflow.html)
+page to get the instruction of `lipidflow`.
 
 ## Need help?
 
-If you have any quesitions about `lipidflow`, please don’t hesitate to email
-me (<shenxt@stanford.edu>).
+If you have any quesitions about `lipidflow`, please don’t hesitate to
+email me (<shenxt@stanford.edu>).
 
 <i class="fa fa-weixin"></i>
-[shenzutao1990](https://www.shenxt.info/files/wechat_QR.jpg)
+[shenxt1990](https://www.shenxt.info/files/wechat_QR.jpg)
 
 <i class="fa fa-envelope"></i> <shenxt@stanford.edu>
 
@@ -46,8 +46,8 @@ me (<shenxt@stanford.edu>).
 [Twitter](https://twitter.com/JasperShen1990)
 
 <i class="fa fa-map-marker-alt"></i> [M339, Alway Buidling, Cooper Lane,
-Palo Alto,
-CA 94304](https://www.google.com/maps/place/Alway+Building/@37.4322345,-122.1770883,17z/data=!3m1!4b1!4m5!3m4!1s0x808fa4d335c3be37:0x9057931f3b312c29!8m2!3d37.4322345!4d-122.1748996)
+Palo Alto, CA
+94304](https://www.google.com/maps/place/Alway+Building/@37.4322345,-122.1770883,17z/data=!3m1!4b1!4m5!3m4!1s0x808fa4d335c3be37:0x9057931f3b312c29!8m2!3d37.4322345!4d-122.1748996)
 
 ## Citation
 
@@ -59,4 +59,6 @@ Metabolite Annotation for Untargeted Metabolomics, Nature
 Communications, 2019, 10: 1516.  
 [Web Link](https://www.nature.com/articles/s41467-019-09550-x).
 
-Thanks very much\!
+Thanks very much!
+
+<img src="man/figures/unnamed-chunk-5-1.png" width="100%" />

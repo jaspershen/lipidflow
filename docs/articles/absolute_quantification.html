@@ -82,21 +82,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Brief introduction</li>
-    <li>
-      <a href="../articles/lipidflow.html">Brief introduction</a>
-    </li>
-    <li class="dropdown-header">Absolute quantification of lipidomics</li>
+<li class="dropdown-header">Absolute quantification of lipidomics</li>
     <li>
       <a href="../articles/absolute_quantification.html">Absolute quantification of lipidomics</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Others</li>
-    <li>
-      <a href="../articles/other_tools.html">Other usefull tools</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2018/12/readxl-1-2-0/">Test</a>
     </li>
   </ul>
 </li>
@@ -107,12 +95,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Blog posts</li>
-    <li>
-      <a href="../articles/metID.html">Version 0.4.0</a>
-    </li>
-    <li class="divider">
-    <li>
+<li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
@@ -167,7 +150,7 @@
                         <h4 class="author">Xiaotao Shen PhD (<a href="https://www.shenxt.info/" class="uri">https://www.shenxt.info/</a>)</h4>
                                     <h4 class="author">Chuchu wang PhD</h4>
             <address class="author_afil">
-      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-02-09</h4>
+      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-02-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jaspershen/lipidflow/blob/master/vignettes/absolute_quantification.Rmd"><code>vignettes/absolute_quantification.Rmd</code></a></small>
       <div class="hidden name"><code>absolute_quantification.Rmd</code></div>
@@ -178,38 +161,170 @@
     
     
 <hr>
-<div id="ms1-data-preparation" class="section level2">
+<div id="data-organization" class="section level1">
+<h1 class="hasAnchor">
+<a href="#data-organization" class="anchor"></a><strong>Data organization</strong>
+</h1>
+<div id="convert-raw-data-to-mzxml-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ms1-data-preparation" class="anchor"></a><strong>MS1 data preparation</strong>
+<a href="#convert-raw-data-to-mzxml-data" class="anchor"></a><strong>Convert raw data to mzXML data</strong>
 </h2>
-<p>The peak table must contain “name” (peak name), “mz” (mass to charge ratio) and “rt” (retention time, unit is second). It can be from any data processing software (XCMS, MS-DIAL and so on).</p>
-<p><img src="../man/figures/Screen%20Shot%202020-03-30%20at%205.51.02%20PM.png"></p>
+<p>The raw lipidomics data should be transfered to mzXML format files using <a href="http://proteowizard.sourceforge.net/">ProteoWizard software</a>. The parameter setting should be set as below figure shows:</p>
+<p><img src="../man/figures/msconventor.png"></p>
 </div>
-<div id="ms2-data-preparation" class="section level2">
+<div id="put-mzxml-data-into-a-folder" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ms2-data-preparation" class="anchor"></a>MS2 data preparation</h2>
-<p>The raw MS2 data from DDA or DIA should be transfered to msp, mgf or mzXML format files using <a href="http://proteowizard.sourceforge.net/">ProteoWizard software</a>.</p>
-</div>
-<div id="database" class="section level2">
-<h2 class="hasAnchor">
-<a href="#database" class="anchor"></a><strong>Database</strong>
+<a href="#put-mzxml-data-into-a-folder" class="anchor"></a><strong>Put mzXML data into a folder</strong>
 </h2>
-<p>The database must be generated using <code>constructDatabase()</code> function. You can also use the public databases we provoded <a href="https://github.com/jaspershen/demoData/tree/master/inst/ms2_database">here</a>.</p>
+<p>Then create a folder, and create “POS” and “NEG” folders, and then put all the mzMXL data in the folders according to groups.</p>
+<p><img src="../man/figures/Screen%20Shot%202021-02-09%20at%2010.14.13%20PM.png"></p>
 </div>
-<div id="data-organization" class="section level2">
+<div id="internal-standard-information" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-organization" class="anchor"></a>Data organization</h2>
-<p>Place the MS1 peak table, MS2 data and database which you want to use in one folder like below figure shows:</p>
-<p><img src="../man/figures/Screen%20Shot%202020-03-30%20at%207.05.35%20PM.png"></p>
-</div>
-<div id="run-identify_metabolites-function" class="section level2">
-<h2 class="hasAnchor">
-<a href="#run-identify_metabolites-function" class="anchor"></a><strong>Run <code>identify_metabolites()</code> function</strong>
+<a href="#internal-standard-information" class="anchor"></a><strong>Internal standard information</strong>
 </h2>
-<p>We use the demo data in <code>metID</code> package to show how to use <code>metID</code> to identify metablite without MS2 spectra. Here, we use the in-house database from Michael Snyder lab (<code>msDatabase_rplc0.0.2</code>).</p>
-<blockquote>
-<p>In-house database The in-house database in our lab were provided, with RPLC and HILIC mode RT information. They were acquired using Thermo Fisher QE-plus. However, the LC system may be different with your experiments, so if you want to use our in-house database for metabolite identification, please set <code>rt.match.tol</code> as 100000000 (no limitation). The in-house database can be downloaded in my <a href="https://github.com/jaspershen/metID/tree/master/data">github</a>.</p>
-</blockquote>
+<p>To do absolute quantification, you need to provide the information of internal standard in samples. The data should be “xlsx” format, and like the below shows:</p>
+<p><img src="../man/figures/Screen%20Shot%202021-02-09%20at%2010.19.33%20PM.png"></p>
+<p>And then put the internal standard informations in “POS” and “NEG” folder respectively.</p>
+</div>
+<div id="lipid-identification-information" class="section level2">
+<h2 class="hasAnchor">
+<a href="#lipid-identification-information" class="anchor"></a><strong>Lipid identification information</strong>
+</h2>
+<p>The lipid identification table can be from any other software, for example, here we use the <code>lipidSearch</code> software, and then put the lipid identification table for positive and negative mode in “POS” and “NEG” folder respectively.</p>
+<p>The lipid identification table from <code>lipidSearch</code> is like the below figure shows:</p>
+<p><img src="../man/figures/Screen%20Shot%202021-02-09%20at%2010.24.17%20PM.png"></p>
+</div>
+</div>
+<div id="run-get_lipid_absolute_quantification" class="section level1">
+<h1 class="hasAnchor">
+<a href="#run-get_lipid_absolute_quantification" class="anchor"></a><strong>Run <code>get_lipid_absolute_quantification()</code></strong>
+</h1>
+<p>Then we can run <code><a href="../reference/get_lipid_absolute_quantification.html">get_lipid_absolute_quantification()</a></code> function to get the absolute quantification table of lipids.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/get_lipid_absolute_quantification.html">get_lipid_absolute_quantification</a></span><span class="op">(</span>
+  path <span class="op">=</span> <span class="va">path</span>,
+  is_info_name_pos <span class="op">=</span> <span class="va">is_info_name_pos</span>,
+  is_info_name_neg <span class="op">=</span> <span class="va">is_info_name_neg</span>,
+  use_manual_is_info <span class="op">=</span> <span class="va">use_manual_is_info</span>,
+  lipid_annotation_table_pos <span class="op">=</span> <span class="va">lipid_annotation_table_pos</span>,
+  lipid_annotation_table_neg <span class="op">=</span> <span class="va">lipid_annotation_table_neg</span>,
+  chol_rt <span class="op">=</span> <span class="va">chol_rt</span>,
+  output_integrate <span class="op">=</span> <span class="va">output_integrate</span>,
+  forced_targeted_peak_table_name <span class="op">=</span> <span class="va">forced_targeted_peak_table_name</span>,
+  fit.gaussian <span class="op">=</span> <span class="va">fit.gaussian</span>,
+  integrate_xcms <span class="op">=</span> <span class="va">integrate_xcms</span>,
+  output_eic <span class="op">=</span> <span class="va">output_eic</span>,
+  ppm <span class="op">=</span> <span class="va">ppm</span>,
+  rt.tolerance <span class="op">=</span> <span class="va">rt.tolerance</span>,
+  threads <span class="op">=</span> <span class="va">threads</span>,
+  rerun <span class="op">=</span> <span class="va">rerun</span>,
+  which_group_for_rt_confirm <span class="op">=</span> <span class="va">which_group_for_rt_confirm</span>,
+  match_item_pos <span class="op">=</span> <span class="va">match_item_pos</span>,
+  match_item_neg <span class="op">=</span> <span class="va">match_item_neg</span>
+<span class="op">)</span></code></pre></div>
+<p>All the parameters:</p>
+<ul>
+<li><p>path: working directory.</p></li>
+<li><p>is_info_name_pos &amp; is_info_name_neg: the names of internal standard information (xlsx format), they should be in “POS” and “NEG” folder, respectively.</p></li>
+<li><p>use_manual_is_info: If you have know the adduct and retention time of the internal standards, you can put them in the internal standard information and then set this as TRUE.</p></li>
+</ul>
+<p><img src="../man/figures/Screen%20Shot%202021-02-09%20at%2010.34.21%20PM.png"></p>
+<ul>
+<li><p>lipid_annotation_table_pos &amp; lipid_annotation_table_neg: lipid identification tables from other software (xlsx format), they should be in “POS” and “NEG” folder, respectively.</p></li>
+<li><p>output_eic: Output EIC or not.</p></li>
+<li><p>ppm: Peak detection ppm.</p></li>
+<li><p>rt.tolerance: Peak detection RT tolerance.</p></li>
+<li><p>threads: Number of cores.</p></li>
+<li><p>rerun: Rerun or not.</p></li>
+<li><p>which_group_for_rt_confirm: From which group to find the RTs of all the internal standards.</p></li>
+<li><p>match_item_pos &amp; match_item_neg: The lipid group and internal standard matching table. It is a list. For example:<br>
+list( “Cer” = “d18:1 (d7)-15:0 Cer”, “ChE” = c(“18:1(d7) Chol Ester”, “Cholesterol (d7)”), “Chol” = “Cholesterol (d7)”, “DG” = “15:0-18:1(d7) DAG”, “LPC” = “18:1(d7) Lyso PC”, “LPE” = “18:1(d7) Lyso PE”, “MG” = “18:1 (d7) MG”, “PA” = “15:0-18:1(d7) PA (Na Salt)”, “PC” = “15:0-18:1(d7) PC”, “PE” = “15:0-18:1(d7) PE”, “PG” = “15:0-18:1(d7) PG (Na Salt)”, “PI” = “15:0-18:1(d7) PI (NH4 Salt)”, “PPE” = “C18(Plasm)-18:1(d9) PE”, “PS” = “15:0-18:1(d7) PS (Na Salt)”, “SM” = “d18:1-18:1(d9) SM”, “TG” = “15:0-18:1(d7)-15:0 TAG” )</p></li>
+</ul>
+</div>
+<div id="demo-data-to-show-how-to-use-lipidflow" class="section level1">
+<h1 class="hasAnchor">
+<a href="#demo-data-to-show-how-to-use-lipidflow" class="anchor"></a>“Demo data to show how to use <code>lipidflow</code>”</h1>
+<div id="organize-demo-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#organize-demo-data" class="anchor"></a><strong>Organize demo data</strong>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jaspershen/lipidflow">lipidflow</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+
+<span class="va">pos_data</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"POS"</span>, package <span class="op">=</span> <span class="st">"lipidflow"</span><span class="op">)</span>
+<span class="va">neg_data</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"NEG"</span>, package <span class="op">=</span> <span class="st">"lipidflow"</span><span class="op">)</span>
+<span class="va">path</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"."</span>, <span class="st">"example"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">pos_data</span>, to <span class="op">=</span> <span class="va">path</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">neg_data</span>, to <span class="op">=</span> <span class="va">path</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">match_item_pos</span> <span class="op">=</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    <span class="st">"Cer"</span> <span class="op">=</span> <span class="st">"d18:1 (d7)-15:0 Cer"</span>,
+    <span class="st">"ChE"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"18:1(d7) Chol Ester"</span>, <span class="st">"Cholesterol (d7)"</span><span class="op">)</span>,
+    <span class="st">"Chol"</span> <span class="op">=</span> <span class="st">"Cholesterol (d7)"</span>,
+    <span class="st">"DG"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) DAG"</span>,
+    <span class="st">"LPC"</span> <span class="op">=</span> <span class="st">"18:1(d7) Lyso PC"</span>,
+    <span class="st">"LPE"</span> <span class="op">=</span> <span class="st">"18:1(d7) Lyso PE"</span>,
+    <span class="st">"MG"</span> <span class="op">=</span> <span class="st">"18:1 (d7) MG"</span>,
+    <span class="st">"PA"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PA (Na Salt)"</span>,
+    <span class="st">"PC"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PC"</span>,
+    <span class="st">"PE"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PE"</span>,
+    <span class="st">"PG"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PG (Na Salt)"</span>,
+    <span class="st">"PI"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PI (NH4 Salt)"</span>,
+    <span class="st">"PPE"</span> <span class="op">=</span> <span class="st">"C18(Plasm)-18:1(d9) PE"</span>,
+    <span class="st">"PS"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PS (Na Salt)"</span>,
+    <span class="st">"SM"</span> <span class="op">=</span> <span class="st">"d18:1-18:1(d9) SM"</span>,
+    <span class="st">"TG"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7)-15:0 TAG"</span>
+  <span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">match_item_neg</span> <span class="op">=</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    <span class="st">"Cer"</span> <span class="op">=</span> <span class="st">"d18:1 (d7)-15:0 Cer"</span>,
+    <span class="st">"Chol"</span> <span class="op">=</span> <span class="st">"Cholesterol (d7)"</span>,
+    <span class="st">"ChE"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"18:1(d7) Chol Ester"</span>, <span class="st">"Cholesterol (d7)"</span><span class="op">)</span>,
+    <span class="st">"LPC"</span> <span class="op">=</span> <span class="st">"18:1(d7) Lyso PC"</span>,
+    <span class="st">"LPE"</span> <span class="op">=</span> <span class="st">"18:1(d7) Lyso PE"</span>,
+    <span class="st">"PC"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PC"</span>,
+    <span class="st">"PE"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PE"</span>,
+    <span class="st">"PG"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PG (Na Salt)"</span>,
+    <span class="st">"PI"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PI (NH4 Salt)"</span>,
+    <span class="st">"PPE"</span> <span class="op">=</span> <span class="st">"C18(Plasm)-18:1(d9) PE"</span>,
+    <span class="st">"PS"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PS (Na Salt)"</span>,
+    <span class="st">"SM"</span> <span class="op">=</span> <span class="st">"d18:1-18:1(d9) SM"</span>
+  <span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/get_lipid_absolute_quantification.html">get_lipid_absolute_quantification</a></span><span class="op">(</span>
+  path <span class="op">=</span> <span class="st">"."</span>,
+  is_info_name_pos <span class="op">=</span> <span class="st">"IS_information.xlsx"</span>,
+  is_info_name_neg <span class="op">=</span> <span class="st">"IS_information.xlsx"</span>,
+  use_manual_is_info <span class="op">=</span> <span class="cn">FALSE</span>,
+  lipid_annotation_table_pos <span class="op">=</span> <span class="st">"lipid_annotation_table_pos.xlsx"</span>,
+  lipid_annotation_table_neg <span class="op">=</span> <span class="st">"lipid_annotation_table_neg.xlsx"</span>,
+  output_eic <span class="op">=</span> <span class="cn">TRUE</span>,
+  ppm <span class="op">=</span> <span class="fl">40</span>,
+  rt.tolerance <span class="op">=</span> <span class="fl">180</span>,
+  threads <span class="op">=</span> <span class="fl">3</span>,
+  rerun <span class="op">=</span> <span class="cn">FALSE</span>,
+  which_group_for_rt_confirm <span class="op">=</span> <span class="st">"D25"</span>,
+  match_item_pos <span class="op">=</span> <span class="va">match_item_pos</span>,
+  match_item_neg <span class="op">=</span> <span class="va">match_item_neg</span>
+<span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div id="output-result" class="section level1">
+<h1 class="hasAnchor">
+<a href="#output-result" class="anchor"></a><strong>Output result</strong>
+</h1>
+</div>
+<div id="manually-check-rts-of-internal-standards" class="section level1">
+<h1 class="hasAnchor">
+<a href="#manually-check-rts-of-internal-standards" class="anchor"></a><strong>Manually check RTs of internal standards</strong>
+</h1>
+<p>The RTs of internal standards are generated automatically, so some maybe not correct, you can open the EICs of each internal standard and then check the RTs and then put all the correct RTs, adducts and mzs of internal standards in your IS information table.</p>
 </div>
   </div>
 

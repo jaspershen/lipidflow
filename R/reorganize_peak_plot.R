@@ -27,9 +27,7 @@ reorganize_peak_plot <-
         dplyr::filter(Class == names(match_item)[i]) %>%
         dplyr::pull(peak_name) %>%
         stringr::str_replace_all("\\/", "_") %>%
-        stringr::str_replace_all("\\:", "_") %>%
-        stringr::str_replace_all("\\(", "_") %>%
-        stringr::str_replace_all("\\)", "_")
+        stringr::str_replace_all("\\:", "_")
       
       if (length(peak_name) > 0) {
         file_name1 <- paste(peak_name, ".html", sep = "")

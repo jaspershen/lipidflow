@@ -1,13 +1,16 @@
-# library(tidyverse)
-# sxtTools::setwd_project()
-# setwd("demo_data/one_step/")
+# # library(tidyverse)
+# # sxtTools::setwd_project()
+# # setwd("demo_data/one_step/")
+# 
+# library(plyr)
+# setwd("/Users/shenxt/projects/chuchu/chuchu/data/lipid20210116/absolute_quantification")
 # 
 # path = "."
 # is_info_name_pos = "IS_information.xlsx"
 # is_info_name_neg = "IS_information.xlsx"
 # use_manual_is_info = FALSE
-# lipid_annotation_table_pos = "lipid_annotation_table_pos.xlsx"
-# lipid_annotation_table_neg = "lipid_annotation_table_neg.xlsx"
+# lipid_annotation_table_pos = "020121_LP1_Align_HCD_Pos.xlsx"
+# lipid_annotation_table_neg = "020121_LP1_Align_HCD_Neg.xlsx"
 # chol_rt = 1169
 # output_integrate = TRUE
 # forced_targeted_peak_table_name = NULL
@@ -66,7 +69,7 @@
 #   forced_targeted_peak_table_name = forced_targeted_peak_table_name,
 #   fit.gaussian = fit.gaussian,
 #   integrate_xcms = integrate_xcms,
-#   output_eic = output_eic,
+#   output_eic = FALSE,
 #   ppm = ppm,
 #   rt.tolerance = rt.tolerance,
 #   threads = threads,
@@ -225,10 +228,10 @@ get_lipid_absolute_quantification <-
     ##get the RTs of internal standard in which_group_for_rt_confirm
     if (use_manual_is_info) {
       is_info_table_new_pos =
-        readxl::read_xlsx(file.path(path, "POS", "IS_info_new.xlsx"))
+        readxl::read_xlsx(file.path(path, "POS", is_info_name_pos))
       
       is_info_table_new_neg =
-        readxl::read_xlsx(file.path(path, "NEG", "IS_info_new.xlsx"))
+        readxl::read_xlsx(file.path(path, "NEG", is_info_name_neg))
     } else{
       ###positive mode
       is_info_table <-
@@ -240,7 +243,8 @@ get_lipid_absolute_quantification <-
           is_info_table = is_info_table,
           polarity = "positive",
           threads = threads,
-          rerun = rerun
+          rerun = rerun, 
+          output_eic = output_eic
         )
       
       openxlsx::write.xlsx(
@@ -260,7 +264,8 @@ get_lipid_absolute_quantification <-
           is_info_table = is_info_table,
           polarity = "negative",
           threads = threads,
-          rerun = rerun
+          rerun = rerun,
+          output_eic = output_eic
         )
       
       openxlsx::write.xlsx(
@@ -300,7 +305,8 @@ cat("Get relative quantification tables...\n")
 cat("-------------------------------------------------------------------\n")
 ###positive mode
 ##get sample information
-    sample_info_pos =
+
+sample_info_pos =
       pos_mzxml %>%
       stringr::str_split(pattern = "\\/") %>%
       do.call(rbind, .) %>%
@@ -311,8 +317,8 @@ cat("-------------------------------------------------------------------\n")
     
     sample_info_pos$sample.name =
       stringr::str_replace(sample_info_pos$sample, "\\.mzXML", "")
-    
     ###Internal standard
+    cat("Internal standard positive mode...\n")
     get_relative_quantification(
       path = file.path(path, "POS/"),
       output_path_name = "is_relative_quantification",
@@ -333,6 +339,7 @@ cat("-------------------------------------------------------------------\n")
     )
     
     ###lipid
+    cat("Lipid positive mode...\n")
     get_relative_quantification(
       path = file.path(path, "POS"),
       output_path_name = "lipid_relative_quantification",
@@ -368,6 +375,7 @@ cat("-------------------------------------------------------------------\n")
       stringr::str_replace(sample_info_neg$sample, "\\.mzXML", "")
     
     ###Internal standard
+    cat("Internal standard negative mode...\n")
     get_relative_quantification(
       path = file.path(path, "NEG/"),
       output_path_name = "is_relative_quantification",
@@ -388,6 +396,7 @@ cat("-------------------------------------------------------------------\n")
     )
     
     ###lipid
+    cat("Lipid negative mode...\n")
     get_relative_quantification(
       path = file.path(path, "NEG"),
       output_path_name = "lipid_relative_quantification",
@@ -420,9 +429,20 @@ cat("-------------------------------------------------------------------\n")
     cat("-------------------------------------------------------------------\n")
     
     ###positive mode
-    is_quantification_table = readxl::read_xlsx("POS/is_relative_quantification/is_quantification_table.xlsx")
-    lipid_quantification_table = readxl::read_xlsx("POS/lipid_relative_quantification/lipid_quantification_table.xlsx")
+    is_quantification_table =
+      readxl::read_xlsx(file.path(
+        path,
+        "POS/is_relative_quantification/is_quantification_table.xlsx"
+      ))
+    lipid_quantification_table =
+      readxl::read_xlsx(
+        file.path(
+          path,
+          "POS/lipid_relative_quantification/lipid_quantification_table.xlsx"
+        )
+      )
     
+    cat("Positive mode.\n")
     get_absolute_quantification(
       path = file.path(path, "POS"),
       is_quantification_table = is_quantification_table,
@@ -433,9 +453,19 @@ cat("-------------------------------------------------------------------\n")
     
     
     ###negative mode
-    is_quantification_table = readxl::read_xlsx("NEG/is_relative_quantification/is_quantification_table.xlsx")
-    lipid_quantification_table = readxl::read_xlsx("NEG/lipid_relative_quantification/lipid_quantification_table.xlsx")
+    is_quantification_table =
+      readxl::read_xlsx(file.path(
+        path,
+        "NEG/is_relative_quantification/is_quantification_table.xlsx"
+      ))
+    lipid_quantification_table = readxl::read_xlsx(
+      file.path(
+        path,
+        "NEG/lipid_relative_quantification/lipid_quantification_table.xlsx"
+      )
+    )
     
+    cat("negative mode.\n")
     get_absolute_quantification(
       path = file.path(path, "NEG"),
       is_quantification_table = is_quantification_table,
@@ -445,25 +475,25 @@ cat("-------------------------------------------------------------------\n")
     )
       
   ##combine positive and negative
-    load("POS/variable_info_abs")
+    load(file.path(path, "POS/variable_info_abs"))
     variable_info_abs_pos <- variable_info_abs
     
-    load("POS/express_data_abs_ug_ml")
+    load(file.path(path, "POS/express_data_abs_ug_ml"))
     express_data_abs_ug_ml_pos <-
       express_data_abs_ug_ml
     
-    load("POS/express_data_abs_um")
+    load(file.path(path, "POS/express_data_abs_um"))
     express_data_abs_um_pos <-
       express_data_abs_um
     
-    load("NEG/variable_info_abs")
+    load(file.path(path, "NEG/variable_info_abs"))
     variable_info_abs_neg <- variable_info_abs
     
-    load("NEG/express_data_abs_ug_ml")
+    load(file.path(path, "NEG/express_data_abs_ug_ml"))
     express_data_abs_ug_ml_neg <-
       express_data_abs_ug_ml
     
-    load("NEG/express_data_abs_um")
+    load(file.path(path, "NEG/express_data_abs_um"))
     express_data_abs_um_neg <-
       express_data_abs_um
 
@@ -476,6 +506,7 @@ cat("-------------------------------------------------------------------\n")
       express_data_abs_um_neg = express_data_abs_um_neg,
       variable_info_abs_neg = variable_info_abs_neg
     )
+    cat("\n")
     
     
     ############################################################################
@@ -487,7 +518,7 @@ cat("-------------------------------------------------------------------\n")
     ###positive mode
     absolute_table_pos <-
       readxl::read_xlsx("Result/lipid_data_um.xlsx")
-    
+    cat("positive mode...\n")
     reorganize_peak_plot(path = file.path(path, "POS/lipid_relative_quantification/"),
                          plot_dir = "peak_shape",
                          absolute_table = absolute_table_pos,
@@ -496,11 +527,12 @@ cat("-------------------------------------------------------------------\n")
     ###negative mode
     absolute_table_neg <-
       readxl::read_xlsx("Result/lipid_data_um.xlsx")
-    
+    cat("negative mode...\n")
     reorganize_peak_plot(path = file.path(path, "NEG/lipid_relative_quantification/"),
                          plot_dir = "peak_shape",
                          absolute_table = absolute_table_neg,
                          match_item = match_item_pos)
+    cat("\n")
     
     
     ############################################################################
@@ -682,7 +714,9 @@ cat("-------------------------------------------------------------------\n")
           
           temp_name <- paste(temp_name, ".pdf", sep = "")
           temp_name <-
-            stringr::str_replace_all(temp_name, "\\/", "_")
+            temp_name %>% 
+            stringr::str_replace_all("\\/", "_") %>% 
+            stringr::str_replace_all("\\:", "_")
           ggsave(
             temp_plot,
             filename = file.path(path, "Result/intensity_plot", i, temp_name),
@@ -774,7 +808,9 @@ cat("-------------------------------------------------------------------\n")
           
           temp_name <- paste(temp_name, ".pdf", sep = "")
           temp_name <-
-            stringr::str_replace_all(temp_name, "\\/", "_")
+            temp_name %>% 
+            stringr::str_replace_all("\\/", "_") %>% 
+            stringr::str_replace_all("\\:", "_")
           ggsave(
             temp_plot,
             filename = file.path(path, "Result/intensity_plot", i, temp_name),
@@ -822,13 +858,16 @@ cat("-------------------------------------------------------------------\n")
         temp_plot,
         filename = file.path(path,
           "Result/class_plot",
-          paste(lipid_data_class$X1[i], ".pdf",
+          paste(lipid_data_class$Class[i] %>% 
+                  stringr::str_replace_all("\\/", "_") %>% 
+                  stringr::str_replace_all("\\:", "_"), 
+                ".pdf",
                 sep = "")
         ),
         width = 7,
         height = 7
       )
     }
-    
+    cat("\n")
     cat('All done.\n')
   }

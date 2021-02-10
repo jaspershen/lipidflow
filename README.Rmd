@@ -42,7 +42,7 @@ cat(
 
 `lipidflow` is a R package which is used for absolute quantification for lipidomics data.
 
-<!-- <img src="man/figures/workflow_metid.jpg" align="middle" alt="" width = "80%"/> -->
+<img src="man/figures/Figure_2.jpg" align="left" alt="" width="100%" />
 
 ## Installation
 
@@ -54,8 +54,6 @@ install.packages("devtools")
 }
 devtools::install_github("jaspershen/lipidflow")
 ```
-
-`tinyTools` is a dependent package for `lipidflow`. Please install it too.
 
 ## Usage
 

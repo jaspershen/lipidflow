@@ -6,6 +6,7 @@
 #' @param polarity polarity
 #' @param threads threads
 #' @param rerun rerun
+#' @param output_eic output_eic
 #' @importFrom magrittr %>%
 #' @import plyr
 #' @import dplyr
@@ -18,7 +19,8 @@ get_IS_RT <-
            is_info_table,
            polarity = c("positive", "negative"),
            threads = 3,
-           rerun = FALSE) {
+           rerun = FALSE,
+           output_eic = TRUE) {
     
     polarity = match.arg(polarity)
     ##check data
@@ -37,16 +39,16 @@ get_IS_RT <-
     if (polarity == "positive") {
       cat("Positive mode...\n")
       mz_pos_h <-
-        mass + Rdisop::getMass(molecule = getMolecule("H"))
+        mass + Rdisop::getMass(molecule = Rdisop::getMolecule("H"))
       mz_pos_na <-
-        mass + Rdisop::getMass(molecule = getMolecule("Na"))
+        mass + Rdisop::getMass(molecule = Rdisop::getMolecule("Na"))
       mz_pos_nh4 <-
-        mass + Rdisop::getMass(molecule = getMolecule("NH4"))
+        mass + Rdisop::getMass(molecule = Rdisop::getMolecule("NH4"))
       mz_pos_h_h20 <-
-        mass - Rdisop::getMass(molecule = getMolecule("HO"))
+        mass - Rdisop::getMass(molecule = Rdisop::getMolecule("HO"))
       mz_pos_nh4_h20 <-
-        mass + Rdisop::getMass(molecule = getMolecule("NH4")) -
-        Rdisop::getMass(molecule = getMolecule("H2O"))
+        mass + Rdisop::getMass(molecule = Rdisop::getMolecule("NH4")) -
+        Rdisop::getMass(molecule = Rdisop::getMolecule("H2O"))
       
       is_info_table <- data.frame(
         is_info_table,
@@ -116,11 +118,11 @@ get_IS_RT <-
     } else{
       cat("Negative mode...\n")
       mz_neg_h <-
-        mass - Rdisop::getMass(molecule = getMolecule("H"))
+        mass - Rdisop::getMass(molecule = Rdisop::getMolecule("H"))
       mz_neg_ch3cOO <-
-        mass + Rdisop::getMass(molecule = getMolecule("CH3COO"))
+        mass + Rdisop::getMass(molecule = Rdisop::getMolecule("CH3COO"))
       mz_neg_hcooh <-
-        mass + Rdisop::getMass(molecule = getMolecule("HCOOH"))
+        mass + Rdisop::getMass(molecule = Rdisop::getMolecule("HCOOH"))
       
       is_info_table <- data.frame(
         is_info_table,
@@ -192,7 +194,7 @@ get_IS_RT <-
       from_lipid_search = FALSE,
       fit.gaussian = FALSE,
       integrate_xcms = TRUE,
-      output_eic = TRUE,
+      output_eic = output_eic,
       output_integrate = TRUE,
       ppm = 40,
       rt.tolerance = 100000,
@@ -205,11 +207,11 @@ get_IS_RT <-
       force = TRUE
     )
     
-    unlink(
-      x = file.path(path, "is_info_table.xlsx"),
-      recursive = TRUE,
-      force = TRUE
-    )
+    # unlink(
+    #   x = file.path(path, "is_info_table.xlsx"),
+    #   recursive = TRUE,
+    #   force = TRUE
+    # )
     
     from_quantification_table_to_rt_table(path = file.path(path, "Result"))
     
