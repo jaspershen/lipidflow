@@ -7,10 +7,6 @@
 #' @param is_table is_table
 #' @param match_item match_item
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -124,10 +120,6 @@ cal_abs <- function(lipid_tag,
 #' @author Xiaotao Shen
 #' @param x x
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -198,10 +190,6 @@ clean_lipid_data <-
 #' @param x x
 #' @param polarity polarity
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -343,10 +331,6 @@ clean_is_table <- function(x,
 #' @param peak_table peak_table
 #' @param lipid_search lipid_search
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -391,10 +375,6 @@ match_sample_peak_table_lipid_search <- function(peak_table,
 #' @param figure figure
 #' @param polarity polarity
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -526,10 +506,6 @@ get_is_quantify_table <- function(is_table,
 #' @param express_data_abs_um_neg express_data_abs_um_neg
 #' @param variable_info_abs_neg variable_info_abs_neg
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -574,7 +550,7 @@ combine_pos_neg_quantification <- function(path = ".",
   express_data_abs_ug_ml <-
     express_data_abs_ug_ml %>%
     data.frame(variable_info_abs, ., check.names = FALSE) %>%
-    plyr::dlply(.variables = .(name)) %>%
+    plyr::dlply(.variables = plyr::.(name)) %>%
     purrr::map(
       .f = function(x) {
         x <-
@@ -596,7 +572,7 @@ combine_pos_neg_quantification <- function(path = ".",
   express_data_abs_um <-
     express_data_abs_um %>%
     data.frame(variable_info_abs, ., check.names = FALSE) %>%
-    plyr::dlply(.variables = .(name)) %>%
+    plyr::dlply(.variables = plyr::.(name)) %>%
     purrr::map(
       .f = function(x) {
         x <-
@@ -627,7 +603,7 @@ combine_pos_neg_quantification <- function(path = ".",
       stringsAsFactors = FALSE,
       check.names = FALSE
     ) %>%
-    plyr::dlply(.variables = .(class)) %>%
+    plyr::dlply(.variables = plyr::.(class)) %>%
     purrr::map(
       .f = function(x) {
         apply(x[, -1], 2, function(y) {
@@ -657,7 +633,7 @@ combine_pos_neg_quantification <- function(path = ".",
       stringsAsFactors = FALSE,
       check.names = FALSE
     ) %>%
-    plyr::dlply(.variables = .(class)) %>%
+    plyr::dlply(.variables = plyr::.(class)) %>%
     purrr::map(
       .f = function(x) {
         apply(x[, -1], 2, function(y) {
@@ -800,10 +776,6 @@ combine_pos_neg_quantification <- function(path = ".",
 #' @param polarity polarity
 #' @param from from
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -964,10 +936,6 @@ tidy_lipidsearch_data <-
 #' @param polarity polarity
 #' @param path path
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -1037,10 +1005,6 @@ trans_is_table <-
 #' @param threads threads
 #' @param facet facet
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -1135,7 +1099,7 @@ extract_targeted_peaks <-
     
     peak_value <-
       peak_value %>%
-      plyr::dlply(.variables = .(row, column)) %>%
+      plyr::dlply(.variables = plyr::.(row, column)) %>%
       purrr::map(function(x) {
         x <-
           x %>%
@@ -1344,7 +1308,7 @@ extract_targeted_peaks <-
       ##remove duplicated
       output_quantification_table <-
         output_quantification_table %>%
-        plyr::dlply(.variables = .(compound_name)) %>%
+        plyr::dlply(.variables = plyr::.(compound_name)) %>%
         purrr::map(function(y) {
           if (nrow(y) == 1) {
             return(y)
@@ -1381,7 +1345,7 @@ extract_targeted_peaks <-
     
     ###manual check
     if (!is.null(forced_targeted_peak_table_name)) {
-      cat("Manual check..\n")
+      cat(crayon::green("Manual check..\n"))
       forced_targeted_peak_table <-
         readxl::read_xlsx(file.path(output_path, forced_targeted_peak_table_name)) %>%
         dplyr::filter(!is.na(begin_rt)) %>%
@@ -1566,7 +1530,7 @@ extract_targeted_peaks <-
     )
     
     if (output_eic) {
-      cat("Output peak shapes...\n")
+      cat(crayon::green("Output peak shapes...\n"))
       # setwd(file.path(path, "peak_shape"))
       for (i in 1:nrow(peak_table)) {
         test <-
@@ -1612,7 +1576,7 @@ extract_targeted_peaks <-
           })
       }
       cat("\n")
-      cat("Done\n")
+      cat(crayon::bgRed("Done\n"))
     }
   }
 
@@ -1771,10 +1735,6 @@ find_local_minimal <- function(x, y) {
 #' @param filled filled
 #' @param include include
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -1842,7 +1802,7 @@ setGeneric(
       )
     }
     
-    cat(crayon::red(clisymbols::symbol$tick, "OK\n"))
+    cat(crayon::red(cli::symbol$tick, "OK\n"))
     
     is.table <-
       try(readxl::read_xlsx(file.path(path, is.table)), silent = TRUE)
@@ -1923,7 +1883,7 @@ setGeneric(
         # include = include
       )
     }
-    cat(crayon::red(clisymbols::symbol$tick, "OK\n"))
+    cat(crayon::red(cli::symbol$tick, "OK\n"))
     
     save(peak_data,
          file = file.path(output_path, "intermediate_data/peak_data"))
@@ -1950,10 +1910,6 @@ setGeneric(
 #' @param raw_info raw_info
 #' @param facet facet
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -2138,10 +2094,6 @@ setGeneric(
 #' @param lipid_table lipid_table
 #' @param match_item match_item
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -2190,10 +2142,6 @@ get_quantification_data2 <-
 #' @param quantification_data quantification_data
 #' @param na.tolerance na.tolerance
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -2232,10 +2180,6 @@ process_mv <- function(quantification_data,
 #' @author Xiaotao Shen
 #' @param path path
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -2283,7 +2227,7 @@ from_quantification_table_to_rt_table <-
         
         temp =
           data.frame(temp, mean_value, stringsAsFactors = FALSE) %>%
-          dplyr::arrange(desc(mean_value)) %>%
+          dplyr::arrange(dplyr::desc(mean_value)) %>%
           dplyr::select(name, mz, rt, adduct) %>%
           dplyr::mutate(check_priority = "Low")
         
@@ -2327,10 +2271,6 @@ from_quantification_table_to_rt_table <-
 #' @param is.info is.info
 #' @param path path
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
@@ -2396,10 +2336,6 @@ from_rt_table_to_is_info =
 #' @param feature_info feature_info
 #' @param targeted_table_type targeted_table_type
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv

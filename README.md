@@ -61,4 +61,4 @@ Communications, 2019, 10: 1516.
 
 Thanks very much!
 
-<img src="man/figures/unnamed-chunk-5-1.png" width="100%" />
+

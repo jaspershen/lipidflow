@@ -104,12 +104,6 @@
 #' @param match_item_neg match_item_neg
 #' @return Peak plot for each internal standard.
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
-#' @import xcms
-#' @import MSnbase
 #' @export
 
 
@@ -193,14 +187,14 @@ get_lipid_absolute_quantification <-
     
     ##mzXML data
     pos_mzxml = list.files(
-      path = "POS",
+      path = file.path(path, "POS"),
       pattern = "mzXML",
       all.files = TRUE,
       recursive = TRUE
     )
     
     neg_mzxml = list.files(
-      path = "NEG",
+      path = file.path(path, "NEG"),
       pattern = "mzXML",
       all.files = TRUE,
       recursive = TRUE
@@ -221,9 +215,9 @@ get_lipid_absolute_quantification <-
     ############################################################################
     #############################get the RTs of each IS#########################
     ############################################################################
-    cat("-------------------------------------------------------------------\n")
-    cat("Get retention times of all Internal standards...\n")
-    cat("-------------------------------------------------------------------\n")
+    cat(crayon::green("-------------------------------------------------------------------\n"))
+    cat(crayon::green("Get retention times of all Internal standards...\n"))
+    cat(crayon::green("-------------------------------------------------------------------\n"))
     
     ##get the RTs of internal standard in which_group_for_rt_confirm
     if (use_manual_is_info) {
@@ -300,9 +294,9 @@ get_lipid_absolute_quantification <-
 ############################################################################
 #############################relative quantification of IS##################
 ############################################################################
-cat("-------------------------------------------------------------------\n")
-cat("Get relative quantification tables...\n")
-cat("-------------------------------------------------------------------\n")
+cat(crayon::green("-------------------------------------------------------------------\n"))
+cat(crayon::green("Get relative quantification tables...\n"))
+cat(crayon::green("-------------------------------------------------------------------\n"))
 ###positive mode
 ##get sample information
 
@@ -318,7 +312,7 @@ sample_info_pos =
     sample_info_pos$sample.name =
       stringr::str_replace(sample_info_pos$sample, "\\.mzXML", "")
     ###Internal standard
-    cat("Internal standard positive mode...\n")
+    cat(crayon::green("Internal standard positive mode...\n"))
     get_relative_quantification(
       path = file.path(path, "POS/"),
       output_path_name = "is_relative_quantification",
@@ -339,7 +333,7 @@ sample_info_pos =
     )
     
     ###lipid
-    cat("Lipid positive mode...\n")
+    cat(crayon::green("Lipid positive mode...\n"))
     get_relative_quantification(
       path = file.path(path, "POS"),
       output_path_name = "lipid_relative_quantification",
@@ -375,7 +369,7 @@ sample_info_pos =
       stringr::str_replace(sample_info_neg$sample, "\\.mzXML", "")
     
     ###Internal standard
-    cat("Internal standard negative mode...\n")
+    cat(crayon::green("Internal standard negative mode...\n"))
     get_relative_quantification(
       path = file.path(path, "NEG/"),
       output_path_name = "is_relative_quantification",
@@ -396,7 +390,7 @@ sample_info_pos =
     )
     
     ###lipid
-    cat("Lipid negative mode...\n")
+    cat(crayon::green("Lipid negative mode...\n"))
     get_relative_quantification(
       path = file.path(path, "NEG"),
       output_path_name = "lipid_relative_quantification",
@@ -424,9 +418,9 @@ sample_info_pos =
     ############################################################################
     #############################absolute quantification#######################
     ############################################################################
-    cat("-------------------------------------------------------------------\n")
-    cat("Get absolute quantification tables...\n")
-    cat("-------------------------------------------------------------------\n")
+    cat(crayon::green("-------------------------------------------------------------------\n"))
+    cat(crayon::green("Get absolute quantification tables...\n"))
+    cat(crayon::green("-------------------------------------------------------------------\n"))
     
     ###positive mode
     is_quantification_table =
@@ -442,7 +436,7 @@ sample_info_pos =
         )
       )
     
-    cat("Positive mode.\n")
+    cat(crayon::green("Positive mode.\n"))
     get_absolute_quantification(
       path = file.path(path, "POS"),
       is_quantification_table = is_quantification_table,
@@ -465,7 +459,7 @@ sample_info_pos =
       )
     )
     
-    cat("negative mode.\n")
+    cat(crayon::green("negative mode.\n"))
     get_absolute_quantification(
       path = file.path(path, "NEG"),
       is_quantification_table = is_quantification_table,
@@ -512,12 +506,12 @@ sample_info_pos =
     ############################################################################
     #############################reorganize plot################################
     ############################################################################
-    cat("-------------------------------------------------------------------\n")
-    cat("Generate the peak plots for lipids...\n")
-    cat("-------------------------------------------------------------------\n")
+    cat(crayon::green("-------------------------------------------------------------------\n"))
+    cat(crayon::green("Generate the peak plots for lipids...\n"))
+    cat(crayon::green("-------------------------------------------------------------------\n"))
     ###positive mode
     absolute_table_pos <-
-      readxl::read_xlsx("Result/lipid_data_um.xlsx")
+      readxl::read_xlsx(file.path(path, "Result/lipid_data_um.xlsx"))
     cat("positive mode...\n")
     reorganize_peak_plot(path = file.path(path, "POS/lipid_relative_quantification/"),
                          plot_dir = "peak_shape",
@@ -526,8 +520,8 @@ sample_info_pos =
     
     ###negative mode
     absolute_table_neg <-
-      readxl::read_xlsx("Result/lipid_data_um.xlsx")
-    cat("negative mode...\n")
+      readxl::read_xlsx(file.path(path, "Result/lipid_data_um.xlsx"))
+    cat(crayon::green("negative mode...\n"))
     reorganize_peak_plot(path = file.path(path, "NEG/lipid_relative_quantification/"),
                          plot_dir = "peak_shape",
                          absolute_table = absolute_table_neg,
@@ -538,9 +532,9 @@ sample_info_pos =
     ############################################################################
     #############################output results################################
     ############################################################################
-    cat("-------------------------------------------------------------------\n")
-    cat("Output results...\n")
-    cat("-------------------------------------------------------------------\n")
+    cat(crayon::green("-------------------------------------------------------------------\n"))
+    cat(crayon::green("Output results...\n"))
+    cat(crayon::green("-------------------------------------------------------------------\n"))
     
     lipid_data <-
       readxl::read_xlsx(file.path(path, "Result/lipid_data_um.xlsx"))
@@ -696,19 +690,19 @@ sample_info_pos =
           
           temp_plot <-
             temp_data %>%
-            ggplot(aes(sample_id, intensity)) +
-            geom_point(size = 4, shape = 21, aes(fill = from)) +
+            ggplot2::ggplot(ggplot2::aes(sample_id, intensity)) +
+            ggplot2::geom_point(size = 4, shape = 21, ggplot2::aes(fill = from)) +
             ggrepel::geom_text_repel(aes(label = round(intensity, 4))) +
             ggsci::scale_fill_d3() +
-            scale_y_continuous(expand = expansion(mult = c(0.5, 0.5))) +
-            theme_bw() +
-            labs(x = "", y = "Intensity") +
-            theme(axis.text.x = element_text(
+            ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0.5, 0.5))) +
+            ggplot2::theme_bw() +
+            ggplot2::labs(x = "", y = "Intensity") +
+            ggplot2::theme(axis.text.x = ggplot2::element_text(
               angle = 45,
               hjust = 1,
               vjust = 1
             )) +
-            facet_wrap(facets = vars(from),
+            ggplot2::facet_wrap(facets = vars(from),
                        ncol = 1,
                        scales = "free_y")
           
@@ -717,7 +711,7 @@ sample_info_pos =
             temp_name %>% 
             stringr::str_replace_all("\\/", "_") %>% 
             stringr::str_replace_all("\\:", "_")
-          ggsave(
+          ggplot2::ggsave(
             temp_plot,
             filename = file.path(path, "Result/intensity_plot", i, temp_name),
             width = 14,
@@ -869,5 +863,5 @@ sample_info_pos =
       )
     }
     cat("\n")
-    cat('All done.\n')
+    cat(crayon::bgRed('All done.\n'))
   }

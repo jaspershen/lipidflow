@@ -23,6 +23,8 @@
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
+vignettes/*cache
+vignettes/example
 
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
@@ -39,4 +41,6 @@ vignettes/*.pdf
 .Renviron
 .Rproj.user
 demo_data
+example
+logo.txt
 

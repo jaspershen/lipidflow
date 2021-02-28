@@ -49,6 +49,12 @@
     <loc>https://jaspershen.github.io/lipidflow//reference/get_relative_quantification.html</loc>
   </url>
   <url>
+    <loc>https://jaspershen.github.io/lipidflow//reference/lipidflow_logo.html</loc>
+  </url>
+  <url>
+    <loc>https://jaspershen.github.io/lipidflow//reference/lipidflow_packages.html</loc>
+  </url>
+  <url>
     <loc>https://jaspershen.github.io/lipidflow//reference/match_sample_peak_table_lipid_search.html</loc>
   </url>
   <url>
@@ -71,5 +77,11 @@
   </url>
   <url>
     <loc>https://jaspershen.github.io/lipidflow//articles/contact_us.html</loc>
+  </url>
+  <url>
+    <loc>https://jaspershen.github.io/lipidflow//articles/example_lipid_absolute_quantification.html</loc>
+  </url>
+  <url>
+    <loc>https://jaspershen.github.io/lipidflow//articles/lipidflow.html</loc>
   </url>
 </urlset>

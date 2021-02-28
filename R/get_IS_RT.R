@@ -8,10 +8,6 @@
 #' @param rerun rerun
 #' @param output_eic output_eic
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @export
 
 get_IS_RT <-
@@ -37,7 +33,7 @@ get_IS_RT <-
     is_info_table_raw = is_info_table
     
     if (polarity == "positive") {
-      cat("Positive mode...\n")
+      cat(crayon::green("Positive mode...\n"))
       mz_pos_h <-
         mass + Rdisop::getMass(molecule = Rdisop::getMolecule("H"))
       mz_pos_na <-
@@ -116,7 +112,7 @@ get_IS_RT <-
       )
       
     } else{
-      cat("Negative mode...\n")
+      cat(crayon::green("Negative mode...\n"))
       mz_neg_h <-
         mass - Rdisop::getMass(molecule = Rdisop::getMolecule("H"))
       mz_neg_ch3cOO <-

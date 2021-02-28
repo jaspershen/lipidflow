@@ -80,17 +80,3 @@ X. Shen, R. Wang, X. Xiong, Y. Yin, Y. Cai, Z. Ma, N. Liu, and Z.-J. Zhu* (Corre
 
 Thanks very much!
 
-```{r, echo=FALSE}
-# set seed for reproducible widget id
-if (requireNamespace("htmltools", quietly = TRUE)) {
-  htmlwidgets::setWidgetIdSeed(42)
-}
-library(leaflet)
-leaflet(width = "100%") %>%
-  addTiles() %>%
-  addMarkers(
-    lng = -122.174878,
-    lat = 37.432402,
-    popup = "Stanford Medicine"
-  )
-```

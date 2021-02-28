@@ -4,7 +4,7 @@ url: https://jaspershen.github.io/lipidflow/
 
 home:
   strip_header: false
-  title: lipidflow package
+  title: lipidflow
   links:
   - text: Find me
     href: https://shenxt.info/
@@ -15,73 +15,39 @@ development:
   version_tooltip: "Under development"
 
 template:
-  package: preferably
   params:
-    toggle: manual
     docsearch:
       api_key: 21ff2860978c5d2ceb7d4150364070ff
-      index_name: metid
-    bootswatch: darkly
+      index_name: lipidflow
+    bootswatch: flatly
     ganalytics: UA-000000-01
 
 reference:
   - title: Database construction
     desc: Construct in-house or public MS2 spectra database.
     contents:
-    - databaseConstruction
-    - rtCor4database
-    - get_ms2_spectrum
-    
-  - title: Metabolite identification
-    desc: Metabolite identification based on MS1 and MS2 databases.
-    contents:
-    - which_has_identification
-    - trans_to_new_style
-    - ms2plot
-    - identify_single_peak
-    - identify_metabolites_params
-    - identify_metabolites
-    - identify_metabolites_all
-    - get_parameters
-    - get_ms2_spectrum_from_object
-    - get_identification_table
-    - get_iden_info
-    - filter_identification
-    
-  - title: Data
-    desc: Some data embed in metID
-    contents:
-    - hilic.pos
-    - hilic.neg
-    - rp.pos
-    - rp.neg
-    - msDatabase_rplc0.0.2
-    - msDatabase_hilic0.0.2
-    - annotate_result
-
-  - title: Other functions
-    desc: Other usefull functions in metID
-    contents:
-    - readMGF
-    - readMSP
-    - readMZXML
-    - metID
 
 navbar:
-  type: inverse
+  title: "sparklyr" 
   structure:
-    left: [home, references, articles, news]
+    left: [home, references, articles, news, contact]
     right: [github, twitter]
   components:
     articles:
       text: Help documents
       menu:
-      - text: "Absolute quantification of lipidomics"
+      - text: Brief introduction of lipidflow
+        href: articles/lipidflow.html
       - text: Absolute quantification of lipidomics
         href: articles/absolute_quantification.html
+      - text: Example of lipidflow
+        href: articles/example_lipid_absolute_quantification.html
     twitter:
       icon: "fab fa-twitter fa-lg"
       href: https://twitter.com/JasperShen1990
+    contact:
+      text: Contact us
+      href: articles/contact_us.html
     news:
       text: News
       menu:

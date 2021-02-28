@@ -18,10 +18,6 @@
 #' @param threads threads
 #' @param rerun rerun
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv

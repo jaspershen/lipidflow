@@ -1,5 +1,5 @@
 {
-  "index_name": "metid",
+  "index_name": "lipidflow",
   "start_urls": [
     {
       "url": "https://jaspershen.github.io/lipidflow//index.html",

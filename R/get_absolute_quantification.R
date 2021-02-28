@@ -8,10 +8,6 @@
 #' @param match_item match_item
 #' @return Peak plot for each internal standard.
 #' @importFrom magrittr %>%
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import tibble
 #' @export
 
 

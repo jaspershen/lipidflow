@@ -9,3 +9,10 @@ demo_data
 ^\.github$
 NEWS.Rmd
 NEWS.md
+example
+logo.txt
+README.Rmd
+vignettes/absolute_quantification_cache
+vignettes/example_lipid_absolute_quantification_cache
+vignettes/lipidflow_cache
+vignettes/example
