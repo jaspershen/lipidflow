@@ -10,6 +10,7 @@
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 cal_abs <- function(lipid_tag,
                     lipid_table,
@@ -62,7 +63,9 @@ cal_abs <- function(lipid_tag,
     as.data.frame()
   
   for (i in 1:nrow(lipid_tag)) {
-    cat(i, " ")
+    if(i %in% c(1, seq(10, 10000, by = 10), nrow(lipid_tag))){
+      cat(i, " ")  
+    }
     temp_class <- lipid_tag$Class[i]
     temp_idx <- match_item[[temp_class]] %>%
       match(., is_tag$name)
@@ -89,6 +92,8 @@ cal_abs <- function(lipid_tag,
     express_data_abs_um[i, ] <- concentration2
   }
   
+  cat("\n")
+  cat(crayon::red(cli::symbol$tick), crayon::red("OK\n"))
   
   return_result <- list(
     express_data_abs_ug_ml = express_data_abs_ug_ml,
@@ -123,6 +128,7 @@ cal_abs <- function(lipid_tag,
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 clean_lipid_data <-
   function(x) {
@@ -195,6 +201,7 @@ clean_lipid_data <-
 #' @importFrom readr read_csv
 #' @importFrom  Rdisop getMass
 #' @importFrom  Rdisop getMolecule
+#' @export
 clean_is_table <- function(x,
                            polarity = c("positive", "negative")) {
   polarity <- match.arg(polarity)
@@ -334,6 +341,7 @@ clean_is_table <- function(x,
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 match_sample_peak_table_lipid_search <- function(peak_table,
                                                  lipid_search) {
@@ -378,6 +386,7 @@ match_sample_peak_table_lipid_search <- function(peak_table,
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 get_is_quantify_table <- function(is_table,
                                   peak_table,
                                   mz.tol = 25,
@@ -509,6 +518,7 @@ get_is_quantify_table <- function(is_table,
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 combine_pos_neg_quantification <- function(path = ".",
                                            express_data_abs_ug_ml_pos,
@@ -619,11 +629,11 @@ combine_pos_neg_quantification <- function(path = ".",
     as.data.frame() %>% 
     tibble::rownames_to_column(var = "Class")
   
-  openxlsx::write.xlsx(
-    x = class_data_ug_ml,
-    file = file.path(path, "class_data_ug_ml.xlsx"),
-    asTable = TRUE
-  )
+  # openxlsx::write.xlsx(
+  #   x = class_data_ug_ml,
+  #   file = file.path(path, "class_data_ug_ml.xlsx"),
+  #   asTable = TRUE
+  # )
   
   class_data_um <-
     express_data_abs_um %>%
@@ -649,11 +659,11 @@ combine_pos_neg_quantification <- function(path = ".",
     as.data.frame() %>% 
     tibble::rownames_to_column(var = "Class")
   
-  openxlsx::write.xlsx(
-    x = class_data_um,
-    file = file.path(path, "class_data_um.xlsx"),
-    asTable = TRUE
-  )
+  # openxlsx::write.xlsx(
+  #   x = class_data_um,
+  #   file = file.path(path, "class_data_um.xlsx"),
+  #   asTable = TRUE
+  # )
   
   plot1 <-
     class_data_ug_ml %>%
@@ -779,6 +789,7 @@ combine_pos_neg_quantification <- function(path = ".",
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 tidy_lipidsearch_data <-
   function(file,
@@ -939,6 +950,7 @@ tidy_lipidsearch_data <-
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 trans_is_table <-
   function(is_table,
@@ -1008,6 +1020,7 @@ trans_is_table <-
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 extract_targeted_peaks <-
   function(path = ".",
@@ -1166,7 +1179,7 @@ extract_targeted_peaks <-
     ###check missing value
     if (fit.gaussian) {
       for (temp_name in output_quantification_table$name) {
-        cat(temp_name, " ")
+        # cat(temp_name, " ")
         for (temp_sample in colnames(output_quantification_table)[-c(1:2)]) {
           # cat(temp_sample, " ")
           value <-
@@ -1345,7 +1358,7 @@ extract_targeted_peaks <-
     
     ###manual check
     if (!is.null(forced_targeted_peak_table_name)) {
-      cat(crayon::green("Manual check..\n"))
+      cat(crayon::green("Manually check..\n"))
       forced_targeted_peak_table <-
         readxl::read_xlsx(file.path(output_path, forced_targeted_peak_table_name)) %>%
         dplyr::filter(!is.na(begin_rt)) %>%
@@ -1353,7 +1366,7 @@ extract_targeted_peaks <-
       
       if (nrow(forced_targeted_peak_table) > 0) {
         for (i in 1:nrow(forced_targeted_peak_table)) {
-          cat(forced_targeted_peak_table$name[i], "\n")
+          # cat(forced_targeted_peak_table$name[i], "\n")
           temp_name <- forced_targeted_peak_table$name[i]
           temp_sample <- forced_targeted_peak_table$sample[i]
           
@@ -1530,8 +1543,8 @@ extract_targeted_peaks <-
     )
     
     if (output_eic) {
+      cat("\n")
       cat(crayon::green("Output peak shapes...\n"))
-      # setwd(file.path(path, "peak_shape"))
       for (i in 1:nrow(peak_table)) {
         test <-
           try(expr = {
@@ -1540,7 +1553,6 @@ extract_targeted_peaks <-
                 next()
               }
             }
-            
             cat(i, " ")
             x <- as.character(peak_table[i,])
             name <- paste(x[1], sep = "_")
@@ -1564,7 +1576,9 @@ extract_targeted_peaks <-
                 paste(
                   name %>%
                     stringr::str_replace_all("\\:", "_") %>%
-                    stringr::str_replace_all("\\/", "_"),
+                    stringr::str_replace_all("\\/", "_") %>% 
+                    stringr::str_replace_all("\\(", "_") %>% 
+                    stringr::str_replace_all("\\)", "_"),
                   "html",
                   sep = "."
                 )
@@ -1573,7 +1587,7 @@ extract_targeted_peaks <-
               title = name,
               libdir = "lib"
             )
-          })
+          }, silent = TRUE)
       }
       cat("\n")
       cat(crayon::bgRed("Done\n"))
@@ -1738,6 +1752,7 @@ find_local_minimal <- function(x, y) {
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 setGeneric(
   name = "extractPeaks2",
@@ -1893,8 +1908,6 @@ setGeneric(
 
 
 
-
-
 #' @title showPeak2
 #' @description showPeak2
 #' @author Xiaotao Shen
@@ -1913,6 +1926,7 @@ setGeneric(
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 setGeneric(
   name = "showPeak2",
@@ -2097,6 +2111,17 @@ setGeneric(
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
+
+
+# get_quantification_data2(
+#   path = path,
+#   is_tag = is_tag,
+#   is_table = is_table,
+#   lipid_tag = lipid_tag,
+#   lipid_table = lipid_table,
+#   match_item = match_item
+# )
 
 get_quantification_data2 <-
   function(path = ".",
@@ -2123,14 +2148,23 @@ get_quantification_data2 <-
       rownames(express_data_abs_um) <-
       variable_info_abs$peak_name
     
-    save(variable_info_abs, file = file.path(path, "variable_info_abs"))
+    new_path = file.path(path, "absolute_quantification")
+    dir.create(new_path)
+    save(variable_info_abs, file = file.path(new_path, "variable_info_abs"))
     save(express_data_abs_ug_ml,
-         file = file.path(path, "express_data_abs_ug_ml"))
-    save(express_data_abs_um, file = file.path(path, "express_data_abs_um"))
-    save(lipid_tag, file = file.path(path, "lipid_tag"))
-    save(lipid_table, file = file.path(path, "lipid_table"))
-    save(is_tag, file = file.path(path, "is_tag"))
-    save(is_table, file = file.path(path, "is_table"))
+         file = file.path(new_path, "express_data_abs_ug_ml"))
+    save(express_data_abs_um, file = file.path(new_path, "express_data_abs_um"))
+    save(lipid_tag, file = file.path(new_path, "lipid_tag"))
+    save(lipid_table, file = file.path(new_path, "lipid_table"))
+    save(is_tag, file = file.path(new_path, "is_tag"))
+    save(is_table, file = file.path(new_path, "is_table"))
+    return(list(variable_info_abs = variable_info_abs,
+                express_data_abs_ug_ml = express_data_abs_ug_ml,
+                express_data_abs_um = express_data_abs_um,
+                lipid_tag = lipid_tag,
+                lipid_table = lipid_table,
+                is_tag = is_tag,
+                is_table = is_table))
   }
 
 
@@ -2145,6 +2179,7 @@ get_quantification_data2 <-
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 process_mv <- function(quantification_data,
                        na.tolerance = 0.8) {
   tag <-
@@ -2183,6 +2218,7 @@ process_mv <- function(quantification_data,
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 
 from_quantification_table_to_rt_table <-
   function(path = ".") {
@@ -2274,6 +2310,7 @@ from_quantification_table_to_rt_table <-
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 from_rt_table_to_is_info =
   function(polarity = c("positive", 'negative'),
            is.info,
@@ -2339,6 +2376,7 @@ from_rt_table_to_is_info =
 #' @importFrom openxlsx write.xlsx
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
+#' @export
 combine_quantification_data_and_feature_info =
   function(quantification_data,
            feature_info,

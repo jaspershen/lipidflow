@@ -1,14 +1,31 @@
 #' @title  get_IS_RT
-#' @description get_IS_RT
+#' @description Get the retention time of internal standards.
 #' @author Xiaotao Shen
 #' @param path path.
 #' @param is_info_table is_info_table
 #' @param polarity polarity
 #' @param threads threads
 #' @param rerun rerun
-#' @param output_eic output_eic
+#' @param output_eic output_EIC or not.
 #' @importFrom magrittr %>%
 #' @export
+
+# tinyTools::setwd_project()
+# setwd("example/")
+# 
+# is_info_table_pos =
+#   readxl::read_xlsx("POS/IS_information.xlsx")
+# 
+# is_info_table_new_pos = 
+# get_IS_RT(
+#   path = "POS/D25",
+#   is_info_table = is_info_table_pos,
+#   polarity = "positive",
+#   threads = 3,
+#   rerun = TRUE,
+#   output_eic = TRUE
+# )
+
 
 get_IS_RT <-
   function(path = ".",
@@ -17,7 +34,6 @@ get_IS_RT <-
            threads = 3,
            rerun = FALSE,
            output_eic = TRUE) {
-    
     polarity = match.arg(polarity)
     ##check data
     if (length(grep("mzXML", dir(path))) == 0) {

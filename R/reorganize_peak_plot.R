@@ -23,7 +23,9 @@ reorganize_peak_plot <-
         dplyr::filter(Class == names(match_item)[i]) %>%
         dplyr::pull(peak_name) %>%
         stringr::str_replace_all("\\/", "_") %>%
-        stringr::str_replace_all("\\:", "_")
+        stringr::str_replace_all("\\:", "_") %>% 
+        stringr::str_replace_all("\\(", "_") %>% 
+        stringr::str_replace_all("\\)", "_")
       
       if (length(peak_name) > 0) {
         file_name1 <- paste(peak_name, ".html", sep = "")
@@ -43,4 +45,21 @@ reorganize_peak_plot <-
       }
     }
     
+    ###other peaks are copy into 'other_lipids'
+   other_plot = dir(path = file.path(path, plot_dir), pattern = "html")
+   if(length(other_plot) > 1){
+     dir.create(file.path(path, plot_dir, "other_lipids"))
+     file.copy(
+       from = file.path(path, plot_dir, other_plot),
+       to = file.path(path, plot_dir, "other_lipids"),
+       overwrite = TRUE,
+       recursive = TRUE
+     )
+     
+     unlink(
+       file.path(path, plot_dir, other_plot),
+       recursive = TRUE,
+       force = TRUE
+     )
+   }  
   }

@@ -24,10 +24,10 @@ get_IS_RT(
 
 \item{rerun}{rerun}
 
-\item{output_eic}{output_eic}
+\item{output_eic}{output_EIC or not.}
 }
 \description{
-get_IS_RT
+Get the retention time of internal standards.
 }
 \author{
 Xiaotao Shen

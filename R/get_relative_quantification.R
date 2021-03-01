@@ -23,6 +23,26 @@
 #' @importFrom readr read_csv
 #' @export
 
+# tinyTools::setwd_project()
+# get_relative_quantification(
+#   path = "example/POS",
+#   output_path_name = "lipid_relative_quantification",
+#   targeted_table_name = "lipid_annotation_table_pos.xlsx",
+#   sample_info = sample_info_pos,
+#   targeted_table_type = "lipid",
+#   polarity = "positive",
+#   chol_rt = chol_rt,
+#   output_integrate = TRUE,
+#   forced_targeted_peak_table_name = NULL,
+#   fit.gaussian = TRUE,
+#   integrate_xcms = TRUE,
+#   output_eic = TRUE,
+#   ppm = 40,
+#   rt.tolerance = 180,
+#   threads = 5,
+#   rerun = FALSE
+# )
+
 get_relative_quantification <-
   function(path = ".",
            output_path_name = "Result",

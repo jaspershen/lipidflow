@@ -36,12 +36,27 @@ navbar:
     articles:
       text: Help documents
       menu:
-      - text: Brief introduction of lipidflow
+      - text: "Brief introduction"
+      - text: "Brief introduction of lipidflow"
         href: articles/lipidflow.html
-      - text: Absolute quantification of lipidomics
+      - text: "Overview of workflow of lipidflow"
         href: articles/absolute_quantification.html
-      - text: Example of lipidflow
+      - text: -------
+      - text: "Absolute quantification of lipids"
+      - text: "Step 1: get internal standard retention time"
+        href: articles/get_is_retention_time.html
+      - text: "Step 2: get relative quantification data"
+        href: articles/is_relative_quantification.html
+      - text: "Step 3: get absolute quantification data"
+        href: articles/absolute_quantification.html
+      - text: "Step 4: output and organize results"
+        href: articles/output_result.html
+      - text: -------
+      - text: "One function to all steps"
         href: articles/example_lipid_absolute_quantification.html
+      - text: "Other tools in lipidflow"
+      - text: "Other tools in lipidflow"
+        href: articles/lipidflow.html
     twitter:
       icon: "fab fa-twitter fa-lg"
       href: https://twitter.com/JasperShen1990

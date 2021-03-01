@@ -13,6 +13,12 @@ example
 logo.txt
 README.Rmd
 vignettes/absolute_quantification_cache
+vignettes/example
 vignettes/example_lipid_absolute_quantification_cache
 vignettes/lipidflow_cache
-vignettes/example
+vignettes/get_is_retention_time_cache
+vignettes/is_relative_quantification_cache
+vignettes/output_result_cache
+vignettes/*_cache
+
+.DS_Store

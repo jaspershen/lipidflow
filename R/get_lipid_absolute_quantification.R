@@ -437,7 +437,7 @@ sample_info_pos =
       )
     
     cat(crayon::green("Positive mode.\n"))
-    get_absolute_quantification(
+    absolute_data_pos = get_absolute_quantification(
       path = file.path(path, "POS"),
       is_quantification_table = is_quantification_table,
       lipid_quantification_table = lipid_quantification_table,
@@ -460,7 +460,7 @@ sample_info_pos =
     )
     
     cat(crayon::green("negative mode.\n"))
-    get_absolute_quantification(
+    absolute_data_neg = get_absolute_quantification(
       path = file.path(path, "NEG"),
       is_quantification_table = is_quantification_table,
       lipid_quantification_table = lipid_quantification_table,
@@ -469,25 +469,25 @@ sample_info_pos =
     )
       
   ##combine positive and negative
-    load(file.path(path, "POS/variable_info_abs"))
+    load(file.path(path, "POS/absolute_quantification/variable_info_abs"))
     variable_info_abs_pos <- variable_info_abs
     
-    load(file.path(path, "POS/express_data_abs_ug_ml"))
+    load(file.path(path, "POS/absolute_quantification/express_data_abs_ug_ml"))
     express_data_abs_ug_ml_pos <-
       express_data_abs_ug_ml
     
-    load(file.path(path, "POS/express_data_abs_um"))
+    load(file.path(path, "POS/absolute_quantification/express_data_abs_um"))
     express_data_abs_um_pos <-
       express_data_abs_um
     
-    load(file.path(path, "NEG/variable_info_abs"))
+    load(file.path(path, "NEG/absolute_quantification/variable_info_abs"))
     variable_info_abs_neg <- variable_info_abs
     
-    load(file.path(path, "NEG/express_data_abs_ug_ml"))
+    load(file.path(path, "NEG/absolute_quantification/express_data_abs_ug_ml"))
     express_data_abs_ug_ml_neg <-
       express_data_abs_ug_ml
     
-    load(file.path(path, "NEG/express_data_abs_um"))
+    load(file.path(path, "NEG/absolute_quantification/express_data_abs_um"))
     express_data_abs_um_neg <-
       express_data_abs_um
 
@@ -624,13 +624,13 @@ sample_info_pos =
     lipid_table_neg <-
       lipid_table_neg[match(lipid_tag_neg$peak_name, rownames(lipid_table_neg)),]
     
-    ###output
+    ###output results
     dir.create(file.path(path, "Result/intensity_plot"),
                showWarnings = FALSE)
     
     ###positive
     for (i in names(match_item_pos)) {
-      cat(i, "")
+      cat(i, " ")
       is_name <-
         match_item_pos[[i]]
       
@@ -724,7 +724,7 @@ sample_info_pos =
     
     ###negative
     for (i in names(match_item_neg)) {
-      cat(i, "")
+      cat(i, " ")
       is_name <-
         match_item_neg[[i]]
       

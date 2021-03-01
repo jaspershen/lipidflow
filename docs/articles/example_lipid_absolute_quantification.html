@@ -65,14 +65,34 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li>
+<li class="dropdown-header">Brief introduction</li>
+    <li>
       <a href="../articles/lipidflow.html">Brief introduction of lipidflow</a>
     </li>
     <li>
-      <a href="../articles/absolute_quantification.html">Absolute quantification of lipidomics</a>
+      <a href="../articles/absolute_quantification.html">Overview of workflow of lipidflow</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">Absolute quantification of lipids</li>
+    <li>
+      <a href="../articles/get_is_retention_time.html">Step 1: get internal standard retention time</a>
     </li>
     <li>
-      <a href="../articles/example_lipid_absolute_quantification.html">Example of lipidflow</a>
+      <a href="../articles/is_relative_quantification.html">Step 2: get relative quantification data</a>
+    </li>
+    <li>
+      <a href="../articles/absolute_quantification.html">Step 3: get absolute quantification data</a>
+    </li>
+    <li>
+      <a href="../articles/output_result.html">Step 4: output and organize results</a>
+    </li>
+    <li class="divider">
+    <li>
+      <a href="../articles/example_lipid_absolute_quantification.html">One function to all steps</a>
+    </li>
+    <li class="dropdown-header">Other tools in lipidflow</li>
+    <li>
+      <a href="../articles/lipidflow.html">Other tools in lipidflow</a>
     </li>
   </ul>
 </li>
@@ -149,7 +169,7 @@
 <h1 class="hasAnchor">
 <a href="#demo-data-to-show-how-to-use-lipidflow" class="anchor"></a><strong>Demo data to show how to use <code>lipidflow</code></strong>
 </h1>
-<p>Here we use the demo data to show how to use <code>lipidflow</code> for lipid absolute quantification.</p>
+<p>Here we use the demo data in <code>lipidflow</code> to show how to use it for lipid absolute quantification.</p>
 <div id="organize-the-demo-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#organize-the-demo-data" class="anchor"></a><strong>Organize the demo data</strong>
@@ -166,7 +186,7 @@
 <span class="co">#&gt; [1] TRUE</span>
 <span class="fu"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">neg_data</span>, to <span class="op">=</span> <span class="va">path</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>Now there will be a <code>example</code> folder in your work directory. And in the <code>./example</code> folder. There are two folders: <code>POS</code> and <code>NEG</code>. The are two groups for each mode: “D25” and “M19”. And each group has two repeats.</p>
+<p>Now there will be a <code>example</code> folder in your work directory. And in the <code>example</code> folder, there are two folders: <code>POS</code> and <code>NEG</code>. The are two groups for each mode: “D25” and “M19”. And each group has two repeats.</p>
 <p><img src="../man/figures/figure_3.png"></p>
 <p>Next, we should set the match list between internal standards and lipid class.</p>
 <ul>
@@ -580,19 +600,20 @@
 <h1 class="hasAnchor">
 <a href="#output-result" class="anchor"></a><strong>Output result</strong>
 </h1>
-<p>Most of the results are outputted in <code>example/Result</code>, some results are in <code>example/POS</code> and <code>example/NEG</code>.</p>
-<div id="information-of-all-internal-standards" class="section level2">
+<p>Most of the results are outputted in the <code>example/Result</code>, some results are in <code>example/POS</code> and <code>example/NEG</code>.</p>
+<div id="information-of-internal-standards" class="section level2">
 <h2 class="hasAnchor">
-<a href="#information-of-all-internal-standards" class="anchor"></a><strong>Information of all internal standards</strong>
+<a href="#information-of-internal-standards" class="anchor"></a><strong>Information of internal standards</strong>
 </h2>
-<p>Here we set <code>which_group_for_rt_confirm</code> as “D25”, so this group samples will be used to extract internal standards and get the information of all IS.</p>
-<p>The RTs of internal standards are generated automatically, and outputted as <code>IS_info_nex.xlsx</code> in “example/POS” and “example/NEG”, respectively.</p>
-<p><img src="../man/figures/figure5.png"></p>
-<p>We can see that <code>lipidflow</code> added the <code>rt</code>, <code>adduct</code> and <code>mz</code> in the <code>IS_info_new.xlsx</code>. If there are no good EICs of one IS, no information for these ISs.</p>
-<p>Sometimes the information of ISs maybe not correct, you can open the EICs of each internal standard and then check the RTs and then put all the correct RTs, adducts and m/z of internal standards in your IS information table. The EICs for each IS is in the <code>example/POS/Result/peak_shape</code> folder.</p>
+<p>Here we set <code>which_group_for_rt_confirm</code> as “D25”, so this group samples will be used to extract internal standards and get the information of all internal standards.</p>
+<p>The retention times of all internal standards are generated automatically, and outputted as <code>IS_info_pos.xlsx</code> in “example/POS” and <code>IS_info_neg.xlsx</code> in “example/NEG”, respectively.</p>
+<p><img src="../man/figures/figure5.png" alt="“IS_info_neg.xlsx”"> We can see that <code>lipidflow</code> added the <code>rt_neg_second</code>, <code>rt_neg_min</code>, <code>adduct_neg</code> and <code>mz_neg</code> in the <code>IS_info_new.xlsx</code>. If there are no good EICs, no information for these internal standards.</p>
+<p>Sometimes the information of internal standards maybe not correct, so you can open the EICs of each internal standard and then check the RTs and then put correct information in your IS information table. The EICs for each internal standard is in the <code>example/POS/Result/peak_shape</code> folder.</p>
 <p><img src="../man/figures/figure6.png"></p>
 <p>One example is like below figure shows:</p>
 <iframe title="Internal standard" src="../man/figures/15_0-18_1d7_PA_Na_Salt_M+H.html" width="100%" height="600" scrolling="no" seamless="seamless" frameborder="0"></iframe>
+<p>This is the EIC of <code>15_0-18_1(d7) PA (Na Salt)</code> with <code>M+H</code>. We can see that this internal <code>15_0-18_1(d7) PA (Na Salt)</code> has good peak shape and the retention time is around 800 second.</p>
+<p>If you find information of some internal standards are not correct, you can put the right information in <code>IS_info_new.xlsx</code> in <code>positive and negative</code>POS<code>and</code>NEG<code>folders, respectively. And then rerun the</code>get_lipid_absolute_quantification()<code>function, and set</code>is_info_name_pos<code>and</code>is_info_name_neg<code>as</code>IS_info_new.xlsx<code>, and</code>use_manual_is_info<code>as</code>TRUE<code>, then</code>lipidflow` will use the modified information table for next processing.</p>
 </div>
 <div id="final-results-for-absolute-quantification-of-lipids" class="section level2">
 <h2 class="hasAnchor">
@@ -603,54 +624,74 @@
 <ol style="list-style-type: decimal">
 <li><code>IS_info_table.xlsx</code></li>
 </ol>
-<p>This table is the information for internal standards in positive and negative mode, respectively.</p>
+<p>This table is the information of internal standards in positive and negative mode, respectively.</p>
 <p><img src="../man/figures/figure7.png"></p>
 <ol start="2" style="list-style-type: decimal">
 <li><code>lipid_data_class_ug_ml.xlsx</code></li>
 </ol>
+<p>This table is the absolute quantification table for each sample in lipid class level (ug/ml).</p>
 <p><img src="../man/figures/figure9.png"></p>
 <ol start="3" style="list-style-type: decimal">
 <li><code>lipid_data_class_um_per.xlsx</code></li>
 </ol>
+<p>This table is the absolute quantification table for each sample in lipid class level (um), and the values were calculated as value/sum(values).</p>
 <p><img src="../man/figures/figure10.png"></p>
 <ol start="4" style="list-style-type: decimal">
 <li><code>lipid_data_class_um.xlsx</code></li>
 </ol>
+<p>This table is the absolute quantification table for each sample in lipid class level (um).</p>
 <p><img src="../man/figures/figure11.png"></p>
 <ol start="5" style="list-style-type: decimal">
 <li><code>lipid_data_ug_ml.xlsx</code></li>
 </ol>
+<p>This is the absolute quantification for each lipid in each sample. The unit is ug/ml.</p>
 <p><img src="../man/figures/figure12.png"></p>
 <ol start="6" style="list-style-type: decimal">
 <li><code>lipid_data_um_per.xlsx</code></li>
 </ol>
+<p>This is the absolute quantification for each lipid in each sample. The unit is ug/ml. And the values were calculated as value/sum(values).</p>
 <p><img src="../man/figures/figure13.png"></p>
 <ol start="7" style="list-style-type: decimal">
 <li><code>lipid_data_um.xlsx</code></li>
 </ol>
+<p>This is the absolute quantification for each lipid in each sample. The unit is um.</p>
 <p><img src="../man/figures/figure14.png"></p>
 <ol start="8" style="list-style-type: decimal">
 <li>
 <code>plot_ug.pdf</code> and <code>plot_um.pdf</code>
 </li>
 </ol>
-<p><img src="../man/figures/figure15.png"></p>
-<p><img src="../man/figures/figure16.png"></p>
+<p>These two figures are percentage for each lipid class in each sample in ug/ml and um level.</p>
+<div class="figure">
+<img src="../man/figures/figure15.png" alt=""><p class="caption">plot_ug.pdf</p>
+</div>
+<div class="figure">
+<img src="../man/figures/figure16.png" alt=""><p class="caption">plot_um.pdf</p>
+</div>
 <ol start="9" style="list-style-type: decimal">
-<li>
-<code>class_data_ug_ml.xlsx</code> and <code>class_data_um.xlsx</code>
-</li>
-</ol>
-<p><img src="../man/figures/figure17.png"></p>
-<p><img src="../man/figures/figure18.png"></p>
-<ol start="10" style="list-style-type: decimal">
 <li><code>class_plot</code></li>
 </ol>
+<p>This folder contains the intensity plot in class level fro each lipid class.</p>
+<p>One example is like below figure shows:</p>
 <p><img src="../man/figures/figure19.png"></p>
 <ol start="11" style="list-style-type: decimal">
 <li><code>intensity_plot</code></li>
 </ol>
-<p><img src="../man/figures/figure20.png"><img src="../man/figures/figure21.png"></p>
+<p>This folder contains the intensity plot for each lipid.</p>
+<p><img src="../man/figures/figure20.png"></p>
+<p>This is an example: the top panel is the relative intensity plot for the internal standard. The middle panel is the relative intensity plot for this lipid, and the bottom panel is the absolute intensity plot for this lipid.</p>
+<p><img src="../man/figures/figure21.png"></p>
+</div>
+</div>
+<div id="manually-check-result" class="section level1">
+<h1 class="hasAnchor">
+<a href="#manually-check-result" class="anchor"></a><strong>Manually check result</strong>
+</h1>
+<p>Sometimes, the results are not good, so we need to manually check the results from <code>lipidflow</code> and then correct the result, and then correct the information and then rerun <code><a href="../reference/get_lipid_absolute_quantification.html">get_lipid_absolute_quantification()</a></code> function.</p>
+<div id="information-of-internal-standards-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#information-of-internal-standards-1" class="anchor"></a><strong>Information of internal standards</strong>
+</h2>
 </div>
 </div>
   </div>

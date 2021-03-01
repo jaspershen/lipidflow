@@ -10,6 +10,14 @@
 #' @importFrom magrittr %>%
 #' @export
 
+# get_absolute_quantification(
+#   path = "example/POS/",
+#   is_quantification_table = is_quantification_table,
+#   lipid_quantification_table = lipid_quantification_table,
+#   sample_info = sample_info_pos,
+#   match_item = match_item_pos
+# )
+
 
 get_absolute_quantification <-
   function(path = ".",

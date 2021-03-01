@@ -5,8 +5,12 @@ articles:
   absolute_quantification: absolute_quantification.html
   contact_us: contact_us.html
   example_lipid_absolute_quantification: example_lipid_absolute_quantification.html
+  get_is_retention_time: get_is_retention_time.html
+  is_relative_quantification: is_relative_quantification.html
   lipidflow: lipidflow.html
-last_built: 2021-02-28T08:12Z
+  output_result: output_result.html
+  overview_of_lipidflow: overview_of_lipidflow.html
+last_built: 2021-03-01T05:45Z
 urls:
   reference: https://jaspershen.github.io/lipidflow//reference
   article: https://jaspershen.github.io/lipidflow//articles

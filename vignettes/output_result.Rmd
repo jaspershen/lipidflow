@@ -1,0 +1,206 @@
+---
+title: "Output and organize results"
+author:
+- name: Xiaotao Shen PhD (https://www.shenxt.info/)
+- affiliation: School of Medicine, Stanford University
+  name: Chuchu wang PhD
+  url: http://shenxt.info/
+date: "Created on 2021-02-09 and updated on `r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+    toc: no
+  pdf_document:
+    toc: no
+vignette: >
+  %\VignetteIndexEntry{output_result}
+  %\VignettePackage{metID}
+  % \VignetteEngine{knitr::rmarkdown}
+  % \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+```
+
+***
+
+Then we need to output and organize some results. If you have not finished the previous step, please click here: [Get absolute quantification data](). 
+
+# **Output and organize results**
+
+Here we first organize the plots of lipids to different groups according to lipid class.
+
+```{r, eval=TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+library(lipidflow)
+library(tidyverse)
+library(openxlsx)
+```
+
+## **Positive mode**
+
+```{r, eval=TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+match_item_pos =
+  list(
+    "Cer" = "d18:1 (d7)-15:0 Cer",
+    "ChE" = c("18:1(d7) Chol Ester", "Cholesterol (d7)"),
+    "Chol" = "Cholesterol (d7)",
+    "DG" = "15:0-18:1(d7) DAG",
+    "LPC" = "18:1(d7) Lyso PC",
+    "LPE" = "18:1(d7) Lyso PE",
+    "MG" = "18:1 (d7) MG",
+    "PA" = "15:0-18:1(d7) PA (Na Salt)",
+    "PC" = "15:0-18:1(d7) PC",
+    "PE" = "15:0-18:1(d7) PE",
+    "PG" = "15:0-18:1(d7) PG (Na Salt)",
+    "PI" = "15:0-18:1(d7) PI (NH4 Salt)",
+    "PPE" = "C18(Plasm)-18:1(d9) PE",
+    "PS" = "15:0-18:1(d7) PS (Na Salt)",
+    "SM" = "d18:1-18:1(d9) SM",
+    "TG" = "15:0-18:1(d7)-15:0 TAG"
+  )
+```
+
+We want to organize the peak shape of lipids in `example/POS/lipid_relative_quantification/peak_shape` to different folders according to lipid class.
+
+
+!["Before organization"](../man/figures/figure25.png)
+
+```{r, eval=TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+absolute_table <-
+  readxl::read_xlsx("example/Result/lipid_data_um.xlsx")
+
+reorganize_peak_plot(
+  path = "example/POS/lipid_relative_quantification/",
+  plot_dir = "peak_shape",
+  absolute_table = absolute_table,
+  match_item = match_item_pos
+)
+```
+
+After the organization, the folder like this:
+
+!["After organization"](../man/figures/figure26.png)
+
+## **Negative mode**
+
+```{r, eval=TRUE, warning=FALSE, message=TRUE, cache=TRUE}
+match_item_neg =
+  list(
+    "Cer" = "d18:1 (d7)-15:0 Cer",
+    "Chol" = "Cholesterol (d7)",
+    "ChE" = c("18:1(d7) Chol Ester", "Cholesterol (d7)"),
+    "LPC" = "18:1(d7) Lyso PC",
+    "LPE" = "18:1(d7) Lyso PE",
+    "PC" = "15:0-18:1(d7) PC",
+    "PE" = "15:0-18:1(d7) PE",
+    "PG" = "15:0-18:1(d7) PG (Na Salt)",
+    "PI" = "15:0-18:1(d7) PI (NH4 Salt)",
+    "PPE" = "C18(Plasm)-18:1(d9) PE",
+    "PS" = "15:0-18:1(d7) PS (Na Salt)",
+    "SM" = "d18:1-18:1(d9) SM"
+  )
+```
+
+```{r, eval=TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+reorganize_peak_plot(
+  path = "example/NEG/lipid_relative_quantification/",
+  plot_dir = "peak_shape",
+  absolute_table = absolute_table,
+  match_item = match_item_neg
+)
+```
+
+## **Output some results**
+
+```{r, eval=TRUE, warning=FALSE, message=FALSE, cache=TRUE}
+output_result(path = "example",
+              match_item_pos = match_item_pos,
+              match_item_neg = match_item_neg)
+```
+
+
+## **The final results**
+
+Finally, all the results are in `example/Result`. 
+
+!["Final results"](../man/figures/figure27.png)
+
+![](../man/figures/figure8.png)
+
+1. `IS_info_table.xlsx`
+
+This table is the information of internal standards in positive and negative mode, respectively.
+
+![](../man/figures/figure7.png)
+
+2. `lipid_data_class_ug_ml.xlsx`
+
+This table is the absolute quantification table for each sample in lipid class level (ug/ml).  
+
+![](../man/figures/figure9.png)
+
+3. `lipid_data_class_um_per.xlsx`
+
+This table is the absolute quantification table for each sample in lipid class level (um), and the values were calculated as value/sum(values).
+
+![](../man/figures/figure10.png)
+
+4. `lipid_data_class_um.xlsx`
+
+This table is the absolute quantification table for each sample in lipid class level (um).  
+
+![](../man/figures/figure11.png)
+
+5. `lipid_data_ug_ml.xlsx`
+
+This is the absolute quantification for each lipid in each sample. The unit is ug/ml. 
+
+![](../man/figures/figure12.png)
+
+6. `lipid_data_um_per.xlsx`
+
+This is the absolute quantification for each lipid in each sample. The unit is ug/ml. And the values were calculated as value/sum(values).
+
+![](../man/figures/figure13.png)
+
+7. `lipid_data_um.xlsx`
+
+This is the absolute quantification for each lipid in each sample. The unit is um. 
+
+![](../man/figures/figure14.png)
+
+8. `plot_ug.pdf` and `plot_um.pdf`
+
+These two figures are percentage for each lipid class in each sample in ug/ml and um level.
+
+![plot_ug.pdf](../man/figures/figure15.png)
+
+![plot_um.pdf](../man/figures/figure16.png)
+
+9. `class_plot`
+
+This folder contains the intensity plot in class level fro each lipid class.
+
+One example is like below figure shows:
+
+![](../man/figures/figure19.png)
+
+11. `intensity_plot`
+
+This folder contains the intensity plot for each lipid.
+
+![](../man/figures/figure20.png)
+
+This is an example: the top panel is the relative intensity plot for the internal standard. The middle panel is the relative intensity plot for this lipid, and the bottom panel is the absolute intensity plot for this lipid.
+
+![](../man/figures/figure21.png)
+
+## **Next step**
+
+Next we need to output some results (plots). Please click here: [Output results](https://jaspershen.github.io/lipidflow/articles/output_result.html)
