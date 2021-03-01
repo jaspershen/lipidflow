@@ -48,7 +48,8 @@ Imports:
     ggsci,
     htmlwidgets,
     impute,
-    rstudioapi
+    rstudioapi,
+    methods
 Suggests: 
     knitr,
     rmarkdown,

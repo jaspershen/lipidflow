@@ -61,28 +61,28 @@ devtools::install_github("jaspershen/lipidflow")
 
 ## **Step1: Get the retention time of internal standards**
 
-The first step is to extract the extracted ion chromatogram (EIC) of all internal standards (IS) in samples and then get the retention times (RTs), adduct and m/z of all the internal standards. 
+The first step is to extract the extracted ion chromatogram (EIC) of all internal standards (IS) in samples and then get the retention times (RTs), adduct and m/z of all the internal standards. Internal standards are used for absolute quantification of lipids.
 
 ***
 
 ## **Step 2: Get relative quantification data**
 
-In this step, we will get the relative quantification data of internal standards and lipids.
+In this step, we will get the relative quantification data of internal standards and lipids by targeted extracting from raw data (mzXML format). The lipid annotation table can be from other tools, here we recommend [`lipidSearch`](https://www.thermofisher.com/order/catalog/product/IQLAAEGABSFAPCMBFK?us&en#/IQLAAEGABSFAPCMBFK?us&en) from ThermoFisher.
 
 ***
 
 ## **Step 3: Get absolute quantification data**
 
-In this step, we will get the absolute quantification data for lipids. The absolute quantification value for each lipid is calculated as:
+In this step, we will get the absolute quantification data for all the lipids. The absolute quantification value for each lipid is calculated as:
 
 $$ AI_i = \frac{RI_{i}AI_j}{RI_j} $$
 
 Here, $AI_i$ is the absolute intensity of $i^{th}$ lipid. $RI_{i}$ is the relative intensity of $i^{th}$ lipid. $AI_i$ is the absolute intensity of $j^{th}$ internal standard. $RI_i$ is the absolute intensity of $j^{th}$ internal standard. 
 
-So for each lipid, we need a corresponding internal standard for absolute quantification. In our demo data, for each class of lipids, we usually use one or two internal standard for absolute quantification.
+So for each lipid, we need a corresponding internal standard for absolute quantification. In our demo data, for each class of lipids, we usually use one or two internal standard for absolute quantification. 
 
 ***
 
 ## **Step 4: Output and organize results**
 
-In this step, we output some result and organize them so make them easier for manually check. 
+In this step, we will output some results and organize them so make them easier for manually check. 

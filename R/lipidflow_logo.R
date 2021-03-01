@@ -35,6 +35,7 @@
 #' @import utils
 #' @import ggplot2
 #' @import grDevices
+#' @import methods
 #' @export
 #' @examples 
 #' lipidflow_logo()

@@ -199,21 +199,21 @@
 <h2 class="hasAnchor">
 <a href="#step1-get-the-retention-time-of-internal-standards" class="anchor"></a><strong>Step1: Get the retention time of internal standards</strong>
 </h2>
-<p>The first step is to extract the extracted ion chromatogram (EIC) of all internal standards (IS) in samples and then get the retention times (RTs), adduct and m/z of all the internal standards.</p>
+<p>The first step is to extract the extracted ion chromatogram (EIC) of all internal standards (IS) in samples and then get the retention times (RTs), adduct and m/z of all the internal standards. Internal standards are used for absolute quantification of lipids.</p>
 <hr>
 </div>
 <div id="step-2-get-relative-quantification-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step-2-get-relative-quantification-data" class="anchor"></a><strong>Step 2: Get relative quantification data</strong>
 </h2>
-<p>In this step, we will get the relative quantification data of internal standards and lipids.</p>
+<p>In this step, we will get the relative quantification data of internal standards and lipids by targeted extracting from raw data (mzXML format). The lipid annotation table can be from other tools, here we recommend <a href="https://www.thermofisher.com/order/catalog/product/IQLAAEGABSFAPCMBFK?us&amp;en#/IQLAAEGABSFAPCMBFK?us&amp;en"><code>lipidSearch</code></a> from ThermoFisher.</p>
 <hr>
 </div>
 <div id="step-3-get-absolute-quantification-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step-3-get-absolute-quantification-data" class="anchor"></a><strong>Step 3: Get absolute quantification data</strong>
 </h2>
-<p>In this step, we will get the absolute quantification data for lipids. The absolute quantification value for each lipid is calculated as:</p>
+<p>In this step, we will get the absolute quantification data for all the lipids. The absolute quantification value for each lipid is calculated as:</p>
 <p><span class="math display">\[ AI_i = \frac{RI_{i}AI_j}{RI_j} \]</span></p>
 <p>Here, <span class="math inline">\(AI_i\)</span> is the absolute intensity of <span class="math inline">\(i^{th}\)</span> lipid. <span class="math inline">\(RI_{i}\)</span> is the relative intensity of <span class="math inline">\(i^{th}\)</span> lipid. <span class="math inline">\(AI_i\)</span> is the absolute intensity of <span class="math inline">\(j^{th}\)</span> internal standard. <span class="math inline">\(RI_i\)</span> is the absolute intensity of <span class="math inline">\(j^{th}\)</span> internal standard.</p>
 <p>So for each lipid, we need a corresponding internal standard for absolute quantification. In our demo data, for each class of lipids, we usually use one or two internal standard for absolute quantification.</p>
@@ -223,7 +223,7 @@
 <h2 class="hasAnchor">
 <a href="#step-4-output-and-organize-results" class="anchor"></a><strong>Step 4: Output and organize results</strong>
 </h2>
-<p>In this step, we output some result and organize them so make them easier for manually check.</p>
+<p>In this step, we will output some results and organize them so make them easier for manually check.</p>
 </div>
 </div>
   </div>

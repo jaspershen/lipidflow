@@ -1,5 +1,5 @@
 ---
-title: "Get relative quantification data"
+title: "Step 2: get relative quantification data"
 author:
 - name: Xiaotao Shen PhD (https://www.shenxt.info/)
 - affiliation: School of Medicine, Stanford University
@@ -46,7 +46,7 @@ We should have finished [step 1](https://jaspershen.github.io/lipidflow/articles
 
 ***
 
-## **Combine internal standard information from positive and negative mode**
+## **Combine internal standard information**
 
 ```{r, eval=TRUE, warning=FALSE, message=FALSE, cache=FALSE}
 library(lipidflow)
@@ -102,7 +102,7 @@ sample_info_pos =
 head(sample_info_pos)
 ```
 
-Get the Cholesterol retention time:
+Get the `Cholesterol` retention time:
 
 ```{r, eval=TRUE, warning=FALSE, cache=FALSE}
 if (any(is_info_table_new$name == "Cholesterol")) {
@@ -124,21 +124,16 @@ chol_rt
 
 #### **Internal standards**
 
-Then run `get_relative_quantification()` for internal standards:
+Then run `get_relative_quantification()` to get the relative quantification data of internal standards:
 
 ```{r, eval=TRUE, warning=FALSE, cache=TRUE}
 get_relative_quantification(
   path = "example/POS",
-  output_path_name = "is_relative_quantification",
   targeted_table_name = "IS_info_new.xlsx",
   sample_info = sample_info_pos,
   targeted_table_type = "is",
   polarity = "positive",
   chol_rt = chol_rt,
-  output_integrate = TRUE,
-  forced_targeted_peak_table_name = NULL,
-  fit.gaussian = TRUE,
-  integrate_xcms = TRUE,
   output_eic = TRUE,
   ppm = 40,
   rt.tolerance = 180,
@@ -147,33 +142,29 @@ get_relative_quantification(
 )
 ```
 
-** The meanings of all parameters:**
+**The meanings of parameters:**
 
-1. `path`: Work directory.
+1. `path`: Work directory. Here we set as `example/POS`.
 
-2. `output_path_name`: The folder name which you want to ouput result.
+2. `targeted_table_name`: The name of internal standard information.
 
-3. `targeted_table_name`: The name of internal standard information.
+3. `sample_info`: sample information of samples.
 
-4. `sample_info`: sample information of samples.
+4. `targeted_table_type`: The type of extracted peaks, "is" (internal standard) or "lipid" (lipids).
 
-5. `targeted_table_type`: The type of extracted peaks, "is" (internal standard) or "lipid" (lipids).
+5. `polarity`: "positive" or `negative`.
 
-6. `polarity`: "positive" or `negative`.
+6. `chol_rt`: Cholesterol retention time (second).
 
-7. `chol_rt`: Cholesterol retention time (second).
+7. `output_eic`: Output EICs of peaks or not.
 
-8. `output_integrate`: output_integrate.
+8. `ppm`: peak detection ppm.
 
-9. `output_eic`: Output EICs of peaks or not.
+9. `rt.tolerance`: peak detection retention time tolerance (second).
 
-10. `ppm`: peak detection ppm.
+10. `threads`: Number of cores to run.
 
-11. `rt.tolerance`: peak detection retention time tolerance (second).
-
-12. `threads`: Number of cores to run.
-
-13. `rerun`: Rerun peak detction or not.
+11. `rerun`: Rerun peak detection or not.
 
 Then all the results are outputted into a folder named as `example/POS/is_relative_quantification`. The relative quantification table is `is_quantification_table.xlsx` and all the peak shapes are in `peak_shape`.
 
@@ -210,10 +201,6 @@ get_relative_quantification(
   targeted_table_type = "lipid",
   polarity = "positive",
   chol_rt = chol_rt,
-  output_integrate = TRUE,
-  forced_targeted_peak_table_name = NULL,
-  fit.gaussian = TRUE,
-  integrate_xcms = TRUE,
   output_eic = TRUE,
   ppm = 40,
   rt.tolerance = 180,
@@ -249,9 +236,6 @@ get_relative_quantification(
   polarity = "negative",
   chol_rt = chol_rt,
   output_integrate = TRUE,
-  forced_targeted_peak_table_name = NULL,
-  fit.gaussian = TRUE,
-  integrate_xcms = TRUE,
   output_eic = TRUE,
   ppm = 40,
   rt.tolerance = 180,
@@ -273,10 +257,6 @@ get_relative_quantification(
   targeted_table_type = "lipid",
   polarity = "negative",
   chol_rt = chol_rt,
-  output_integrate = TRUE,
-  forced_targeted_peak_table_name = NULL,
-  fit.gaussian = TRUE,
-  integrate_xcms = TRUE,
   output_eic = TRUE,
   ppm = 40,
   rt.tolerance = 180,
@@ -286,6 +266,35 @@ get_relative_quantification(
 ```
 
 ***
+
+## **Manually check for relative quantification data of internal standards**
+
+Sometimes, the peak detection maybe not accurate, so we need to manually check the peak shape of all the internal standards and then detect peak and integrate peak shape again.
+
+For example, the internal standard 18_1_d7_ Lyso PC in positive mode (`example/POS/is_relative_quantification/peak_shape/18_1_d7_ Lyso PC.html`), the peak shape is like below figure shows:
+
+```{r, echo=FALSE, eval=TRUE}
+htmltools::tags$iframe(
+  title = "Internal standard",
+  src = "../man/figures/figure31.html",
+  width = "100%",
+  height = "600",
+  scrolling = "no",
+  seamless = "seamless",
+  frameBorder = "0"
+)
+```
+
+From this figure, we can see that for the samples `D25_1`, `D25_2` and `M19_2`, the integrate region (begin point) is not correct, so we need to manually correct that.
+
+1. Open the table in `example/POS/is_relative_quantification/forced_targeted_peak_table_temple.xlsx`, like the below figure shows:
+
+![](../man/figures/figure32.png)
+
+2. Then open the peak shape plot for each internal standard in `example/POS/is_relative_quantification/peak_shape`. Then if you find that the peak integration is not correct, you can add the right begin and end retention time for peaks like below video shows:
+
+<iframe width="100%" height="500" src="https://youtu.be/OiUdqkw5KZc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ## **Next step**
 

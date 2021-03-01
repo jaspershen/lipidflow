@@ -9,16 +9,16 @@
 #' @param output_eic output_EIC or not.
 #' @importFrom magrittr %>%
 #' @export
-
+# 
 # tinyTools::setwd_project()
-# setwd("example/")
+# setwd("vignettes/")
 # 
 # is_info_table_pos =
-#   readxl::read_xlsx("POS/IS_information.xlsx")
+#   readxl::read_xlsx("example/POS/IS_information.xlsx")
 # 
-# is_info_table_new_pos = 
+# is_info_table_new_pos =
 # get_IS_RT(
-#   path = "POS/D25",
+#   path = "example/POS/D25",
 #   is_info_table = is_info_table_pos,
 #   polarity = "positive",
 #   threads = 3,
@@ -197,7 +197,6 @@ get_IS_RT <-
       )
     }
     
-    
     extract_targeted_peaks(
       path = path,
       output_path_name = "Result",
@@ -213,6 +212,25 @@ get_IS_RT <-
       facet = FALSE
     )
     
+    ###organize plots
+    plot_name = dir(path = file.path(path, "Result/peak_shape"), pattern = "html")
+    if(length(plot_name) > 0){
+      plot_name = 
+        data.frame(plot_name = plot_name) %>% 
+        dplyr::mutate(lipid_name = stringr::str_split(plot_name, pattern = "_") %>% 
+                        purrr::map(function(x){
+                          x[-length(x)] %>% 
+                            paste(collapse = "_")}) 
+                      %>% unlist())
+      
+      purrr::walk(unique(plot_name$lipid_name), .f = function(x){
+        dir.create(file.path(path, "Result/peak_shape", x))
+        file.copy(file.path(path, "Result/peak_shape", plot_name$plot_name[plot_name$lipid_name == x]),
+                  file.path(path, "Result/peak_shape", x))
+      })
+      unlink(file.path(path, "Result/peak_shape", plot_name$plot_name))
+    }
+
     unlink(
       x = file.path(path, "Result/forced_targeted_peak_table_temple.xlsx"),
       recursive = TRUE,

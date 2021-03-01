@@ -1,5 +1,5 @@
 ---
-title: "Get absolute quantification data"
+title: "Step 3: get absolute quantification data"
 author:
 - name: Xiaotao Shen PhD (https://www.shenxt.info/)
 - affiliation: School of Medicine, Stanford University

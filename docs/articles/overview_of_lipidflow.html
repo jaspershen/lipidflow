@@ -169,38 +169,52 @@
 <h1 class="hasAnchor">
 <a href="#data-organization" class="anchor"></a><strong>Data organization</strong>
 </h1>
+<p>We need three types of data for <code>lipidflow</code>.</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Raw data of all the sample.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Information of internal standards in samples.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Lipid annotation table from other tools (lipidSearch).</li>
+</ol></li>
+</ul>
 <hr>
 <div id="convert-raw-data-to-mzxml-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#convert-raw-data-to-mzxml-data" class="anchor"></a><strong>Convert raw data to mzXML data</strong>
+<a href="#convert-raw-data-to-mzxml-data" class="anchor"></a><strong>1. Convert raw data to mzXML data</strong>
 </h2>
-<p>The raw lipidomics data should be transferred to mzXML format files using <a href="http://proteowizard.sourceforge.net/">ProteoWizard software</a>. The parameter setting should be set as below figure shows:</p>
+<p>The raw lipidomics data should be converted to mzXML format files using <a href="http://proteowizard.sourceforge.net/">ProteoWizard software</a>. The parameter setting should be set as below figure shows:</p>
 <p><img src="../man/figures/msconventor.png"></p>
 <hr>
 </div>
-<div id="place-mzxml-data-into-a-folder" class="section level2">
-<h2 class="hasAnchor">
-<a href="#place-mzxml-data-into-a-folder" class="anchor"></a><strong>Place mzXML data into a folder</strong>
-</h2>
-<p>Then create a folder, and create “POS” and “NEG” folders in it, then put all the mzMXL data into the folders according to groups like the below figure shows:</p>
-<p><img src="../man/figures/2021_02_09_10.14.13_PM.png"> ***</p>
-</div>
 <div id="internal-standard-information" class="section level2">
 <h2 class="hasAnchor">
-<a href="#internal-standard-information" class="anchor"></a><strong>Internal standard information</strong>
+<a href="#internal-standard-information" class="anchor"></a><strong>2. Internal standard information</strong>
 </h2>
 <p>To do absolute quantification, we need to provide the information of internal standard in the samples. The data should be “xlsx” format, and like the below figures shows:</p>
-<p><img src="../man/figures/2021_02_09_10.19.33_PM.png"> The first column is “name” (name of internal standards), the second column is “exact.mass” (exact mass of internal standards), the third column is “formula”, the fourth column is “ug_ml” and the fifth column is “um”.</p>
+<p><img src="../man/figures/2021_02_09_10.19.33_PM.png"></p>
+<p>This is a example of internal standards in our demo data. The first column is “name” (name of internal standards), the second column is “exact.mass” (exact mass of internal standards), the third column is “formula”, the fourth column is “ug_ml” (concentration) and the fifth column is “um” (concentration).</p>
 <p>And then put the internal standard information in “POS” and “NEG” folders, respectively.</p>
 <hr>
 </div>
 <div id="lipid-identification-information" class="section level2">
 <h2 class="hasAnchor">
-<a href="#lipid-identification-information" class="anchor"></a><strong>Lipid identification information</strong>
+<a href="#lipid-identification-information" class="anchor"></a><strong>3. Lipid identification information</strong>
 </h2>
-<p>The lipid identification table can be from any other software, for example, here we use the <code>lipidSearch</code> software from <a href="https://www.thermofisher.com/order/catalog/product/IQLAAEGABSFAPCMBFK?us&amp;en#/IQLAAEGABSFAPCMBFK?us&amp;en">Thermo</a>, and then put the lipid identification table (xlsx format) for positive and negative mode in “POS” and “NEG” folder respectively.</p>
+<p>The lipid identification table can be from any other software, for example, here we use the <code>lipidSearch</code> software from <a href="https://www.thermofisher.com/order/catalog/product/IQLAAEGABSFAPCMBFK?us&amp;en#/IQLAAEGABSFAPCMBFK?us&amp;en">ThermoFisher</a>, and then put the lipid identification table (xlsx format) for positive and negative mode in “POS” and “NEG” folder respectively.</p>
 <p>The lipid identification table from <code>lipidSearch</code> is like the below figure shows:</p>
 <p><img src="../man/figures/2021_02_09_10.24.17_PM.png"></p>
+<hr>
+</div>
+<div id="place-data-into-a-folder" class="section level2">
+<h2 class="hasAnchor">
+<a href="#place-data-into-a-folder" class="anchor"></a><strong>Place data into a folder</strong>
+</h2>
+<p>After all the data have been prepared, then create a folder, for example: “example”. And then create “POS” and “NEG” folders in it, then put all the mzMXL data, information of internal standard and lipid identification table into the folders according to groups like the below figure shows:</p>
+<p><img src="../man/figures/figure30.png"> In our demo data, we have two groups, <code>D25</code> and <code>M19</code>, and each group has two repeats. And the information of internal standards is <code>IS_information.xlsx</code>, and placed in <code>POS</code> and <code>NEG</code> folder, respectively. The lipid annotation tables are <code>lipid_annotation_table_pos.xlsx</code> and <code>lipid_annotation_table_neg.xlsx</code>, then place them in <code>POS</code> and <code>NEG</code> folders, respectively.</p>
 <hr>
 </div>
 </div>
@@ -214,7 +228,7 @@
 <a href="#step-1-get-retention-time-of-internal-standards" class="anchor"></a><strong>Step 1: Get retention time of internal standards</strong>
 </h2>
 <p>The step 1 is to get the retention time of internal standards.</p>
-<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/get_is_retention_time.html">here</a>.</p>
+<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/get_is_retention_time.html">here for detailed instruction</a>.</p>
 <hr>
 </div>
 <div id="step-2-get-relative-quantification-data" class="section level2">
@@ -222,15 +236,15 @@
 <a href="#step-2-get-relative-quantification-data" class="anchor"></a><strong>Step 2: Get relative quantification data</strong>
 </h2>
 <p>The step 2 is to get the relative quantification data of internal standards and lipids.</p>
-<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html">here</a>.</p>
+<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html">here for detailed instruction</a>.</p>
 <hr>
 </div>
 <div id="step-3-get-absolute-quantification-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step-3-get-absolute-quantification-data" class="anchor"></a><strong>Step 3: Get absolute quantification data</strong>
 </h2>
-<p>The step 3 is to get the absolute quantification data of internal standards and lipids.</p>
-<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">here</a>.</p>
+<p>The step 3 is to get the absolute quantification data of lipids.</p>
+<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">here for detailed instruction</a>.</p>
 <hr>
 </div>
 <div id="step-4-output-and-organize-results" class="section level2">
@@ -238,7 +252,7 @@
 <a href="#step-4-output-and-organize-results" class="anchor"></a><strong>Step 4: Output and organize results</strong>
 </h2>
 <p>The step 4 is to output and organize results.</p>
-<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">here</a>.</p>
+<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">here for detailed instruction</a>.</p>
 <hr>
 </div>
 </div>

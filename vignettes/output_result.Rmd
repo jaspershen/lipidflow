@@ -1,5 +1,5 @@
 ---
-title: "Output and organize results"
+title: "Step 4: output and organize results"
 author:
 - name: Xiaotao Shen PhD (https://www.shenxt.info/)
 - affiliation: School of Medicine, Stanford University

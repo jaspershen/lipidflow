@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get relative quantification data • lipidflow</title>
+<title>Step 2: get relative quantification data • lipidflow</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Get relative quantification data">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Step 2: get relative quantification data">
 <meta property="og:description" content="lipidflow">
 <meta property="og:image" content="https://jaspershen.github.io/lipidflow/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -150,7 +150,7 @@
       </header><script src="is_relative_quantification_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Get relative quantification data</h1>
+      <h1 data-toc-skip>Step 2: get relative quantification data</h1>
                         <h4 class="author">Xiaotao Shen PhD (<a href="https://www.shenxt.info/" class="uri">https://www.shenxt.info/</a>)</h4>
                                     <h4 class="author">Chuchu wang PhD</h4>
             <address class="author_afil">
@@ -176,9 +176,9 @@
 </h1>
 <p>We should have finished <a href="https://jaspershen.github.io/lipidflow/articles/get_is_retention_time.html">step 1</a>. Then we combine the internal standard information from positive and negative mode.</p>
 <hr>
-<div id="combine-internal-standard-information-from-positive-and-negative-mode" class="section level2">
+<div id="combine-internal-standard-information" class="section level2">
 <h2 class="hasAnchor">
-<a href="#combine-internal-standard-information-from-positive-and-negative-mode" class="anchor"></a><strong>Combine internal standard information from positive and negative mode</strong>
+<a href="#combine-internal-standard-information" class="anchor"></a><strong>Combine internal standard information</strong>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jaspershen/lipidflow">lipidflow</a></span><span class="op">)</span>
@@ -200,7 +200,7 @@
 <span class="co">#&gt; # A tibble: 6 x 13</span>
 <span class="co">#&gt;   name  exact.mass formula ug_ml    um rt_pos_second rt_pos_min adduct_pos</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;     </span>
-<span class="co">#&gt; 1 15:0…       588. C36H61… 0.22  0.375         1147.       19.1 M+H-H2O   </span>
+<span class="co">#&gt; 1 15:0…       588. C36H61… 0.22  0.375         1267        21.1 M+H-H2O   </span>
 <span class="co">#&gt; 2 15:0…       690. C36H61… 0.172 0.25           783.       13.0 M+H       </span>
 <span class="co">#&gt; 3 15:0…       753. C41H73… 1.88  2.5           1182.       19.7 M+H       </span>
 <span class="co">#&gt; 4 15:0…       711. C38H67… 0.125 0.175         1193.       19.9 M+H       </span>
@@ -237,7 +237,7 @@
 <span class="co">#&gt; 2       D25_2   D25</span>
 <span class="co">#&gt; 3       M19_1   M19</span>
 <span class="co">#&gt; 4       M19_2   M19</span></code></pre></div>
-<p>Get the Cholesterol retention time:</p>
+<p>Get the <code>Cholesterol</code> retention time:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">is_info_table_new</span><span class="op">$</span><span class="va">name</span> <span class="op">==</span> <span class="st">"Cholesterol"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">idx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">is_info_table_new</span><span class="op">$</span><span class="va">name</span> <span class="op">==</span> <span class="st">"Cholesterol"</span><span class="op">)</span>
@@ -257,45 +257,45 @@
 <h4 class="hasAnchor">
 <a href="#internal-standards" class="anchor"></a><strong>Internal standards</strong>
 </h4>
-<p>Then run <code><a href="../reference/get_relative_quantification.html">get_relative_quantification()</a></code> for internal standards:</p>
+<p>Then run <code><a href="../reference/get_relative_quantification.html">get_relative_quantification()</a></code> to get the relative quantification data of internal standards:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/get_relative_quantification.html">get_relative_quantification</a></span><span class="op">(</span>
   path <span class="op">=</span> <span class="st">"example/POS"</span>,
-  output_path_name <span class="op">=</span> <span class="st">"is_relative_quantification"</span>,
   targeted_table_name <span class="op">=</span> <span class="st">"IS_info_new.xlsx"</span>,
   sample_info <span class="op">=</span> <span class="va">sample_info_pos</span>,
   targeted_table_type <span class="op">=</span> <span class="st">"is"</span>,
   polarity <span class="op">=</span> <span class="st">"positive"</span>,
   chol_rt <span class="op">=</span> <span class="va">chol_rt</span>,
-  output_integrate <span class="op">=</span> <span class="cn">TRUE</span>,
-  forced_targeted_peak_table_name <span class="op">=</span> <span class="cn">NULL</span>,
-  fit.gaussian <span class="op">=</span> <span class="cn">TRUE</span>,
-  integrate_xcms <span class="op">=</span> <span class="cn">TRUE</span>,
   output_eic <span class="op">=</span> <span class="cn">TRUE</span>,
   ppm <span class="op">=</span> <span class="fl">40</span>,
   rt.tolerance <span class="op">=</span> <span class="fl">180</span>,
   threads <span class="op">=</span> <span class="fl">5</span>,
   rerun <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
+<span class="co">#&gt; Reading raw data, it will take a while...</span>
+<span class="co">#&gt; Reading 18519 spectra from file D25_1.mzXML</span>
+<span class="co">#&gt; Reading 18473 spectra from file D25_2.mzXML</span>
+<span class="co">#&gt; Reading 18464 spectra from file M19_1.mzXML</span>
+<span class="co">#&gt; Reading 18381 spectra from file M19_2.mzXML</span>
+<span class="co">#&gt; ✓ OK</span>
+<span class="co">#&gt; Extracting peaks, it will take a while...✓ OK</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Output peak shapes...</span>
-<span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  </span>
+<span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  20  </span>
 <span class="co">#&gt; Done</span></code></pre></div>
-<p>** The meanings of all parameters:**</p>
+<p><strong>The meanings of parameters:</strong></p>
 <ol style="list-style-type: decimal">
-<li><p><code>path</code>: Work directory.</p></li>
-<li><p><code>output_path_name</code>: The folder name which you want to ouput result.</p></li>
+<li><p><code>path</code>: Work directory. Here we set as <code>example/POS</code>.</p></li>
 <li><p><code>targeted_table_name</code>: The name of internal standard information.</p></li>
 <li><p><code>sample_info</code>: sample information of samples.</p></li>
 <li><p><code>targeted_table_type</code>: The type of extracted peaks, “is” (internal standard) or “lipid” (lipids).</p></li>
 <li><p><code>polarity</code>: “positive” or <code>negative</code>.</p></li>
 <li><p><code>chol_rt</code>: Cholesterol retention time (second).</p></li>
-<li><p><code>output_integrate</code>: output_integrate.</p></li>
 <li><p><code>output_eic</code>: Output EICs of peaks or not.</p></li>
 <li><p><code>ppm</code>: peak detection ppm.</p></li>
 <li><p><code>rt.tolerance</code>: peak detection retention time tolerance (second).</p></li>
 <li><p><code>threads</code>: Number of cores to run.</p></li>
-<li><p><code>rerun</code>: Rerun peak detction or not.</p></li>
+<li><p><code>rerun</code>: Rerun peak detection or not.</p></li>
 </ol>
 <p>Then all the results are outputted into a folder named as <code>example/POS/is_relative_quantification</code>. The relative quantification table is <code>is_quantification_table.xlsx</code> and all the peak shapes are in <code>peak_shape</code>.</p>
 <p><code>is_quantification_table.xlsx</code> is:</p>
@@ -320,10 +320,6 @@
   targeted_table_type <span class="op">=</span> <span class="st">"lipid"</span>,
   polarity <span class="op">=</span> <span class="st">"positive"</span>,
   chol_rt <span class="op">=</span> <span class="va">chol_rt</span>,
-  output_integrate <span class="op">=</span> <span class="cn">TRUE</span>,
-  forced_targeted_peak_table_name <span class="op">=</span> <span class="cn">NULL</span>,
-  fit.gaussian <span class="op">=</span> <span class="cn">TRUE</span>,
-  integrate_xcms <span class="op">=</span> <span class="cn">TRUE</span>,
   output_eic <span class="op">=</span> <span class="cn">TRUE</span>,
   ppm <span class="op">=</span> <span class="fl">40</span>,
   rt.tolerance <span class="op">=</span> <span class="fl">180</span>,
@@ -377,9 +373,6 @@
   polarity <span class="op">=</span> <span class="st">"negative"</span>,
   chol_rt <span class="op">=</span> <span class="va">chol_rt</span>,
   output_integrate <span class="op">=</span> <span class="cn">TRUE</span>,
-  forced_targeted_peak_table_name <span class="op">=</span> <span class="cn">NULL</span>,
-  fit.gaussian <span class="op">=</span> <span class="cn">TRUE</span>,
-  integrate_xcms <span class="op">=</span> <span class="cn">TRUE</span>,
   output_eic <span class="op">=</span> <span class="cn">TRUE</span>,
   ppm <span class="op">=</span> <span class="fl">40</span>,
   rt.tolerance <span class="op">=</span> <span class="fl">180</span>,
@@ -405,10 +398,6 @@
   targeted_table_type <span class="op">=</span> <span class="st">"lipid"</span>,
   polarity <span class="op">=</span> <span class="st">"negative"</span>,
   chol_rt <span class="op">=</span> <span class="va">chol_rt</span>,
-  output_integrate <span class="op">=</span> <span class="cn">TRUE</span>,
-  forced_targeted_peak_table_name <span class="op">=</span> <span class="cn">NULL</span>,
-  fit.gaussian <span class="op">=</span> <span class="cn">TRUE</span>,
-  integrate_xcms <span class="op">=</span> <span class="cn">TRUE</span>,
   output_eic <span class="op">=</span> <span class="cn">TRUE</span>,
   ppm <span class="op">=</span> <span class="fl">40</span>,
   rt.tolerance <span class="op">=</span> <span class="fl">180</span>,
@@ -422,6 +411,24 @@
 <hr>
 </div>
 </div>
+</div>
+<div id="manually-check-for-relative-quantification-data-of-internal-standards" class="section level2">
+<h2 class="hasAnchor">
+<a href="#manually-check-for-relative-quantification-data-of-internal-standards" class="anchor"></a><strong>Manually check for relative quantification data of internal standards</strong>
+</h2>
+<p>Sometimes, the peak detection maybe not accurate, so we need to manually check the peak shape of all the internal standards and then detect peak and integrate peak shape again.</p>
+<p>For example, the internal standard 18_1_d7_ Lyso PC in positive mode (<code>example/POS/is_relative_quantification/peak_shape/18_1_d7_ Lyso PC.html</code>), the peak shape is like below figure shows:</p>
+<iframe title="Internal standard" src="../man/figures/figure31.html" width="100%" height="600" scrolling="no" seamless="seamless" frameborder="0"></iframe>
+<p>From this figure, we can see that for the samples <code>D25_1</code>, <code>D25_2</code> and <code>M19_2</code>, the integrate region (begin point) is not correct, so we need to manually correct that.</p>
+<ol style="list-style-type: decimal">
+<li>Open the table in <code>example/POS/is_relative_quantification/forced_targeted_peak_table_temple.xlsx</code>, like the below figure shows:</li>
+</ol>
+<p><img src="../man/figures/figure32.png"></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Then open the peak shape plot for each internal standard in <code>example/POS/is_relative_quantification/peak_shape</code>. Then if you find that the peak integration is not correct, you can add the right begin and end retention time for peaks like below video shows:</li>
+</ol>
+<iframe width="100%" height="500" src="https://youtu.be/OiUdqkw5KZc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
 </div>
 <div id="next-step" class="section level2">
 <h2 class="hasAnchor">

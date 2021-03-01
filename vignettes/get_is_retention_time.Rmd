@@ -1,5 +1,5 @@
 ---
-title: "Get retention time of internal standards"
+title: "Step 1: get retention time of internal standards"
 author:
 - name: Xiaotao Shen PhD (https://www.shenxt.info/)
 - affiliation: School of Medicine, Stanford University
@@ -32,11 +32,13 @@ knitr::opts_chunk$set(
 
 # **Get retention time of internal standards**
 
-First, we need to get the retention time (RTs) of internal standards in samples. Here we also use the demo data from `lipidflow` package to show how to use it.
+In this step, we need to get the retention time (RTs) of internal standards in samples. Here we also use the demo data from `lipidflow` package to show how to use it.
 
 ***
 
 ## **Data preparation**
+
+The detailed description of data preparation can be found [here](https://jaspershen.github.io/lipidflow/articles/overview_of_lipidflow.html).
 
 ```{r, eval=TRUE, warning=FALSE, cache=TRUE,message=FALSE}
 library(lipidflow)
@@ -52,9 +54,11 @@ file.copy(from = pos_data, to = path, recursive = TRUE, overwrite = TRUE)
 file.copy(from = neg_data, to = path, recursive = TRUE, overwrite = TRUE)
 ```
 
-Now there will be a `example` folder in your work directory. And in the `example` folder, there are two folders: `POS` and `NEG`. The are two groups for each mode: "D25" and "M19". And each group has two repeats.
+Now there will be a `example` folder in your work directory. And in the `example` folder, there are two folders: `POS` and `NEG`. The are two groups for each mode: `D25` and `M19`. And each group has two repeats.
 
 ![](../man/figures/figure_3.png)
+
+
 We then use the `get_IS_RT()` function to extract the peaks for each internal standard in samples.
 
 ***
@@ -65,7 +69,7 @@ We need to extract internal standards for positive and negative mode, respective
 
 ### **1. Positive mode**
 
-We need to choose which class samples are used to extract internal standards. Here we use `D25`, so we set path as `POS/D25`. We also need the internal standard information (xlsx format), here is `IS_information.xlsx` in `POS` and `NEG` folders. It should be like the below figure shows:
+We need to choose which class samples are used to extract internal standards. Here we use `D25`, so we set path as `example/POS/D25` for positive mode and `example/NEG/D25` for negative mode. We also need the internal standard information (xlsx format), here is `IS_information.xlsx` in `POS` and `NEG` folders. It should be like the below figure shows:
 
 ![](../man/figures/figure22.png)
 There are five columns in this table: 
@@ -96,7 +100,7 @@ get_IS_RT(
   is_info_table = is_info_table_pos,
   polarity = "positive",
   threads = 3,
-  rerun = TRUE,
+  rerun = FALSE,
   output_eic = TRUE
 )
 ```
@@ -145,7 +149,7 @@ get_IS_RT(
   is_info_table = is_info_table_neg,
   polarity = "negative",
   threads = 3,
-  rerun = TRUE,
+  rerun = FALSE,
   output_eic = TRUE
 )
 
@@ -179,7 +183,7 @@ htmltools::tags$iframe(
 )
 ```
 
-We can see that this compound has two peaks, so we can open another adduct of this internal standard:
+We can see that this compound has two peaks, so we can open another adduct (M+H) of this internal standard:
 
 ```{r, echo=FALSE, eval=TRUE}
 htmltools::tags$iframe(
@@ -197,12 +201,14 @@ We can see that the retention time is around 1267 second, so we can change the r
 
 ![](../man/figures/figure29.png)
 
-After you change the information of internal standards in `IS_info_new.xlsx` for positive and negative modes, respectively, then the new `IS_info_new.xlsx` will be used for next processing.
+After you change the information of internal standards in `IS_info_new.xlsx` for positive and negative modes, respectively, then the new `IS_info_new.xlsx` will be used for next step
 
 ***
 
 ## **Next step**
 
-Next we need to get the relative quantification data of all internal standards in all sample. Please click here: 
+Next we need to get the relative quantification data of all internal standards in all sample. 
+
+Please click here: 
 
 [Get relative quantification data](https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html)

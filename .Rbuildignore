@@ -22,3 +22,5 @@ vignettes/output_result_cache
 vignettes/*_cache
 
 .DS_Store
+
+manuscript
