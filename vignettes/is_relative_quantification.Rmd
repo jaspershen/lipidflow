@@ -293,7 +293,14 @@ From this figure, we can see that for the samples `D25_1`, `D25_2` and `M19_2`, 
 
 2. Then open the peak shape plot for each internal standard in `example/POS/is_relative_quantification/peak_shape`. Then if you find that the peak integration is not correct, you can add the right begin and end retention time for peaks like below video shows:
 
-<iframe width="100%" height="500" src="https://youtu.be/OiUdqkw5KZc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+```{r, eval=TRUE, warning=FALSE, cache=FALSE, echo=FALSE}
+library(vembedr)
+embed_url("https://www.youtube.com/watch?v=OiUdqkw5KZc&feature=youtu.be") %>% 
+  use_align("center") %>% 
+  use_bs_responsive()
+```
+
+
 
 
 ## **Next step**
