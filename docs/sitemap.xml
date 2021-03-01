@@ -31,6 +31,9 @@
     <loc>https://jaspershen.github.io/lipidflow//reference/from_rt_table_to_is_info.html</loc>
   </url>
   <url>
+    <loc>https://jaspershen.github.io/lipidflow//reference/generate_sample_info.html</loc>
+  </url>
+  <url>
     <loc>https://jaspershen.github.io/lipidflow//reference/get_IS_RT.html</loc>
   </url>
   <url>
@@ -82,9 +85,6 @@
     <loc>https://jaspershen.github.io/lipidflow//articles/contact_us.html</loc>
   </url>
   <url>
-    <loc>https://jaspershen.github.io/lipidflow//articles/example_lipid_absolute_quantification.html</loc>
-  </url>
-  <url>
     <loc>https://jaspershen.github.io/lipidflow//articles/get_is_retention_time.html</loc>
   </url>
   <url>
@@ -92,6 +92,9 @@
   </url>
   <url>
     <loc>https://jaspershen.github.io/lipidflow//articles/lipidflow.html</loc>
+  </url>
+  <url>
+    <loc>https://jaspershen.github.io/lipidflow//articles/one_step_of_lipidflow.html</loc>
   </url>
   <url>
     <loc>https://jaspershen.github.io/lipidflow//articles/output_result.html</loc>

@@ -32,13 +32,18 @@ knitr::opts_chunk$set(
 
 # **Get retention time of internal standards**
 
-First, we need to get the retention time (RTs) of internal standards in samples. Here we also use the demo data from `lipidflow` package to show how to use.
+First, we need to get the retention time (RTs) of internal standards in samples. Here we also use the demo data from `lipidflow` package to show how to use it.
+
+***
 
 ## **Data preparation**
 
-```{r, eval=TRUE, warning=FALSE, cache=TRUE}
+```{r, eval=TRUE, warning=FALSE, cache=TRUE,message=FALSE}
 library(lipidflow)
 library(tidyverse)
+```
+
+```{r, eval=TRUE, warning=FALSE, cache=TRUE,message=FALSE}
 pos_data = system.file("POS", package = "lipidflow")
 neg_data = system.file("NEG", package = "lipidflow")
 path = file.path(".", "example")
@@ -50,9 +55,9 @@ file.copy(from = neg_data, to = path, recursive = TRUE, overwrite = TRUE)
 Now there will be a `example` folder in your work directory. And in the `example` folder, there are two folders: `POS` and `NEG`. The are two groups for each mode: "D25" and "M19". And each group has two repeats.
 
 ![](../man/figures/figure_3.png)
-
-
 We then use the `get_IS_RT()` function to extract the peaks for each internal standard in samples.
+
+***
 
 ## **Extract internal standards**
 
@@ -65,17 +70,17 @@ We need to choose which class samples are used to extract internal standards. He
 ![](../man/figures/figure22.png)
 There are five columns in this table: 
 
-1. name: the name of internal standards.
+1. `name`: the name of internal standards.
 
-2. exact.mass: Exact mass.
+2. `exact.mass`: Exact mass.
 
-3. formula: Formula of internal standards.
+3. `formula`: Formula of internal standards.
 
-4. ug_ml: Concentration (ug/ul) in samples for each internal standard.
+4. `ug_ml`: Concentration (ug/ul) in samples for each internal standard.
 
-5. um: Concentration (um) in samples for each internal standard.
+5. `um`: Concentration (um) in samples for each internal standard.
 
-Read the internal information table (is_info_table);
+Read the internal standard information table (`is_info_table`);
 
 ```{r, eval=TRUE, warning=FALSE, cache=TRUE}
 is_info_table_pos =
@@ -152,6 +157,52 @@ openxlsx::write.xlsx(
 ```
 
 
+***
+
+## **Manually check**
+
+Because the adduct, retention time of internal standards are automatically selected, so some of them maybe wrong, so `lipidflow` output the peak shapes for each internal standards. And one table is also generated to know which adduct is should be checked first. The table name is in the `example/POS/D25/Result`, the table name is `IS_RT_table_for_check.xlsx`.
+
+![](../man/figures/figure28.png)
+
+For this internal standard (`15:0-18:1(d7) DAG`), we should first check its `M+H-H2O`. So open the `example/POS/D25/Result/peak_shape` folder, and then open `15_0-18_1_d7_ DAG_M+H-H2O.html`. Like below figure shows:
+
+```{r, echo=FALSE, eval=TRUE}
+htmltools::tags$iframe(
+  title = "Internal standard",
+  src = "../man/figures/15_0-18_1_d7_ DAG_M+H-H2O.html",
+  width = "100%",
+  height = "600",
+  scrolling = "no",
+  seamless = "seamless",
+  frameBorder = "0"
+)
+```
+
+We can see that this compound has two peaks, so we can open another adduct of this internal standard:
+
+```{r, echo=FALSE, eval=TRUE}
+htmltools::tags$iframe(
+  title = "Internal standard",
+  src = "../man/figures/15_0-18_1_d7_ DAG_M+H.html",
+  width = "100%",
+  height = "600",
+  scrolling = "no",
+  seamless = "seamless",
+  frameBorder = "0"
+)
+```
+
+We can see that the retention time is around 1267 second, so we can change the retention time in the `example/POS/IS_info_new.xlsx`.
+
+![](../man/figures/figure29.png)
+
+After you change the information of internal standards in `IS_info_new.xlsx` for positive and negative modes, respectively, then the new `IS_info_new.xlsx` will be used for next processing.
+
+***
+
 ## **Next step**
 
-Next we need to get the relative quantification data of all internal standards in all sample. Please click here: [Get relative quantification data](https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html)
+Next we need to get the relative quantification data of all internal standards in all sample. Please click here: 
+
+[Get relative quantification data](https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html)

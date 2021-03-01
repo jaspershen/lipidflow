@@ -36,9 +36,8 @@ knitr::opts_chunk$set(
 
 `lipidflow` is used for lipid absolute quantification. 
 
-## **Installation**
 
-First, we need to get the information of all internal standards in samples for absolute quantification. The information contains adducts, mass to charge (m/z) and 
+## **Installation**
 
 You can install `lipidflow` from
 [Github](https://github.com/jaspershen/lipidflow).
@@ -52,26 +51,38 @@ devtools::install_github("jaspershen/lipidflow")
 
 `lipidflow` is a part of `tidymass`, so you can also install it by [`tidymass`](https://jaspershen.github.io/tidymass/index.html).
 
+***
+
 # **Workflow of `lipidflow`**
 
-<img src="man/figures/Figure_2.jpg" align="left" alt="" width="100%" />
+<img src="../man/figures/Figure_2.jpg" align="left" alt="" width="100%" />
 
-## **Step1: Get the information of internal standards**
+***
 
-The first step is to extract the extracted ion chromatogram (EIC) of all internal standards (IS) in samples and then get the retention times (RTs), adduct and m/z of all the IS. 
+## **Step1: Get the retention time of internal standards**
 
-In the `get_lipid_absolute_quantification()` function, you need to provide a table of IS in samples (is_info_name_pos and is_info_name_neg). And `which_group_for_rt_confirm` is used to control which group of samples for extracting EICs of ISs.
+The first step is to extract the extracted ion chromatogram (EIC) of all internal standards (IS) in samples and then get the retention times (RTs), adduct and m/z of all the internal standards. 
 
-For example, if you set `which_group_for_rt_confirm` as `D25`, then in the `D25` group, there will be a folder named as `Result/peak_shape`, it contains all the EICs for each IS. So you can manually check it and correct the wrong information of ISs in `IS_info_new.xlsx`. A example is like below figure shows:
+***
 
-```{r, echo=FALSE, eval=TRUE}
-htmltools::tags$iframe(
-  title = "Internal standard",
-  src = "../man/figures/15_0-18_1d7_PA_Na_Salt_M+H.html",
-  width = "100%",
-  height = "600",
-  scrolling = "no",
-  seamless = "seamless",
-  frameBorder = "0"
-)
-```
+## **Step 2: Get relative quantification data**
+
+In this step, we will get the relative quantification data of internal standards and lipids.
+
+***
+
+## **Step 3: Get absolute quantification data**
+
+In this step, we will get the absolute quantification data for lipids. The absolute quantification value for each lipid is calculated as:
+
+$$ AI_i = \frac{RI_{i}AI_j}{RI_j} $$
+
+Here, $AI_i$ is the absolute intensity of $i^{th}$ lipid. $RI_{i}$ is the relative intensity of $i^{th}$ lipid. $AI_i$ is the absolute intensity of $j^{th}$ internal standard. $RI_i$ is the absolute intensity of $j^{th}$ internal standard. 
+
+So for each lipid, we need a corresponding internal standard for absolute quantification. In our demo data, for each class of lipids, we usually use one or two internal standard for absolute quantification.
+
+***
+
+## **Step 4: Output and organize results**
+
+In this step, we output some result and organize them so make them easier for manually check. 

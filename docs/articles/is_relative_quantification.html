@@ -70,7 +70,7 @@
       <a href="../articles/lipidflow.html">Brief introduction of lipidflow</a>
     </li>
     <li>
-      <a href="../articles/absolute_quantification.html">Overview of workflow of lipidflow</a>
+      <a href="../articles/overview_of_lipidflow.html">Overview of workflow of lipidflow</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Absolute quantification of lipids</li>
@@ -88,7 +88,7 @@
     </li>
     <li class="divider">
     <li>
-      <a href="../articles/example_lipid_absolute_quantification.html">One function to all steps</a>
+      <a href="../articles/one_step_of_lipidflow.html">One function to all steps</a>
     </li>
     <li class="dropdown-header">Other tools in lipidflow</li>
     <li>
@@ -154,7 +154,7 @@
                         <h4 class="author">Xiaotao Shen PhD (<a href="https://www.shenxt.info/" class="uri">https://www.shenxt.info/</a>)</h4>
                                     <h4 class="author">Chuchu wang PhD</h4>
             <address class="author_afil">
-      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-02-28</h4>
+      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-03-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jaspershen/lipidflow/blob/master/vignettes/is_relative_quantification.Rmd"><code>vignettes/is_relative_quantification.Rmd</code></a></small>
       <div class="hidden name"><code>is_relative_quantification.Rmd</code></div>
@@ -165,13 +165,17 @@
     
     
 <hr>
-<p>This step is used to get the relative quantification data of internal standards and lipids in all samples. If you have not finished the previous step, please click here: <a href="">Get retention time of internal standards</a>.</p>
-<p>If you have finished this step: click here to next step: <a href="">Absolute quantification</a>.</p>
+<p>This step is used to get the relative quantification data of internal standards and lipids in all samples. If you have not finished the previous step, please click here:</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/get_is_retention_time.html">Get retention time of internal standards</a>.</p>
+<p>If you have finished this step, click here to next step:</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">Absolute quantification</a>.</p>
+<hr>
 <div id="get-relative-quantification" class="section level1">
 <h1 class="hasAnchor">
 <a href="#get-relative-quantification" class="anchor"></a><strong>Get relative quantification</strong>
 </h1>
-<p>We should have finished step 1. Then we combine the internal standard information from positive and negative mode.</p>
+<p>We should have finished <a href="https://jaspershen.github.io/lipidflow/articles/get_is_retention_time.html">step 1</a>. Then we combine the internal standard information from positive and negative mode.</p>
+<hr>
 <div id="combine-internal-standard-information-from-positive-and-negative-mode" class="section level2">
 <h2 class="hasAnchor">
 <a href="#combine-internal-standard-information-from-positive-and-negative-mode" class="anchor"></a><strong>Combine internal standard information from positive and negative mode</strong>
@@ -191,11 +195,28 @@
   <span class="va">is_info_table_new_pos</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">is_info_table_new_neg</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"rt_neg_second"</span>, <span class="st">"rt_neg_min"</span>, <span class="st">"adduct_neg"</span>, <span class="st">"mz_neg"</span><span class="op">)</span><span class="op">]</span>,
                    by <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></code></pre></div>
-<p>Then we output the <code>is_info_table_new</code> into the <code>example/Result</code> folder.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">is_info_table_new</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 6 x 13</span>
+<span class="co">#&gt;   name  exact.mass formula ug_ml    um rt_pos_second rt_pos_min adduct_pos</span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;     </span>
+<span class="co">#&gt; 1 15:0…       588. C36H61… 0.22  0.375         1147.       19.1 M+H-H2O   </span>
+<span class="co">#&gt; 2 15:0…       690. C36H61… 0.172 0.25           783.       13.0 M+H       </span>
+<span class="co">#&gt; 3 15:0…       753. C41H73… 1.88  2.5           1182.       19.7 M+H       </span>
+<span class="co">#&gt; 4 15:0…       711. C38H67… 0.125 0.175         1193.       19.9 M+H       </span>
+<span class="co">#&gt; 5 15:0…       764. C39H67… 0.095 0.125         1181.       19.7 M+H       </span>
+<span class="co">#&gt; 6 15:0…       847. C42H75… 0.422 0.5           1147.       19.1 M+H       </span>
+<span class="co">#&gt; # … with 5 more variables: mz_pos &lt;dbl&gt;, rt_neg_second &lt;dbl&gt;, rt_neg_min &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   adduct_neg &lt;chr&gt;, mz_neg &lt;dbl&gt;</span></code></pre></div>
+<p>Then we output the <code>is_info_table_new</code> into the <code>example/Result</code> folder.</p>
+<p>We first create a folder named as <code>Result</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="st">"example/Result"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="st">"example/Result"</span><span class="op">)</span>
 <span class="fu">openxlsx</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/write.xlsx.html">write.xlsx</a></span><span class="op">(</span><span class="va">is_info_table_new</span>,
                      file <span class="op">=</span> <span class="st">"example/Result/IS_info_table.xlsx"</span><span class="op">)</span></code></pre></div>
+<hr>
 </div>
 <div id="relative-quantification" class="section level2">
 <h2 class="hasAnchor">
@@ -205,24 +226,11 @@
 <h3 class="hasAnchor">
 <a href="#positive-mode" class="anchor"></a><strong>1. Positive mode</strong>
 </h3>
-<p>We need to get the sample information of samples.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pos_mzxml</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>
-  path <span class="op">=</span> <span class="st">"example/POS"</span>,
-  pattern <span class="op">=</span> <span class="st">"mzXML"</span>,
-  all.files <span class="op">=</span> <span class="cn">TRUE</span>,
-  recursive <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="va">sample_info_pos</span> <span class="op">=</span>
-  <span class="va">pos_mzxml</span> <span class="op">%&gt;%</span>
-  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"\\/"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">V1</span>, sample.name <span class="op">=</span> <span class="va">V2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sample.name</span>, <span class="va">group</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sample.name <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">sample.name</span>, <span class="st">"\\.mzXML"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>We need to get the sample information of samples first.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sample_info_pos</span> <span class="op">=</span>
+  <span class="fu"><a href="../reference/generate_sample_info.html">generate_sample_info</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"example/POS"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sample_info_pos</span><span class="op">)</span>
 <span class="co">#&gt;   sample.name group</span>
 <span class="co">#&gt; 1       D25_1   D25</span>
@@ -230,26 +238,27 @@
 <span class="co">#&gt; 3       M19_1   M19</span>
 <span class="co">#&gt; 4       M19_2   M19</span></code></pre></div>
 <p>Get the Cholesterol retention time:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">is_info_table_new</span><span class="op">$</span><span class="va">name</span> <span class="op">==</span> <span class="st">"Cholesterol"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">idx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">is_info_table_new</span><span class="op">$</span><span class="va">name</span> <span class="op">==</span> <span class="st">"Cholesterol"</span><span class="op">)</span>
   <span class="va">chol_rt2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">is_info_table_new</span><span class="op">$</span><span class="va">rt_pos_second</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span>,
                <span class="va">is_info_table_new</span><span class="op">$</span><span class="va">rt_neg_second</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span><span class="op">)</span>
   <span class="va">chol_rt2</span> <span class="op">=</span> <span class="va">chol_rt2</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">chol_rt2</span><span class="op">)</span><span class="op">]</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">chol_rt2</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">chol_rt2</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">chol_rt</span> <span class="op">=</span> <span class="va">chol_rt2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
   <span class="op">}</span>
 <span class="op">}</span> <span class="kw">else</span><span class="op">{</span>
   <span class="va">chol_rt</span> <span class="op">=</span> <span class="fl">1169</span>
 <span class="op">}</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">chol_rt</span> <span class="op">=</span> <span class="fl">1169</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">chol_rt</span>
+<span class="co">#&gt; [1] 1720.245</span></code></pre></div>
 <div id="internal-standards" class="section level4">
 <h4 class="hasAnchor">
 <a href="#internal-standards" class="anchor"></a><strong>Internal standards</strong>
 </h4>
 <p>Then run <code><a href="../reference/get_relative_quantification.html">get_relative_quantification()</a></code> for internal standards:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/get_relative_quantification.html">get_relative_quantification</a></span><span class="op">(</span>
   path <span class="op">=</span> <span class="st">"example/POS"</span>,
   output_path_name <span class="op">=</span> <span class="st">"is_relative_quantification"</span>,
@@ -268,18 +277,11 @@
   threads <span class="op">=</span> <span class="fl">5</span>,
   rerun <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; Reading raw data, it will take a while...</span>
-<span class="co">#&gt; Reading 18519 spectra from file D25_1.mzXML</span>
-<span class="co">#&gt; Reading 18473 spectra from file D25_2.mzXML</span>
-<span class="co">#&gt; Reading 18464 spectra from file M19_1.mzXML</span>
-<span class="co">#&gt; Reading 18381 spectra from file M19_2.mzXML</span>
-<span class="co">#&gt; ✓ OK</span>
-<span class="co">#&gt; Extracting peaks, it will take a while...✓ OK</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Output peak shapes...</span>
 <span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  </span>
 <span class="co">#&gt; Done</span></code></pre></div>
-<p>The meanings of all parameters:</p>
+<p>** The meanings of all parameters:**</p>
 <ol style="list-style-type: decimal">
 <li><p><code>path</code>: Work directory.</p></li>
 <li><p><code>output_path_name</code>: The folder name which you want to ouput result.</p></li>
@@ -295,10 +297,10 @@
 <li><p><code>threads</code>: Number of cores to run.</p></li>
 <li><p><code>rerun</code>: Rerun peak detction or not.</p></li>
 </ol>
-<p>Then all the results are outputted into a folder <code>example/POS/is_relative_quantification</code>. The relative quantification table is <code>is_quantification_table.xlsx</code> and all the peak shapes are in <code>peak_shape</code>.</p>
+<p>Then all the results are outputted into a folder named as <code>example/POS/is_relative_quantification</code>. The relative quantification table is <code>is_quantification_table.xlsx</code> and all the peak shapes are in <code>peak_shape</code>.</p>
 <p><code>is_quantification_table.xlsx</code> is:</p>
 <div class="figure">
-<img src="../man/figures/figure23.png" alt=""><p class="caption">"is_quantification_table.xlsx</p>
+<img src="../man/figures/figure23.png" alt=""><p class="caption">is_quantification_table.xlsx</p>
 </div>
 <p>One example of peak shape (15_0-18_1(d7) PC):</p>
 <p>Rectangle region means the integrate of peak region.</p>
@@ -309,7 +311,7 @@
 <a href="#lipids" class="anchor"></a><strong>Lipids</strong>
 </h4>
 <p>Then run <code><a href="../reference/get_relative_quantification.html">get_relative_quantification()</a></code> for lipids:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/get_relative_quantification.html">get_relative_quantification</a></span><span class="op">(</span>
   path <span class="op">=</span> <span class="st">"example/POS"</span>,
   output_path_name <span class="op">=</span> <span class="st">"lipid_relative_quantification"</span>,
@@ -328,13 +330,6 @@
   threads <span class="op">=</span> <span class="fl">5</span>,
   rerun <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; Reading raw data, it will take a while...</span>
-<span class="co">#&gt; Reading 18519 spectra from file D25_1.mzXML</span>
-<span class="co">#&gt; Reading 18473 spectra from file D25_2.mzXML</span>
-<span class="co">#&gt; Reading 18464 spectra from file M19_1.mzXML</span>
-<span class="co">#&gt; Reading 18381 spectra from file M19_2.mzXML</span>
-<span class="co">#&gt; ✓ OK</span>
-<span class="co">#&gt; Extracting peaks, it will take a while...✓ OK</span>
 <span class="co">#&gt; Error in nlsModel(formula, mf, start, wts) : </span>
 <span class="co">#&gt;   singular gradient matrix at initial parameter estimates</span>
 <span class="co">#&gt; Error in nlsModel(formula, mf, start, wts) : </span>
@@ -365,27 +360,14 @@
 <a href="#negative-mode" class="anchor"></a><strong>2. Negative mode</strong>
 </h3>
 <p>Negative mode is same with positive mode.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">neg_mzxml</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>
-  path <span class="op">=</span> <span class="st">"example/NEG"</span>,
-  pattern <span class="op">=</span> <span class="st">"mzXML"</span>,
-  all.files <span class="op">=</span> <span class="cn">TRUE</span>,
-  recursive <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="va">sample_info_neg</span> <span class="op">=</span>
-  <span class="va">neg_mzxml</span> <span class="op">%&gt;%</span>
-  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"\\/"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">V1</span>, sample.name <span class="op">=</span> <span class="va">V2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sample.name</span>, <span class="va">group</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sample.name <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">sample.name</span>, <span class="st">"\\.mzXML"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sample_info_neg</span> <span class="op">=</span>
+  <span class="fu"><a href="../reference/generate_sample_info.html">generate_sample_info</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"example/NEG"</span><span class="op">)</span></code></pre></div>
 <div id="internal-standards-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#internal-standards-1" class="anchor"></a><strong>Internal standards</strong>
 </h4>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/get_relative_quantification.html">get_relative_quantification</a></span><span class="op">(</span>
   path <span class="op">=</span> <span class="st">"example/NEG"</span>,
   output_path_name <span class="op">=</span> <span class="st">"is_relative_quantification"</span>,
@@ -404,13 +386,6 @@
   threads <span class="op">=</span> <span class="fl">5</span>,
   rerun <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; Reading raw data, it will take a while...</span>
-<span class="co">#&gt; Reading 15433 spectra from file D25_1.mzXML</span>
-<span class="co">#&gt; Reading 15080 spectra from file D25_2.mzXML</span>
-<span class="co">#&gt; Reading 15155 spectra from file M19_1.mzXML</span>
-<span class="co">#&gt; Reading 15060 spectra from file M19_2.mzXML</span>
-<span class="co">#&gt; ✓ OK</span>
-<span class="co">#&gt; Extracting peaks, it will take a while...✓ OK</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Output peak shapes...</span>
 <span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  </span>
@@ -421,7 +396,7 @@
 <a href="#lipids-1" class="anchor"></a><strong>Lipids</strong>
 </h4>
 <p>Then run <code><a href="../reference/get_relative_quantification.html">get_relative_quantification()</a></code> for lipids:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/get_relative_quantification.html">get_relative_quantification</a></span><span class="op">(</span>
   path <span class="op">=</span> <span class="st">"example/NEG"</span>,
   output_path_name <span class="op">=</span> <span class="st">"lipid_relative_quantification"</span>,
@@ -440,17 +415,11 @@
   threads <span class="op">=</span> <span class="fl">5</span>,
   rerun <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; Reading raw data, it will take a while...</span>
-<span class="co">#&gt; Reading 15433 spectra from file D25_1.mzXML</span>
-<span class="co">#&gt; Reading 15080 spectra from file D25_2.mzXML</span>
-<span class="co">#&gt; Reading 15155 spectra from file M19_1.mzXML</span>
-<span class="co">#&gt; Reading 15060 spectra from file M19_2.mzXML</span>
-<span class="co">#&gt; ✓ OK</span>
-<span class="co">#&gt; Extracting peaks, it will take a while...✓ OK</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Output peak shapes...</span>
 <span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  </span>
 <span class="co">#&gt; Done</span></code></pre></div>
+<hr>
 </div>
 </div>
 </div>
@@ -458,7 +427,9 @@
 <h2 class="hasAnchor">
 <a href="#next-step" class="anchor"></a><strong>Next step</strong>
 </h2>
-<p>Next we need to get the relative quantification data of all lipids in all sample. Please click here: <a href="https://jaspershen.github.io/lipidflow/articles/lipids_relative_quantification.html">Get relative quantification data of lipids</a></p>
+<p>Next we need to get the absolute quantification data of all lipids in all sample.</p>
+<p>Please click here:</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">Get absolute quantification data</a></p>
 </div>
 </div>
   </div>

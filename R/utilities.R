@@ -1,3 +1,32 @@
+#' @title generate_sample_info
+#' @description cal_abs
+#' @author Xiaotao Shen
+#' @param path path
+#' @importFrom magrittr %>%
+#' @importFrom openxlsx write.xlsx
+#' @importFrom readxl read_xlsx
+#' @importFrom readr read_csv
+#' @export
+generate_sample_info = function(path = ".") {
+  mzxml = list.files(
+    path = path,
+    pattern = "mzXML",
+    all.files = TRUE,
+    recursive = TRUE
+  )
+  
+  sample_info =
+    mzxml %>%
+    stringr::str_split(pattern = "\\/") %>%
+    do.call(rbind, .) %>%
+    as.data.frame() %>%
+    dplyr::rename(group = V1, sample.name = V2) %>%
+    dplyr::select(sample.name, group) %>%
+    dplyr::mutate(sample.name = stringr::str_replace(sample.name, "\\.mzXML", ""))
+  sample_info
+}
+
+
 #' @title cal_abs
 #' @description cal_abs
 #' @author Xiaotao Shen

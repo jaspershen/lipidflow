@@ -68,7 +68,9 @@ globalVariables(
     "lipid_raw_name",
     "rentention_time",
     "FattyAcid",
-    "IonFormula"
+    "IonFormula",
+    "sample.name",
+    "group"
   )
 )
 

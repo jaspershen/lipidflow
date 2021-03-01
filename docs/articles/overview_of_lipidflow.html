@@ -70,7 +70,7 @@
       <a href="../articles/lipidflow.html">Brief introduction of lipidflow</a>
     </li>
     <li>
-      <a href="../articles/absolute_quantification.html">Overview of workflow of lipidflow</a>
+      <a href="../articles/overview_of_lipidflow.html">Overview of workflow of lipidflow</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Absolute quantification of lipids</li>
@@ -88,7 +88,7 @@
     </li>
     <li class="divider">
     <li>
-      <a href="../articles/example_lipid_absolute_quantification.html">One function to all steps</a>
+      <a href="../articles/one_step_of_lipidflow.html">One function to all steps</a>
     </li>
     <li class="dropdown-header">Other tools in lipidflow</li>
     <li>
@@ -154,7 +154,7 @@
                         <h4 class="author">Xiaotao Shen PhD (<a href="https://www.shenxt.info/" class="uri">https://www.shenxt.info/</a>)</h4>
                                     <h4 class="author">Chuchu wang PhD</h4>
             <address class="author_afil">
-      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-02-28</h4>
+      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-03-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jaspershen/lipidflow/blob/master/vignettes/overview_of_lipidflow.Rmd"><code>vignettes/overview_of_lipidflow.Rmd</code></a></small>
       <div class="hidden name"><code>overview_of_lipidflow.Rmd</code></div>
@@ -169,19 +169,21 @@
 <h1 class="hasAnchor">
 <a href="#data-organization" class="anchor"></a><strong>Data organization</strong>
 </h1>
+<hr>
 <div id="convert-raw-data-to-mzxml-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#convert-raw-data-to-mzxml-data" class="anchor"></a><strong>Convert raw data to mzXML data</strong>
 </h2>
 <p>The raw lipidomics data should be transferred to mzXML format files using <a href="http://proteowizard.sourceforge.net/">ProteoWizard software</a>. The parameter setting should be set as below figure shows:</p>
 <p><img src="../man/figures/msconventor.png"></p>
+<hr>
 </div>
 <div id="place-mzxml-data-into-a-folder" class="section level2">
 <h2 class="hasAnchor">
 <a href="#place-mzxml-data-into-a-folder" class="anchor"></a><strong>Place mzXML data into a folder</strong>
 </h2>
 <p>Then create a folder, and create “POS” and “NEG” folders in it, then put all the mzMXL data into the folders according to groups like the below figure shows:</p>
-<p><img src="../man/figures/2021_02_09_10.14.13_PM.png"></p>
+<p><img src="../man/figures/2021_02_09_10.14.13_PM.png"> ***</p>
 </div>
 <div id="internal-standard-information" class="section level2">
 <h2 class="hasAnchor">
@@ -189,7 +191,8 @@
 </h2>
 <p>To do absolute quantification, we need to provide the information of internal standard in the samples. The data should be “xlsx” format, and like the below figures shows:</p>
 <p><img src="../man/figures/2021_02_09_10.19.33_PM.png"> The first column is “name” (name of internal standards), the second column is “exact.mass” (exact mass of internal standards), the third column is “formula”, the fourth column is “ug_ml” and the fifth column is “um”.</p>
-<p>And then put the internal standard information in “POS” and “NEG” folder respectively.</p>
+<p>And then put the internal standard information in “POS” and “NEG” folders, respectively.</p>
+<hr>
 </div>
 <div id="lipid-identification-information" class="section level2">
 <h2 class="hasAnchor">
@@ -198,72 +201,53 @@
 <p>The lipid identification table can be from any other software, for example, here we use the <code>lipidSearch</code> software from <a href="https://www.thermofisher.com/order/catalog/product/IQLAAEGABSFAPCMBFK?us&amp;en#/IQLAAEGABSFAPCMBFK?us&amp;en">Thermo</a>, and then put the lipid identification table (xlsx format) for positive and negative mode in “POS” and “NEG” folder respectively.</p>
 <p>The lipid identification table from <code>lipidSearch</code> is like the below figure shows:</p>
 <p><img src="../man/figures/2021_02_09_10.24.17_PM.png"></p>
+<hr>
 </div>
 </div>
-<div id="run-get_lipid_absolute_quantification" class="section level1">
+<div id="steps-to-get-absolute-quantification-data-of-lipids" class="section level1">
 <h1 class="hasAnchor">
-<a href="#run-get_lipid_absolute_quantification" class="anchor"></a><strong>Run <code>get_lipid_absolute_quantification()</code></strong>
+<a href="#steps-to-get-absolute-quantification-data-of-lipids" class="anchor"></a><strong>Steps to get absolute quantification data of lipids</strong>
 </h1>
-<p>Then we can run <code><a href="../reference/get_lipid_absolute_quantification.html">get_lipid_absolute_quantification()</a></code> function to get the absolute quantification table of lipids.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/get_lipid_absolute_quantification.html">get_lipid_absolute_quantification</a></span><span class="op">(</span>
-  path <span class="op">=</span> <span class="va">path</span>,
-  is_info_name_pos <span class="op">=</span> <span class="va">is_info_name_pos</span>,
-  is_info_name_neg <span class="op">=</span> <span class="va">is_info_name_neg</span>,
-  use_manual_is_info <span class="op">=</span> <span class="va">use_manual_is_info</span>,
-  lipid_annotation_table_pos <span class="op">=</span> <span class="va">lipid_annotation_table_pos</span>,
-  lipid_annotation_table_neg <span class="op">=</span> <span class="va">lipid_annotation_table_neg</span>,
-  chol_rt <span class="op">=</span> <span class="va">chol_rt</span>,
-  output_integrate <span class="op">=</span> <span class="va">output_integrate</span>,
-  forced_targeted_peak_table_name <span class="op">=</span> <span class="va">forced_targeted_peak_table_name</span>,
-  fit.gaussian <span class="op">=</span> <span class="va">fit.gaussian</span>,
-  integrate_xcms <span class="op">=</span> <span class="va">integrate_xcms</span>,
-  output_eic <span class="op">=</span> <span class="va">output_eic</span>,
-  ppm <span class="op">=</span> <span class="va">ppm</span>,
-  rt.tolerance <span class="op">=</span> <span class="va">rt.tolerance</span>,
-  threads <span class="op">=</span> <span class="va">threads</span>,
-  rerun <span class="op">=</span> <span class="va">rerun</span>,
-  which_group_for_rt_confirm <span class="op">=</span> <span class="va">which_group_for_rt_confirm</span>,
-  match_item_pos <span class="op">=</span> <span class="va">match_item_pos</span>,
-  match_item_neg <span class="op">=</span> <span class="va">match_item_neg</span>
-<span class="op">)</span></code></pre></div>
-<p>All the parameters:</p>
-<ul>
-<li><p><strong>path</strong>: working directory.</p></li>
-<li><p><strong>is_info_name_pos &amp; is_info_name_neg</strong>: the names of internal standard information (xlsx format), they should be in “POS” and “NEG” folders, respectively.</p></li>
-<li><p><strong>use_manual_is_info</strong>: If you have know the adduct and retention time of the internal standards, you can put them in the internal standard information and then set this as TRUE. The example of <code>use_manual_is_info</code> (xlsx format) is like below figure shows:</p></li>
-</ul>
-<p><img src="../man/figures/2021_02_09_10.34.21_PM.png"></p>
-<ul>
-<li><p><strong>lipid_annotation_table_pos &amp; lipid_annotation_table_neg</strong>: lipid identification tables from other software (xlsx format), they should be in “POS” and “NEG” folder, respectively.</p></li>
-<li><p><strong>output_eic</strong>: Output EIC or not.</p></li>
-<li><p><strong>ppm</strong>: Peak detection ppm.</p></li>
-<li><p><strong>rt.tolerance</strong>: Peak detection RT tolerance.</p></li>
-<li><p><strong>threads</strong>: Number of cores.</p></li>
-<li><p><strong>rerun</strong>: Rerun or not.</p></li>
-<li><p><strong>which_group_for_rt_confirm</strong>: From which group to find the retention times of all the internal standards.</p></li>
-<li><p><strong>match_item_pos &amp; match_item_neg</strong>: The lipid group and internal standard matching table. It is a list. For example:</p></li>
-</ul>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    <span class="st">"Cer"</span> <span class="op">=</span> <span class="st">"d18:1 (d7)-15:0 Cer"</span>,
-    <span class="st">"ChE"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"18:1(d7) Chol Ester"</span>, <span class="st">"Cholesterol (d7)"</span><span class="op">)</span>,
-    <span class="st">"Chol"</span> <span class="op">=</span> <span class="st">"Cholesterol (d7)"</span>,
-    <span class="st">"DG"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) DAG"</span>,
-    <span class="st">"LPC"</span> <span class="op">=</span> <span class="st">"18:1(d7) Lyso PC"</span>,
-    <span class="st">"LPE"</span> <span class="op">=</span> <span class="st">"18:1(d7) Lyso PE"</span>,
-    <span class="st">"MG"</span> <span class="op">=</span> <span class="st">"18:1 (d7) MG"</span>,
-    <span class="st">"PA"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PA (Na Salt)"</span>,
-    <span class="st">"PC"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PC"</span>,
-    <span class="st">"PE"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PE"</span>,
-    <span class="st">"PG"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PG (Na Salt)"</span>,
-    <span class="st">"PI"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PI (NH4 Salt)"</span>,
-    <span class="st">"PPE"</span> <span class="op">=</span> <span class="st">"C18(Plasm)-18:1(d9) PE"</span>,
-    <span class="st">"PS"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7) PS (Na Salt)"</span>,
-    <span class="st">"SM"</span> <span class="op">=</span> <span class="st">"d18:1-18:1(d9) SM"</span>,
-    <span class="st">"TG"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7)-15:0 TAG"</span>
-  <span class="op">)</span></code></pre></div>
-<p>Next we will use the demo data in <code>lipidflow</code> to show the all the steps of <code>lipidflow</code>, please click here: <a href="https://jaspershen.github.io/lipidflow/articles/example_lipid_absolute_quantification.html">example of lipidflow</a></p>
+<hr>
+<div id="step-1-get-retention-time-of-internal-standards" class="section level2">
+<h2 class="hasAnchor">
+<a href="#step-1-get-retention-time-of-internal-standards" class="anchor"></a><strong>Step 1: Get retention time of internal standards</strong>
+</h2>
+<p>The step 1 is to get the retention time of internal standards.</p>
+<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/get_is_retention_time.html">here</a>.</p>
+<hr>
+</div>
+<div id="step-2-get-relative-quantification-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#step-2-get-relative-quantification-data" class="anchor"></a><strong>Step 2: Get relative quantification data</strong>
+</h2>
+<p>The step 2 is to get the relative quantification data of internal standards and lipids.</p>
+<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html">here</a>.</p>
+<hr>
+</div>
+<div id="step-3-get-absolute-quantification-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#step-3-get-absolute-quantification-data" class="anchor"></a><strong>Step 3: Get absolute quantification data</strong>
+</h2>
+<p>The step 3 is to get the absolute quantification data of internal standards and lipids.</p>
+<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">here</a>.</p>
+<hr>
+</div>
+<div id="step-4-output-and-organize-results" class="section level2">
+<h2 class="hasAnchor">
+<a href="#step-4-output-and-organize-results" class="anchor"></a><strong>Step 4: Output and organize results</strong>
+</h2>
+<p>The step 4 is to output and organize results.</p>
+<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">here</a>.</p>
+<hr>
+</div>
+</div>
+<div id="one-function-to-finish-all-steps" class="section level1">
+<h1 class="hasAnchor">
+<a href="#one-function-to-finish-all-steps" class="anchor"></a><strong>One function to finish all steps</strong>
+</h1>
+<p>We can also use one function (<code><a href="../reference/get_lipid_absolute_quantification.html">get_lipid_absolute_quantification()</a></code>) to finish all previous steps.</p>
+<p>Please click <a href="https://jaspershen.github.io/lipidflow/articles/one_step_of_lipidflow.html">here to learn how to use</a>.</p>
 </div>
   </div>
 

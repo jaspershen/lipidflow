@@ -30,9 +30,13 @@ knitr::opts_chunk$set(
 
 ***
 
-Then we need to output and organize some results. If you have not finished the previous step, please click here: [Get absolute quantification data](). 
+Then we need to output and organize some results. If you have not finished the previous step, please click here: 
 
-# **Output and organize results**
+[Get absolute quantification data](https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html). 
+
+***
+
+# **Organize results**
 
 Here we first organize the plots of lipids to different groups according to lipid class.
 
@@ -41,6 +45,8 @@ library(lipidflow)
 library(tidyverse)
 library(openxlsx)
 ```
+
+***
 
 ## **Positive mode**
 
@@ -68,8 +74,7 @@ match_item_pos =
 
 We want to organize the peak shape of lipids in `example/POS/lipid_relative_quantification/peak_shape` to different folders according to lipid class.
 
-
-!["Before organization"](../man/figures/figure25.png)
+![Before organization](../man/figures/figure25.png)
 
 ```{r, eval=TRUE, warning=FALSE, message=FALSE, cache=TRUE}
 absolute_table <-
@@ -85,7 +90,9 @@ reorganize_peak_plot(
 
 After the organization, the folder like this:
 
-!["After organization"](../man/figures/figure26.png)
+![After organization](../man/figures/figure26.png)
+
+***
 
 ## **Negative mode**
 
@@ -115,75 +122,83 @@ reorganize_peak_plot(
   match_item = match_item_neg
 )
 ```
+***
 
-## **Output some results**
+# **Output some results**
 
 ```{r, eval=TRUE, warning=FALSE, message=FALSE, cache=TRUE}
 output_result(path = "example",
               match_item_pos = match_item_pos,
               match_item_neg = match_item_neg)
 ```
+***
 
-
-## **The final results**
+# **The final results**
 
 Finally, all the results are in `example/Result`. 
 
-!["Final results"](../man/figures/figure27.png)
+![Final results](../man/figures/figure27.png)
+***
 
-![](../man/figures/figure8.png)
-
-1. `IS_info_table.xlsx`
+## **1. `IS_info_table.xlsx`**
 
 This table is the information of internal standards in positive and negative mode, respectively.
 
 ![](../man/figures/figure7.png)
+***
 
-2. `lipid_data_class_ug_ml.xlsx`
+## **2. `lipid_data_class_ug_ml.xlsx`**
 
 This table is the absolute quantification table for each sample in lipid class level (ug/ml).  
 
 ![](../man/figures/figure9.png)
+***
 
-3. `lipid_data_class_um_per.xlsx`
+## **3. `lipid_data_class_um_per.xlsx`**
 
 This table is the absolute quantification table for each sample in lipid class level (um), and the values were calculated as value/sum(values).
 
 ![](../man/figures/figure10.png)
+***
 
-4. `lipid_data_class_um.xlsx`
+## **4. `lipid_data_class_um.xlsx`**
 
 This table is the absolute quantification table for each sample in lipid class level (um).  
 
 ![](../man/figures/figure11.png)
+***
 
-5. `lipid_data_ug_ml.xlsx`
+## **5. `lipid_data_ug_ml.xlsx`**
 
 This is the absolute quantification for each lipid in each sample. The unit is ug/ml. 
 
 ![](../man/figures/figure12.png)
+***
 
-6. `lipid_data_um_per.xlsx`
+## **6. `lipid_data_um_per.xlsx`**
 
 This is the absolute quantification for each lipid in each sample. The unit is ug/ml. And the values were calculated as value/sum(values).
 
 ![](../man/figures/figure13.png)
+***
 
-7. `lipid_data_um.xlsx`
+## **7. `lipid_data_um.xlsx`**
 
 This is the absolute quantification for each lipid in each sample. The unit is um. 
 
 ![](../man/figures/figure14.png)
+***
 
-8. `plot_ug.pdf` and `plot_um.pdf`
+## **8. `plot_ug.pdf` and `plot_um.pdf`**
 
 These two figures are percentage for each lipid class in each sample in ug/ml and um level.
 
 ![plot_ug.pdf](../man/figures/figure15.png)
 
 ![plot_um.pdf](../man/figures/figure16.png)
+***
 
-9. `class_plot`
+## **9. `class_plot`**
 
 This folder contains the intensity plot in class level fro each lipid class.
 
@@ -191,7 +206,9 @@ One example is like below figure shows:
 
 ![](../man/figures/figure19.png)
 
-11. `intensity_plot`
+***
+
+## **10. `intensity_plot`**
 
 This folder contains the intensity plot for each lipid.
 
@@ -200,7 +217,10 @@ This folder contains the intensity plot for each lipid.
 This is an example: the top panel is the relative intensity plot for the internal standard. The middle panel is the relative intensity plot for this lipid, and the bottom panel is the absolute intensity plot for this lipid.
 
 ![](../man/figures/figure21.png)
+***
 
 ## **Next step**
 
-Next we need to output some results (plots). Please click here: [Output results](https://jaspershen.github.io/lipidflow/articles/output_result.html)
+Next we need to check the results and rerun to get more accurate results:
+
+[Output results](https://jaspershen.github.io/lipidflow/articles/output_result.html)

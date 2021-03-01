@@ -70,7 +70,7 @@
       <a href="../articles/lipidflow.html">Brief introduction of lipidflow</a>
     </li>
     <li>
-      <a href="../articles/absolute_quantification.html">Overview of workflow of lipidflow</a>
+      <a href="../articles/overview_of_lipidflow.html">Overview of workflow of lipidflow</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Absolute quantification of lipids</li>
@@ -88,7 +88,7 @@
     </li>
     <li class="divider">
     <li>
-      <a href="../articles/example_lipid_absolute_quantification.html">One function to all steps</a>
+      <a href="../articles/one_step_of_lipidflow.html">One function to all steps</a>
     </li>
     <li class="dropdown-header">Other tools in lipidflow</li>
     <li>
@@ -154,7 +154,7 @@
                         <h4 class="author">Xiaotao Shen PhD (<a href="https://www.shenxt.info/" class="uri">https://www.shenxt.info/</a>)</h4>
                                     <h4 class="author">Chuchu wang PhD</h4>
             <address class="author_afil">
-      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-02-28</h4>
+      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-03-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jaspershen/lipidflow/blob/master/vignettes/output_result.Rmd"><code>vignettes/output_result.Rmd</code></a></small>
       <div class="hidden name"><code>output_result.Rmd</code></div>
@@ -165,16 +165,19 @@
     
     
 <hr>
-<p>Then we need to output and organize some results. If you have not finished the previous step, please click here: <a href="">Get absolute quantification data</a>.</p>
-<div id="output-and-organize-results" class="section level1">
+<p>Then we need to output and organize some results. If you have not finished the previous step, please click here:</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">Get absolute quantification data</a>.</p>
+<hr>
+<div id="organize-results" class="section level1">
 <h1 class="hasAnchor">
-<a href="#output-and-organize-results" class="anchor"></a><strong>Output and organize results</strong>
+<a href="#organize-results" class="anchor"></a><strong>Organize results</strong>
 </h1>
 <p>Here we first organize the plots of lipids to different groups according to lipid class.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jaspershen/lipidflow">lipidflow</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ycphs.github.io/openxlsx/index.html">openxlsx</a></span><span class="op">)</span></code></pre></div>
+<hr>
 <div id="positive-mode" class="section level2">
 <h2 class="hasAnchor">
 <a href="#positive-mode" class="anchor"></a><strong>Positive mode</strong>
@@ -201,7 +204,7 @@
   <span class="op">)</span></code></pre></div>
 <p>We want to organize the peak shape of lipids in <code>example/POS/lipid_relative_quantification/peak_shape</code> to different folders according to lipid class.</p>
 <div class="figure">
-<img src="../man/figures/figure25.png" alt=""><p class="caption">“Before organization”</p>
+<img src="../man/figures/figure25.png" alt=""><p class="caption">Before organization</p>
 </div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">absolute_table</span> <span class="op">&lt;-</span>
@@ -216,8 +219,9 @@
 <span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16</span></code></pre></div>
 <p>After the organization, the folder like this:</p>
 <div class="figure">
-<img src="../man/figures/figure26.png" alt=""><p class="caption">“After organization”</p>
+<img src="../man/figures/figure26.png" alt=""><p class="caption">After organization</p>
 </div>
+<hr>
 </div>
 <div id="negative-mode" class="section level2">
 <h2 class="hasAnchor">
@@ -247,11 +251,13 @@
   match_item <span class="op">=</span> <span class="va">match_item_neg</span>
 <span class="op">)</span>
 <span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12</span></code></pre></div>
+<hr>
 </div>
-<div id="output-some-results" class="section level2">
-<h2 class="hasAnchor">
+</div>
+<div id="output-some-results" class="section level1">
+<h1 class="hasAnchor">
 <a href="#output-some-results" class="anchor"></a><strong>Output some results</strong>
-</h2>
+</h1>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/output_result.html">output_result</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"example"</span>,
               match_item_pos <span class="op">=</span> <span class="va">match_item_pos</span>,
@@ -296,93 +302,97 @@
 <span class="co">#&gt; 15</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Done.</span></code></pre></div>
+<hr>
 </div>
-<div id="the-final-results" class="section level2">
-<h2 class="hasAnchor">
+<div id="the-final-results" class="section level1">
+<h1 class="hasAnchor">
 <a href="#the-final-results" class="anchor"></a><strong>The final results</strong>
-</h2>
+</h1>
 <p>Finally, all the results are in <code>example/Result</code>.</p>
-<div class="figure">
-<img src="../man/figures/figure27.png" alt=""><p class="caption">“Final results”</p>
-</div>
-<p><img src="../man/figures/figure8.png"></p>
-<ol style="list-style-type: decimal">
-<li><code>IS_info_table.xlsx</code></li>
-</ol>
+<p><img src="../man/figures/figure27.png" alt="Final results"> ***</p>
+<div id="is_info_table-xlsx" class="section level2">
+<h2 class="hasAnchor">
+<a href="#is_info_table-xlsx" class="anchor"></a><strong>1. <code>IS_info_table.xlsx</code></strong>
+</h2>
 <p>This table is the information of internal standards in positive and negative mode, respectively.</p>
-<p><img src="../man/figures/figure7.png"></p>
-<ol start="2" style="list-style-type: decimal">
-<li><code>lipid_data_class_ug_ml.xlsx</code></li>
-</ol>
+<p><img src="../man/figures/figure7.png"> ***</p>
+</div>
+<div id="lipid_data_class_ug_ml-xlsx" class="section level2">
+<h2 class="hasAnchor">
+<a href="#lipid_data_class_ug_ml-xlsx" class="anchor"></a><strong>2. <code>lipid_data_class_ug_ml.xlsx</code></strong>
+</h2>
 <p>This table is the absolute quantification table for each sample in lipid class level (ug/ml).</p>
-<p><img src="../man/figures/figure9.png"></p>
-<ol start="3" style="list-style-type: decimal">
-<li><code>lipid_data_class_um_per.xlsx</code></li>
-</ol>
+<p><img src="../man/figures/figure9.png"> ***</p>
+</div>
+<div id="lipid_data_class_um_per-xlsx" class="section level2">
+<h2 class="hasAnchor">
+<a href="#lipid_data_class_um_per-xlsx" class="anchor"></a><strong>3. <code>lipid_data_class_um_per.xlsx</code></strong>
+</h2>
 <p>This table is the absolute quantification table for each sample in lipid class level (um), and the values were calculated as value/sum(values).</p>
-<p><img src="../man/figures/figure10.png"></p>
-<ol start="4" style="list-style-type: decimal">
-<li><code>lipid_data_class_um.xlsx</code></li>
-</ol>
+<p><img src="../man/figures/figure10.png"> ***</p>
+</div>
+<div id="lipid_data_class_um-xlsx" class="section level2">
+<h2 class="hasAnchor">
+<a href="#lipid_data_class_um-xlsx" class="anchor"></a><strong>4. <code>lipid_data_class_um.xlsx</code></strong>
+</h2>
 <p>This table is the absolute quantification table for each sample in lipid class level (um).</p>
-<p><img src="../man/figures/figure11.png"></p>
-<ol start="5" style="list-style-type: decimal">
-<li><code>lipid_data_ug_ml.xlsx</code></li>
-</ol>
+<p><img src="../man/figures/figure11.png"> ***</p>
+</div>
+<div id="lipid_data_ug_ml-xlsx" class="section level2">
+<h2 class="hasAnchor">
+<a href="#lipid_data_ug_ml-xlsx" class="anchor"></a><strong>5. <code>lipid_data_ug_ml.xlsx</code></strong>
+</h2>
 <p>This is the absolute quantification for each lipid in each sample. The unit is ug/ml.</p>
-<p><img src="../man/figures/figure12.png"></p>
-<ol start="6" style="list-style-type: decimal">
-<li><code>lipid_data_um_per.xlsx</code></li>
-</ol>
+<p><img src="../man/figures/figure12.png"> ***</p>
+</div>
+<div id="lipid_data_um_per-xlsx" class="section level2">
+<h2 class="hasAnchor">
+<a href="#lipid_data_um_per-xlsx" class="anchor"></a><strong>6. <code>lipid_data_um_per.xlsx</code></strong>
+</h2>
 <p>This is the absolute quantification for each lipid in each sample. The unit is ug/ml. And the values were calculated as value/sum(values).</p>
-<p><img src="../man/figures/figure13.png"></p>
-<ol start="7" style="list-style-type: decimal">
-<li><code>lipid_data_um.xlsx</code></li>
-</ol>
+<p><img src="../man/figures/figure13.png"> ***</p>
+</div>
+<div id="lipid_data_um-xlsx" class="section level2">
+<h2 class="hasAnchor">
+<a href="#lipid_data_um-xlsx" class="anchor"></a><strong>7. <code>lipid_data_um.xlsx</code></strong>
+</h2>
 <p>This is the absolute quantification for each lipid in each sample. The unit is um.</p>
-<p><img src="../man/figures/figure14.png"></p>
-<ol start="8" style="list-style-type: decimal">
-<li>
-<code>plot_ug.pdf</code> and <code>plot_um.pdf</code>
-</li>
-</ol>
+<p><img src="../man/figures/figure14.png"> ***</p>
+</div>
+<div id="plot_ug-pdf-and-plot_um-pdf" class="section level2">
+<h2 class="hasAnchor">
+<a href="#plot_ug-pdf-and-plot_um-pdf" class="anchor"></a><strong>8. <code>plot_ug.pdf</code> and <code>plot_um.pdf</code></strong>
+</h2>
 <p>These two figures are percentage for each lipid class in each sample in ug/ml and um level.</p>
 <div class="figure">
 <img src="../man/figures/figure15.png" alt=""><p class="caption">plot_ug.pdf</p>
 </div>
-<div class="figure">
-<img src="../man/figures/figure16.png" alt=""><p class="caption">plot_um.pdf</p>
+<p><img src="../man/figures/figure16.png" alt="plot_um.pdf"> ***</p>
 </div>
-<ol start="9" style="list-style-type: decimal">
-<li><code>class_plot</code></li>
-</ol>
+<div id="class_plot" class="section level2">
+<h2 class="hasAnchor">
+<a href="#class_plot" class="anchor"></a><strong>9. <code>class_plot</code></strong>
+</h2>
 <p>This folder contains the intensity plot in class level fro each lipid class.</p>
 <p>One example is like below figure shows:</p>
 <p><img src="../man/figures/figure19.png"></p>
-<ol start="11" style="list-style-type: decimal">
-<li><code>intensity_plot</code></li>
-</ol>
+<hr>
+</div>
+<div id="intensity_plot" class="section level2">
+<h2 class="hasAnchor">
+<a href="#intensity_plot" class="anchor"></a><strong>10. <code>intensity_plot</code></strong>
+</h2>
 <p>This folder contains the intensity plot for each lipid.</p>
 <p><img src="../man/figures/figure20.png"></p>
 <p>This is an example: the top panel is the relative intensity plot for the internal standard. The middle panel is the relative intensity plot for this lipid, and the bottom panel is the absolute intensity plot for this lipid.</p>
-<p><img src="../man/figures/figure21.png"></p>
-</div>
-</div>
-<div id="manually-check-result" class="section level1">
-<h1 class="hasAnchor">
-<a href="#manually-check-result" class="anchor"></a><strong>Manually check result</strong>
-</h1>
-<p>Sometimes, the results are not good, so we need to manually check the results from <code>lipidflow</code> and then correct the result, and then correct the information and then rerun <code><a href="../reference/get_lipid_absolute_quantification.html">get_lipid_absolute_quantification()</a></code> function.</p>
-<div id="information-of-internal-standards" class="section level2">
-<h2 class="hasAnchor">
-<a href="#information-of-internal-standards" class="anchor"></a><strong>Information of internal standards</strong>
-</h2>
+<p><img src="../man/figures/figure21.png"> ***</p>
 </div>
 <div id="next-step" class="section level2">
 <h2 class="hasAnchor">
 <a href="#next-step" class="anchor"></a><strong>Next step</strong>
 </h2>
-<p>Next we need to output some results (plots). Please click here: <a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Output results</a></p>
+<p>Next we need to check the results and rerun to get more accurate results:</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Output results</a></p>
 </div>
 </div>
   </div>

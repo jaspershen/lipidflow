@@ -286,7 +286,7 @@ get_lipid_absolute_quantification <-
       idx = which(is_info_table_new$name == "Cholesterol")
       chol_rt2 = c(is_info_table_new$rt_pos_second[idx], is_info_table_new$rt_neg_second[idx])
       chol_rt2 = chol_rt2[!is.na(chol_rt2)]
-      if(length(chol_rt2) > 1){
+      if(length(chol_rt2) > 0){
         chol_rt = chol_rt2[1]
       }
     }

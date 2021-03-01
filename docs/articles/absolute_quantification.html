@@ -70,7 +70,7 @@
       <a href="../articles/lipidflow.html">Brief introduction of lipidflow</a>
     </li>
     <li>
-      <a href="../articles/absolute_quantification.html">Overview of workflow of lipidflow</a>
+      <a href="../articles/overview_of_lipidflow.html">Overview of workflow of lipidflow</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Absolute quantification of lipids</li>
@@ -88,7 +88,7 @@
     </li>
     <li class="divider">
     <li>
-      <a href="../articles/example_lipid_absolute_quantification.html">One function to all steps</a>
+      <a href="../articles/one_step_of_lipidflow.html">One function to all steps</a>
     </li>
     <li class="dropdown-header">Other tools in lipidflow</li>
     <li>
@@ -154,7 +154,7 @@
                         <h4 class="author">Xiaotao Shen PhD (<a href="https://www.shenxt.info/" class="uri">https://www.shenxt.info/</a>)</h4>
                                     <h4 class="author">Chuchu wang PhD</h4>
             <address class="author_afil">
-      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-02-28</h4>
+      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-03-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jaspershen/lipidflow/blob/master/vignettes/absolute_quantification.Rmd"><code>vignettes/absolute_quantification.Rmd</code></a></small>
       <div class="hidden name"><code>absolute_quantification.Rmd</code></div>
@@ -165,14 +165,18 @@
     
     
 <hr>
-<p>This step is used to get the absolute quantification data of all lipids in all samples. If you have not finished the previous step, please click here: <a href="">Get relative quantification data</a>.</p>
-<p>If you have finished this step: click here to next step: <a href="">Output results</a>.</p>
+<p>This step is used to get the absolute quantification data of all lipids in all samples. If you have not finished the previous step, please click here:</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html">Get relative quantification data</a>.</p>
+<p>If you have finished this step, click here to next step:</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Output and organize results</a>.</p>
+<hr>
 <div id="get-absolute-quantification" class="section level1">
 <h1 class="hasAnchor">
 <a href="#get-absolute-quantification" class="anchor"></a><strong>Get absolute quantification</strong>
 </h1>
 <p>We should have finished step 1 and step 2.</p>
 <p>Then we should read the relative quantification data of internal standards and lipids.</p>
+<hr>
 <div id="positive-mode" class="section level2">
 <h2 class="hasAnchor">
 <a href="#positive-mode" class="anchor"></a><strong>Positive mode</strong>
@@ -182,29 +186,18 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ycphs.github.io/openxlsx/index.html">openxlsx</a></span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">is_quantification_table</span> <span class="op">=</span>
+<code class="sourceCode R"><span class="co">##internal standard relative quantification data</span>
+<span class="va">is_quantification_table</span> <span class="op">=</span>
   <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"example/POS/is_relative_quantification/is_quantification_table.xlsx"</span><span class="op">)</span>
 
+<span class="co">##lipid relative quantification data</span>
 <span class="va">lipid_quantification_table</span> <span class="op">=</span>
   <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"example/POS/lipid_relative_quantification/lipid_quantification_table.xlsx"</span><span class="op">)</span>
     </code></pre></div>
 <p>We also need to get the sample information.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pos_mzxml</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>
-  path <span class="op">=</span> <span class="st">"example/POS"</span>,
-  pattern <span class="op">=</span> <span class="st">"mzXML"</span>,
-  all.files <span class="op">=</span> <span class="cn">TRUE</span>,
-  recursive <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="va">sample_info_pos</span> <span class="op">=</span>
-  <span class="va">pos_mzxml</span> <span class="op">%&gt;%</span>
-  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"\\/"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">V1</span>, sample.name <span class="op">=</span> <span class="va">V2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sample.name</span>, <span class="va">group</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sample.name <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">sample.name</span>, <span class="st">"\\.mzXML"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">sample_info_pos</span> <span class="op">=</span>
+  <span class="fu"><a href="../reference/generate_sample_info.html">generate_sample_info</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"example/POS"</span><span class="op">)</span></code></pre></div>
 <p>Then the <code>match_item</code> should be set as:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">match_item_pos</span> <span class="op">=</span>
@@ -237,7 +230,8 @@
 <span class="op">)</span>
 <span class="co">#&gt; 1  10  20  30  40  50  60  70  80  90  100  110  120  130  140  150  152  </span>
 <span class="co">#&gt; ✓ OK</span></code></pre></div>
-<p>Now all the absolute quantification results are outputted in <code>example/POS/absolute/quantification</code> folder.</p>
+<p>Now all the absolute quantification results are outputted in <code>example/POS/absolute_quantification</code> folder.</p>
+<hr>
 </div>
 <div id="negative-mode" class="section level2">
 <h2 class="hasAnchor">
@@ -251,21 +245,8 @@
   <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"example/NEG/lipid_relative_quantification/lipid_quantification_table.xlsx"</span><span class="op">)</span>
     </code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">neg_mzxml</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>
-  path <span class="op">=</span> <span class="st">"example/NEG"</span>,
-  pattern <span class="op">=</span> <span class="st">"mzXML"</span>,
-  all.files <span class="op">=</span> <span class="cn">TRUE</span>,
-  recursive <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="va">sample_info_neg</span> <span class="op">=</span>
-  <span class="va">neg_mzxml</span> <span class="op">%&gt;%</span>
-  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"\\/"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">V1</span>, sample.name <span class="op">=</span> <span class="va">V2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sample.name</span>, <span class="va">group</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sample.name <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">sample.name</span>, <span class="st">"\\.mzXML"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">sample_info_neg</span> <span class="op">=</span>
+  <span class="fu"><a href="../reference/generate_sample_info.html">generate_sample_info</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"example/NEG"</span><span class="op">)</span></code></pre></div>
 <p>Then the <code>match_item</code> should be set as:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">match_item_neg</span> <span class="op">=</span>
@@ -294,7 +275,8 @@
 <span class="op">)</span>
 <span class="co">#&gt; 1  10  20  30  40  50  60  </span>
 <span class="co">#&gt; ✓ OK</span></code></pre></div>
-<p>Now all the absolute quantification results are outputted in <code>example/NEG/absolute/quantification</code> folder.</p>
+<p>Now all the absolute quantification results are outputted in <code>example/NEG/absolute_quantification</code> folder.</p>
+<hr>
 </div>
 <div id="combine-positive-and-negative-mode-together" class="section level2">
 <h2 class="hasAnchor">
@@ -311,13 +293,15 @@
   express_data_abs_um_neg <span class="op">=</span> <span class="va">absolute_data_neg</span><span class="op">$</span><span class="va">express_data_abs_um</span>,
   variable_info_abs_neg <span class="op">=</span> <span class="va">absolute_data_neg</span><span class="op">$</span><span class="va">variable_info_abs</span>
 <span class="op">)</span></code></pre></div>
-<p>Then all the results are outputted into the <code>example/Result</code> folder.</p>
+<p>All the results are outputted into the <code>example/Result</code> folder.</p>
+<hr>
 </div>
 <div id="next-step" class="section level2">
 <h2 class="hasAnchor">
 <a href="#next-step" class="anchor"></a><strong>Next step</strong>
 </h2>
-<p>Next we need to output some results (plots). Please click here: <a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Output results</a></p>
+<p>Next we need to output and organize some results (plots). Please click here:</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Output and organize results</a></p>
 </div>
 </div>
   </div>
