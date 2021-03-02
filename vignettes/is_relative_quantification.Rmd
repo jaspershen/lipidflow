@@ -300,7 +300,43 @@ embed_url("https://www.youtube.com/watch?v=OiUdqkw5KZc&feature=youtu.be") %>%
   use_bs_responsive()
 ```
 
+After check all the internal standards which are not normal, please rename it as `forced_targeted_peak_table_temple_manual.xlsx` and rerun `get_relative_quantification()`, and note that **set `forced_targeted_peak_table_name` as `forced_targeted_peak_table_temple_manual.xlsx`**:
 
+```{r, eval=TRUE, warning=FALSE, cache=TRUE}
+get_relative_quantification(
+  path = "example/POS",
+  forced_targeted_peak_table_name = "forced_targeted_peak_table_temple_manual.xlsx",
+  output_path_name = "is_relative_quantification",
+  targeted_table_name = "IS_info_new.xlsx",
+  sample_info = sample_info_pos,
+  targeted_table_type = "is",
+  polarity = "positive",
+  chol_rt = chol_rt,
+  output_integrate = TRUE,
+  output_eic = TRUE,
+  ppm = 40,
+  rt.tolerance = 180,
+  threads = 5,
+  rerun = FALSE
+)
+```
+
+
+Then open the internal standard 18_1_d7_ Lyso PC in positive mode (`example/POS/is_relative_quantification/peak_shape/18_1_d7_ Lyso PC.html`), the peak detection is good for now:
+
+```{r, echo=FALSE, eval=TRUE}
+htmltools::tags$iframe(
+  title = "Internal standard",
+  src = "../man/figures/figure33.html",
+  width = "100%",
+  height = "600",
+  scrolling = "no",
+  seamless = "seamless",
+  frameBorder = "0"
+)
+```
+
+**For the negative mode, we can also manually check internal standards like this and rerun to get more accurate peak integration and relative quantification data.**
 
 
 ## **Next step**
@@ -309,4 +345,4 @@ Next we need to get the absolute quantification data of all lipids in all sample
 
 Please click here: 
 
-[Get absolute quantification data](https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html)
+[Step3: get absolute quantification data](https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html)

@@ -166,15 +166,15 @@
     
 <hr>
 <p>This step is used to get the absolute quantification data of all lipids in all samples. If you have not finished the previous step, please click here:</p>
-<p><a href="https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html">Get relative quantification data</a>.</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html">Step 2: get relative quantification data</a>.</p>
 <p>If you have finished this step, click here to next step:</p>
-<p><a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Output and organize results</a>.</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Step 4: output and organize results</a>.</p>
 <hr>
 <div id="get-absolute-quantification" class="section level1">
 <h1 class="hasAnchor">
 <a href="#get-absolute-quantification" class="anchor"></a><strong>Get absolute quantification</strong>
 </h1>
-<p>We should have finished step 1 and step 2.</p>
+<p>You should have finished <a href="https://jaspershen.github.io/lipidflow/articles/get_is_retention_time.html">step 1</a> and <a href="https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html">step 2</a>.</p>
 <p>Then we should read the relative quantification data of internal standards and lipids.</p>
 <hr>
 <div id="positive-mode" class="section level2">
@@ -194,6 +194,7 @@
 <span class="va">lipid_quantification_table</span> <span class="op">=</span>
   <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"example/POS/lipid_relative_quantification/lipid_quantification_table.xlsx"</span><span class="op">)</span>
     </code></pre></div>
+<p><code>is_quantification_table</code> is the relative quantification data for internal standards, and <code>lipid_quantification_table</code> is the relative quantification data for lipids.</p>
 <p>We also need to get the sample information.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sample_info_pos</span> <span class="op">=</span>
@@ -219,6 +220,7 @@
     <span class="st">"SM"</span> <span class="op">=</span> <span class="st">"d18:1-18:1(d9) SM"</span>,
     <span class="st">"TG"</span> <span class="op">=</span> <span class="st">"15:0-18:1(d7)-15:0 TAG"</span>
   <span class="op">)</span></code></pre></div>
+<p>It means that all the <code>Cer</code> class lipids will use internal standard <code>d18:1 (d7)-15:0 Cer</code> for absolute quantification.</p>
 <p>Then run <code><a href="../reference/get_absolute_quantification.html">get_absolute_quantification()</a></code> function to get the absolute quantification data of positive mode.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">absolute_data_pos</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_absolute_quantification.html">get_absolute_quantification</a></span><span class="op">(</span>
@@ -237,6 +239,7 @@
 <h2 class="hasAnchor">
 <a href="#negative-mode" class="anchor"></a><strong>Negative mode</strong>
 </h2>
+<p>Negative mode is same with positive mode:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">is_quantification_table</span> <span class="op">=</span>
   <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"example/NEG/is_relative_quantification/is_quantification_table.xlsx"</span><span class="op">)</span>
@@ -301,7 +304,7 @@
 <a href="#next-step" class="anchor"></a><strong>Next step</strong>
 </h2>
 <p>Next we need to output and organize some results (plots). Please click here:</p>
-<p><a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Output and organize results</a></p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Step 4: output and organize results</a></p>
 </div>
 </div>
   </div>

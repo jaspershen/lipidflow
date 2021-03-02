@@ -23,19 +23,17 @@
 #' @importFrom readr read_csv
 #' @export
 
-# tinyTools::setwd_project()
+# # tinyTools::setwd_project()
 # get_relative_quantification(
 #   path = "example/POS",
-#   output_path_name = "lipid_relative_quantification",
-#   targeted_table_name = "lipid_annotation_table_pos.xlsx",
+#   forced_targeted_peak_table_name = "forced_targeted_peak_table_temple_manual.xlsx",
+#   output_path_name = "is_relative_quantification",
+#   targeted_table_name = "IS_info_new.xlsx",
 #   sample_info = sample_info_pos,
-#   targeted_table_type = "lipid",
+#   targeted_table_type = "is",
 #   polarity = "positive",
 #   chol_rt = chol_rt,
 #   output_integrate = TRUE,
-#   forced_targeted_peak_table_name = NULL,
-#   fit.gaussian = TRUE,
-#   integrate_xcms = TRUE,
 #   output_eic = TRUE,
 #   ppm = 40,
 #   rt.tolerance = 180,
@@ -62,7 +60,7 @@ get_relative_quantification <-
            rerun = FALSE) {
     polarity = match.arg(polarity)
     targeted_table_type = match.arg(targeted_table_type)
-    
+    # browser()
     ##check data
     if (all(dir(path) != targeted_table_name)) {
       stop(targeted_table_name, " is not in directory ", path)
@@ -194,11 +192,11 @@ get_relative_quantification <-
       path = path,
       output_path_name = output_path_name,
       targeted_targeted_peak_table_name = "feature_table.xlsx",
-      forced_targeted_peak_table_name = NULL,
-      fit.gaussian = TRUE,
-      integrate_xcms = TRUE,
+      forced_targeted_peak_table_name = forced_targeted_peak_table_name,
+      fit.gaussian = fit.gaussian,
+      integrate_xcms = integrate_xcms,
       output_eic = output_eic,
-      output_integrate = TRUE,
+      output_integrate = output_integrate,
       ppm = ppm,
       rt.tolerance = rt.tolerance,
       from_lipid_search = ifelse(targeted_table_type == "lipid", TRUE, FALSE),

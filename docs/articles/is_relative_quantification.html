@@ -201,7 +201,7 @@
 <span class="co">#&gt; # A tibble: 6 x 13</span>
 <span class="co">#&gt;   name  exact.mass formula ug_ml    um rt_pos_second rt_pos_min adduct_pos</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;     </span>
-<span class="co">#&gt; 1 15:0…       588. C36H61… 0.22  0.375         1267        21.1 M+H-H2O   </span>
+<span class="co">#&gt; 1 15:0…       588. C36H61… 0.22  0.375         1147.       19.1 M+H-H2O   </span>
 <span class="co">#&gt; 2 15:0…       690. C36H61… 0.172 0.25           783.       13.0 M+H       </span>
 <span class="co">#&gt; 3 15:0…       753. C41H73… 1.88  2.5           1182.       19.7 M+H       </span>
 <span class="co">#&gt; 4 15:0…       711. C38H67… 0.125 0.175         1193.       19.9 M+H       </span>
@@ -433,6 +433,32 @@
 <iframe src="https://www.youtube.com/embed/OiUdqkw5KZc" width="533" height="300" frameborder="0" allowfullscreen="" class="embed-responsive-item"></iframe>
 </div>
 </div>
+<p>After check all the internal standards which are not normal, please rename it as <code>forced_targeted_peak_table_temple_manual.xlsx</code> and rerun <code><a href="../reference/get_relative_quantification.html">get_relative_quantification()</a></code>, and note that <strong>set <code>forced_targeted_peak_table_name</code> as <code>forced_targeted_peak_table_temple_manual.xlsx</code></strong>:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/get_relative_quantification.html">get_relative_quantification</a></span><span class="op">(</span>
+  path <span class="op">=</span> <span class="st">"example/POS"</span>,
+  forced_targeted_peak_table_name <span class="op">=</span> <span class="st">"forced_targeted_peak_table_temple_manual.xlsx"</span>,
+  output_path_name <span class="op">=</span> <span class="st">"is_relative_quantification"</span>,
+  targeted_table_name <span class="op">=</span> <span class="st">"IS_info_new.xlsx"</span>,
+  sample_info <span class="op">=</span> <span class="va">sample_info_pos</span>,
+  targeted_table_type <span class="op">=</span> <span class="st">"is"</span>,
+  polarity <span class="op">=</span> <span class="st">"positive"</span>,
+  chol_rt <span class="op">=</span> <span class="va">chol_rt</span>,
+  output_integrate <span class="op">=</span> <span class="cn">TRUE</span>,
+  output_eic <span class="op">=</span> <span class="cn">TRUE</span>,
+  ppm <span class="op">=</span> <span class="fl">40</span>,
+  rt.tolerance <span class="op">=</span> <span class="fl">180</span>,
+  threads <span class="op">=</span> <span class="fl">5</span>,
+  rerun <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+<span class="co">#&gt; Manually check..</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Output peak shapes...</span>
+<span class="co">#&gt; 10  </span>
+<span class="co">#&gt; Done</span></code></pre></div>
+<p>Then open the internal standard 18_1_d7_ Lyso PC in positive mode (<code>example/POS/is_relative_quantification/peak_shape/18_1_d7_ Lyso PC.html</code>), the peak detection is good for now:</p>
+<iframe title="Internal standard" src="../man/figures/figure33.html" width="100%" height="600" scrolling="no" seamless="seamless" frameborder="0"></iframe>
+<p><strong>For the negative mode, we can also manually check internal standards like this and rerun to get more accurate peak integration and relative quantification data.</strong></p>
 </div>
 <div id="next-step" class="section level2">
 <h2 class="hasAnchor">
@@ -440,7 +466,7 @@
 </h2>
 <p>Next we need to get the absolute quantification data of all lipids in all sample.</p>
 <p>Please click here:</p>
-<p><a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">Get absolute quantification data</a></p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">Step3: get absolute quantification data</a></p>
 </div>
 </div>
   </div>

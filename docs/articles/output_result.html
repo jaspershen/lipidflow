@@ -166,7 +166,7 @@
     
 <hr>
 <p>Then we need to output and organize some results. If you have not finished the previous step, please click here:</p>
-<p><a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">Get absolute quantification data</a>.</p>
+<p><a href="https://jaspershen.github.io/lipidflow/articles/absolute_quantification.html">Step 3: get absolute quantification data</a>.</p>
 <hr>
 <div id="organize-results" class="section level1">
 <h1 class="hasAnchor">
@@ -217,7 +217,7 @@
   match_item <span class="op">=</span> <span class="va">match_item_pos</span>
 <span class="op">)</span>
 <span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16</span></code></pre></div>
-<p>After the organization, the folder like this:</p>
+<p>After the organization, the folder is like this, all the lipids are placed into different folders according to their class.</p>
 <div class="figure">
 <img src="../man/figures/figure26.png" alt=""><p class="caption">After organization</p>
 </div>
@@ -227,6 +227,7 @@
 <h2 class="hasAnchor">
 <a href="#negative-mode" class="anchor"></a><strong>Negative mode</strong>
 </h2>
+<p>Negative mode is same with positive mode:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">match_item_neg</span> <span class="op">=</span>
   <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -309,55 +310,65 @@
 <a href="#the-final-results" class="anchor"></a><strong>The final results</strong>
 </h1>
 <p>Finally, all the results are in <code>example/Result</code>.</p>
-<p><img src="../man/figures/figure27.png" alt="Final results"> ***</p>
+<div class="figure">
+<img src="../man/figures/figure27.png" alt=""><p class="caption">Final results</p>
+</div>
+<hr>
 <div id="is_info_table-xlsx" class="section level2">
 <h2 class="hasAnchor">
 <a href="#is_info_table-xlsx" class="anchor"></a><strong>1. <code>IS_info_table.xlsx</code></strong>
 </h2>
 <p>This table is the information of internal standards in positive and negative mode, respectively.</p>
-<p><img src="../man/figures/figure7.png"> ***</p>
+<p><img src="../man/figures/figure7.png"></p>
+<hr>
 </div>
 <div id="lipid_data_class_ug_ml-xlsx" class="section level2">
 <h2 class="hasAnchor">
 <a href="#lipid_data_class_ug_ml-xlsx" class="anchor"></a><strong>2. <code>lipid_data_class_ug_ml.xlsx</code></strong>
 </h2>
 <p>This table is the absolute quantification table for each sample in lipid class level (ug/ml).</p>
-<p><img src="../man/figures/figure9.png"> ***</p>
+<p><img src="../man/figures/figure9.png"></p>
+<hr>
 </div>
 <div id="lipid_data_class_um_per-xlsx" class="section level2">
 <h2 class="hasAnchor">
 <a href="#lipid_data_class_um_per-xlsx" class="anchor"></a><strong>3. <code>lipid_data_class_um_per.xlsx</code></strong>
 </h2>
 <p>This table is the absolute quantification table for each sample in lipid class level (um), and the values were calculated as value/sum(values).</p>
-<p><img src="../man/figures/figure10.png"> ***</p>
+<p><img src="../man/figures/figure10.png"></p>
+<hr>
 </div>
 <div id="lipid_data_class_um-xlsx" class="section level2">
 <h2 class="hasAnchor">
 <a href="#lipid_data_class_um-xlsx" class="anchor"></a><strong>4. <code>lipid_data_class_um.xlsx</code></strong>
 </h2>
 <p>This table is the absolute quantification table for each sample in lipid class level (um).</p>
-<p><img src="../man/figures/figure11.png"> ***</p>
+<p><img src="../man/figures/figure11.png"></p>
+<hr>
 </div>
 <div id="lipid_data_ug_ml-xlsx" class="section level2">
 <h2 class="hasAnchor">
 <a href="#lipid_data_ug_ml-xlsx" class="anchor"></a><strong>5. <code>lipid_data_ug_ml.xlsx</code></strong>
 </h2>
 <p>This is the absolute quantification for each lipid in each sample. The unit is ug/ml.</p>
-<p><img src="../man/figures/figure12.png"> ***</p>
+<p><img src="../man/figures/figure12.png"></p>
+<hr>
 </div>
 <div id="lipid_data_um_per-xlsx" class="section level2">
 <h2 class="hasAnchor">
 <a href="#lipid_data_um_per-xlsx" class="anchor"></a><strong>6. <code>lipid_data_um_per.xlsx</code></strong>
 </h2>
 <p>This is the absolute quantification for each lipid in each sample. The unit is ug/ml. And the values were calculated as value/sum(values).</p>
-<p><img src="../man/figures/figure13.png"> ***</p>
+<p><img src="../man/figures/figure13.png"></p>
+<hr>
 </div>
 <div id="lipid_data_um-xlsx" class="section level2">
 <h2 class="hasAnchor">
 <a href="#lipid_data_um-xlsx" class="anchor"></a><strong>7. <code>lipid_data_um.xlsx</code></strong>
 </h2>
 <p>This is the absolute quantification for each lipid in each sample. The unit is um.</p>
-<p><img src="../man/figures/figure14.png"> ***</p>
+<p><img src="../man/figures/figure14.png"></p>
+<hr>
 </div>
 <div id="plot_ug-pdf-and-plot_um-pdf" class="section level2">
 <h2 class="hasAnchor">
@@ -367,7 +378,10 @@
 <div class="figure">
 <img src="../man/figures/figure15.png" alt=""><p class="caption">plot_ug.pdf</p>
 </div>
-<p><img src="../man/figures/figure16.png" alt="plot_um.pdf"> ***</p>
+<div class="figure">
+<img src="../man/figures/figure16.png" alt=""><p class="caption">plot_um.pdf</p>
+</div>
+<hr>
 </div>
 <div id="class_plot" class="section level2">
 <h2 class="hasAnchor">
@@ -385,14 +399,127 @@
 <p>This folder contains the intensity plot for each lipid.</p>
 <p><img src="../man/figures/figure20.png"></p>
 <p>This is an example: the top panel is the relative intensity plot for the internal standard. The middle panel is the relative intensity plot for this lipid, and the bottom panel is the absolute intensity plot for this lipid.</p>
-<p><img src="../man/figures/figure21.png"> ***</p>
+<p><img src="../man/figures/figure21.png"></p>
+<hr>
 </div>
-<div id="next-step" class="section level2">
+</div>
+<div id="manually-check" class="section level1">
+<h1 class="hasAnchor">
+<a href="#manually-check" class="anchor"></a><strong>Manually check</strong>
+</h1>
+<p>Next we need to check if the absolute quantification of lipids are accurate.</p>
+<div id="absolute-quantification-in-class-level" class="section level2">
 <h2 class="hasAnchor">
-<a href="#next-step" class="anchor"></a><strong>Next step</strong>
+<a href="#absolute-quantification-in-class-level" class="anchor"></a><strong>Absolute quantification in class level</strong>
 </h2>
-<p>Next we need to check the results and rerun to get more accurate results:</p>
-<p><a href="https://jaspershen.github.io/lipidflow/articles/output_result.html">Output results</a></p>
+<p>First, please open the <code>example/Result/class_plot</code>, and check each plot. For example, for the lipid class <code>ChE</code>, we can see that <code>D25_1</code> and <code>D25_2</code> are in the sample groups, but their <code>ChE</code> are very different, so it indicates that the absolute quantification for <code>ChE</code> class may be wrong. So next we should check each lipid in <code>ChE</code>.</p>
+<p><img src="../man/figures/figure34.png"></p>
+</div>
+<div id="absolute-quantification-in-lipid-level" class="section level2">
+<h2 class="hasAnchor">
+<a href="#absolute-quantification-in-lipid-level" class="anchor"></a><strong>Absolute quantification in lipid level</strong>
+</h2>
+<p>Then open the <code>example/Result/intensity_plot/ChE</code> folder, and there is only one <code>ChE</code> lipid <code>ChE(0_0)</code>:</p>
+<p><img src="../man/figures/figure36.png"></p>
+<p>From the <code>lipid_data_um.xlsx</code>, we know that <code>ChE(0_0)</code> is from positive mode, so we then open the <code>html</code> plot for <code>ChE(0_0)</code>, and we can clearly see that the peak integration for <code>D25_1</code> is wrong.</p>
+<iframe title="Internal standard" src="../man/figures/figure35.html" width="100%" height="600" scrolling="no" seamless="seamless" frameborder="0"></iframe>
+</div>
+<div id="rerun-relative-and-absolute-quantification-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rerun-relative-and-absolute-quantification-data" class="anchor"></a><strong>Rerun relative and absolute quantification data</strong>
+</h2>
+<p>Then we need to get the relative and absolute quantification data again.</p>
+<p>First, open the <code>forced_targeted_peak_table_temple.xlsx</code> in <code>example/POS/lipid_relative_quantification</code> folder. And add the correct peak integration begin and end time into <code>forced_targeted_peak_table_temple.xlsx</code>, and rename it as <code>forced_targeted_peak_table_temple_manual.xlsx</code>. This step is same with <a href="file:///Users/shenxt/github/lipidflow/docs/articles/is_relative_quantification.html">Manually check for relative quantification data of internal standards in step 2</a>. Please check the video there.</p>
+<p>Then run the <code><a href="../reference/get_relative_quantification.html">get_relative_quantification()</a></code> function for lipids.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sample_info_pos</span> <span class="op">=</span> <span class="fu"><a href="../reference/generate_sample_info.html">generate_sample_info</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"example/POS"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/get_relative_quantification.html">get_relative_quantification</a></span><span class="op">(</span>
+  path <span class="op">=</span> <span class="st">"example/POS"</span>,
+  forced_targeted_peak_table_name <span class="op">=</span> <span class="st">"forced_targeted_peak_table_temple_manual.xlsx"</span>,
+  output_path_name <span class="op">=</span> <span class="st">"lipid_relative_quantification"</span>,
+  targeted_table_name <span class="op">=</span> <span class="st">"lipid_annotation_table_pos.xlsx"</span>,
+  sample_info <span class="op">=</span> <span class="va">sample_info_pos</span>,
+  targeted_table_type <span class="op">=</span> <span class="st">"lipid"</span>,
+  polarity <span class="op">=</span> <span class="st">"positive"</span>,
+  output_eic <span class="op">=</span> <span class="cn">TRUE</span>,
+  ppm <span class="op">=</span> <span class="fl">40</span>,
+  rt.tolerance <span class="op">=</span> <span class="fl">180</span>,
+  threads <span class="op">=</span> <span class="fl">5</span>,
+  rerun <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+<span class="co">#&gt; Manually check..</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Output peak shapes...</span>
+<span class="co">#&gt; 12  </span>
+<span class="co">#&gt; Done</span></code></pre></div>
+<p>And finally we need to recalculate absolute quantification data and output and organize result. Here we can use one function <code><a href="../reference/organize_result.html">organize_result()</a></code> to finish all steps.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/organize_result.html">organize_result</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"example"</span>, 
+                match_item_pos <span class="op">=</span> <span class="va">match_item_pos</span>, 
+                <span class="va">match_item_neg</span><span class="op">)</span>
+<span class="co">#&gt; -------------------------------------------------------------------</span>
+<span class="co">#&gt; Get absolute quantification tables...</span>
+<span class="co">#&gt; -------------------------------------------------------------------</span>
+<span class="co">#&gt; Positive mode.</span>
+<span class="co">#&gt; 1  10  20  30  40  50  60  70  80  90  100  110  120  130  140  150  151  </span>
+<span class="co">#&gt; ✓ OK</span>
+<span class="co">#&gt; negative mode.</span>
+<span class="co">#&gt; 1  10  20  30  40  50  60  </span>
+<span class="co">#&gt; ✓ OK</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -------------------------------------------------------------------</span>
+<span class="co">#&gt; Generate the peak plots for lipids...</span>
+<span class="co">#&gt; -------------------------------------------------------------------</span>
+<span class="co">#&gt; positive mode...</span>
+<span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  negative mode...</span>
+<span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  </span>
+<span class="co">#&gt; -------------------------------------------------------------------</span>
+<span class="co">#&gt; Output results...</span>
+<span class="co">#&gt; -------------------------------------------------------------------</span>
+<span class="co">#&gt; Positive mode...</span>
+<span class="co">#&gt; Cer</span>
+<span class="co">#&gt; ChE</span>
+<span class="co">#&gt; Chol  DG</span>
+<span class="co">#&gt; LPC</span>
+<span class="co">#&gt; LPE  MG</span>
+<span class="co">#&gt; PA  PC</span>
+<span class="co">#&gt; PE</span>
+<span class="co">#&gt; PG  PI</span>
+<span class="co">#&gt; PPE</span>
+<span class="co">#&gt; PS</span>
+<span class="co">#&gt; SM</span>
+<span class="co">#&gt; TG</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Negative mode...</span>
+<span class="co">#&gt; Cer  Chol  ChE  LPC  LPE</span>
+<span class="co">#&gt; PC</span>
+<span class="co">#&gt; PE</span>
+<span class="co">#&gt; PG</span>
+<span class="co">#&gt; PI</span>
+<span class="co">#&gt; PPE  PS</span>
+<span class="co">#&gt; SM  </span>
+<span class="co">#&gt; 1</span>
+<span class="co">#&gt; 2</span>
+<span class="co">#&gt; 3</span>
+<span class="co">#&gt; 4</span>
+<span class="co">#&gt; 5</span>
+<span class="co">#&gt; 6</span>
+<span class="co">#&gt; 7</span>
+<span class="co">#&gt; 8</span>
+<span class="co">#&gt; 9</span>
+<span class="co">#&gt; 10</span>
+<span class="co">#&gt; 11</span>
+<span class="co">#&gt; 12</span>
+<span class="co">#&gt; 13</span>
+<span class="co">#&gt; 14</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Done.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; All done.</span></code></pre></div>
+<p>Then open the peak shape for <code>ChE(0_0)</code>:</p>
+<iframe title="Internal standard" src="../man/figures/figure37.html" width="100%" height="600" scrolling="no" seamless="seamless" frameborder="0"></iframe>
+<p>Now it is correct.</p>
 </div>
 </div>
   </div>

@@ -32,17 +32,17 @@ knitr::opts_chunk$set(
 
 This step is used to get the absolute quantification data of all lipids in all samples. If you have not finished the previous step, please click here: 
 
-[Get relative quantification data](https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html). 
+[Step 2: get relative quantification data](https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html). 
 
 If you have finished this step, click here to next step: 
 
-[Output and organize results](https://jaspershen.github.io/lipidflow/articles/output_result.html).
+[Step 4: output and organize results](https://jaspershen.github.io/lipidflow/articles/output_result.html).
 
 ***
 
 # **Get absolute quantification**
 
-We should have finished step 1 and step 2. 
+You should have finished [step 1](https://jaspershen.github.io/lipidflow/articles/get_is_retention_time.html) and [step 2](https://jaspershen.github.io/lipidflow/articles/is_relative_quantification.html). 
 
 Then we should read the relative quantification data of internal standards and lipids.
 
@@ -66,6 +66,8 @@ lipid_quantification_table =
   readxl::read_xlsx("example/POS/lipid_relative_quantification/lipid_quantification_table.xlsx")
     
 ```
+
+`is_quantification_table` is the relative quantification data for internal standards, and `lipid_quantification_table` is the relative quantification data for lipids.
 
 We also need to get the sample information.
 
@@ -98,6 +100,8 @@ match_item_pos =
   )
 ```
 
+It means that all the `Cer` class lipids will use internal standard `d18:1 (d7)-15:0 Cer` for absolute quantification.
+
 Then run `get_absolute_quantification()` function to get the absolute quantification data of positive mode.
 
 ```{r, eval=TRUE, warning=FALSE, message=TRUE, cache=TRUE}
@@ -115,6 +119,8 @@ Now all the absolute quantification results are outputted in `example/POS/absolu
 ***
     
 ## **Negative mode**
+
+Negative mode is same with positive mode:
 
 ```{r, eval=TRUE, warning=FALSE, message=FALSE, cache=TRUE}
 is_quantification_table =
@@ -190,4 +196,4 @@ All the results are outputted into the `example/Result` folder.
 
 Next we need to output and organize some results (plots). Please click here: 
 
-[Output and organize results](https://jaspershen.github.io/lipidflow/articles/output_result.html)
+[Step 4: output and organize results](https://jaspershen.github.io/lipidflow/articles/output_result.html)

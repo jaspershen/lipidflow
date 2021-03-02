@@ -70,7 +70,9 @@ globalVariables(
     "FattyAcid",
     "IonFormula",
     "sample.name",
-    "group"
+    "group",
+    "sample_info_pos",
+    "sample_info_neg"
   )
 )
 

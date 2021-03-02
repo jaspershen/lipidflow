@@ -1,5 +1,5 @@
 ---
-title: "Example of lipid absolute quantification"
+title: "One function to finish all steps"
 author:
 - name: Xiaotao Shen PhD (https://www.shenxt.info/)
 - affiliation: School of Medicine, Stanford University
@@ -13,7 +13,7 @@ output:
   pdf_document:
     toc: no
 vignette: >
-  %\VignetteIndexEntry{example_lipid_absolute_quantification}
+  %\VignetteIndexEntry{one_step_of_lipidflow}
   %\VignettePackage{metID}
   % \VignetteEngine{knitr::rmarkdown}
   % \usepackage[utf8]{inputenc}
@@ -28,17 +28,17 @@ knitr::opts_chunk$set(
 )
 ```
 
+`lipidflow` also provide only one function `get_lipid_absolute_quantification()` to finish all steps (step 1-4).
+
 ***
 
-# **Demo data to show how to use `lipidflow`**
-
-Here we use the demo data in `lipidflow` to show how to use it for lipid absolute quantification.
+# **Demo data to show how to use `get_lipid_absolute_quantification()`**
 
 ## **Organize the demo data**
 
 First, we need to get the demo dataset.
 
-```{r, eval=FALSE, warning=FALSE, cache=TRUE}
+```{r, eval=TRUE, warning=FALSE, cache=TRUE}
 library(lipidflow)
 library(tidyverse)
 pos_data = system.file("POS", package = "lipidflow")
@@ -57,7 +57,7 @@ Next, we should set the match list between internal standards and lipid class.
 
 * Positive mode:
 
-```{r, eval=FALSE, warning=FALSE, cache=TRUE}
+```{r, eval=TRUE, warning=FALSE, cache=TRUE}
 match_item_pos =
   list(
     "Cer" = "d18:1 (d7)-15:0 Cer",
@@ -81,7 +81,7 @@ match_item_pos =
 
 * Negative mode:
 
-```{r, eval=FALSE, warning=FALSE, cache=TRUE}
+```{r, eval=TRUE, warning=FALSE, cache=TRUE}
 match_item_neg =
   list(
     "Cer" = "d18:1 (d7)-15:0 Cer",
@@ -103,7 +103,7 @@ match_item_neg =
 
 Then we run `get_lipid_absolute_quantification()` function. Please note that `path` need to set as `example`.
 
-```{r, eval=FALSE, warning=FALSE, error=FALSE, message=FALSE, cache=TRUE}
+```{r, eval=TRUE, warning=FALSE, error=FALSE, message=FALSE, cache=TRUE}
 get_lipid_absolute_quantification(
   path = "example",
   is_info_name_pos = "IS_information.xlsx",
@@ -122,29 +122,16 @@ get_lipid_absolute_quantification(
 )
 ```
 
-# **Output result**
+## **Manually check for relative quantification data of internal standards**
 
-Most of the results are outputted in the `example/Result`, some results are in `example/POS` and `example/NEG`.
+Sometimes, the peak detection maybe not accurate, so we need to manually check the peak shape of all the internal standards and then detect peak and integrate peak shape again.
 
-## **Information of internal standards**
+For example, the internal standard 18_1_d7_ Lyso PC in positive mode (`example/POS/is_relative_quantification/peak_shape/18_1_d7_ Lyso PC.html`), the peak shape is like below figure shows:
 
-Here we set `which_group_for_rt_confirm` as "D25", so this group samples will be used to extract internal standards and get the information of all internal standards.
-
-The retention times of all internal standards are generated automatically, and outputted as `IS_info_pos.xlsx` in "example/POS" and `IS_info_neg.xlsx` in "example/NEG", respectively. 
-
-!["IS_info_neg.xlsx"](../man/figures/figure5.png)
-We can see that `lipidflow` added the `rt_neg_second`, `rt_neg_min`, `adduct_neg` and `mz_neg` in the `IS_info_new.xlsx`. If there are no good EICs, no information for these internal standards.
-
-Sometimes the information of internal standards maybe not correct, so you can open the EICs of each internal standard and then check the RTs and then put correct information in your IS information table. The EICs for each internal standard is in the `example/POS/Result/peak_shape` folder.
-
-![](../man/figures/figure6.png)
-
-One example is like below figure shows:
-
-```{r, echo=FALSE, eval=FALSE}
+```{r, echo=FALSE, eval=TRUE}
 htmltools::tags$iframe(
   title = "Internal standard",
-  src = "../man/figures/15_0-18_1d7_PA_Na_Salt_M+H.html",
+  src = "../man/figures/figure31.html",
   width = "100%",
   height = "600",
   scrolling = "no",
@@ -153,11 +140,94 @@ htmltools::tags$iframe(
 )
 ```
 
-This is the EIC of `15_0-18_1(d7) PA (Na Salt)` with `M+H`. We can see that this internal `15_0-18_1(d7) PA (Na Salt)` has good peak shape and the retention time is around 800 second. 
 
-If you find information of some internal standards are not correct, you can put the right information in `IS_info_new.xlsx` in `positive and negative `POS` and `NEG` folders, respectively. And then rerun the `get_lipid_absolute_quantification()` function, and set `is_info_name_pos` and `is_info_name_neg` as `IS_info_new.xlsx`, and `use_manual_is_info` as `TRUE`, then `lipidflow` will use the modified information table for next processing.
+From this figure, we can see that for the samples `D25_1`, `D25_2` and `M19_2`, the integrate region (begin point) is not correct, so we need to manually correct that.
 
-## **Final results for absolute quantification of lipids**
+1. Open the table in `example/POS/is_relative_quantification/forced_targeted_peak_table_temple.xlsx`, like the below figure shows:
 
-All the results for absolute quantification of lipids are in `example/Result`. 
+![](../man/figures/figure32.png)
 
+2. Then open the peak shape plot for each internal standard in `example/POS/is_relative_quantification/peak_shape`. Then if you find that the peak integration is not correct, you can add the right begin and end retention time for peaks like below video shows:
+
+```{r, eval=TRUE, warning=FALSE, cache=FALSE, echo=FALSE}
+library(vembedr)
+embed_url("https://www.youtube.com/watch?v=OiUdqkw5KZc&feature=youtu.be") %>% 
+  use_align("center") %>% 
+  use_bs_responsive()
+```
+
+After check all the internal standards which are not normal, please rename it as `forced_targeted_peak_table_temple_manual.xlsx` and rerun `get_relative_quantification()`, and note that **set `forced_targeted_peak_table_name` as `forced_targeted_peak_table_temple_manual.xlsx`**:
+
+**For the negative mode, we can also manually check internal standards like this and rerun to get more accurate peak integration and relative quantification data.**
+
+## **Manually check for absolute quantification data of lipids**
+
+### **Absolute quantification in class level**
+
+First, please open the `example/Result/class_plot`, and check each plot. For example, for the lipid class `ChE`, we can see that `D25_1` and `D25_2` are in the sample groups, but their `ChE` are very different, so it indicates that the absolute quantification for `ChE` class may be wrong. So next we should check each lipid in `ChE`.
+
+![](../man/figures/figure34.png)
+
+### **Absolute quantification in lipid level**
+
+Then open the `example/Result/intensity_plot/ChE` folder, and there is only one `ChE` lipid `ChE(0_0)`:
+
+![](../man/figures/figure36.png)
+
+From the `lipid_data_um.xlsx`, we know that `ChE(0_0)` is from positive mode, so we then open the `html` plot for `ChE(0_0)`, and we can clearly see that the peak integration for `D25_1` is wrong.
+
+```{r, echo=FALSE, eval=TRUE}
+htmltools::tags$iframe(
+  title = "Internal standard",
+  src = "../man/figures/figure35.html",
+  width = "100%",
+  height = "600",
+  scrolling = "no",
+  seamless = "seamless",
+  frameBorder = "0"
+)
+```
+
+
+## **Rerun `get_lipid_absolute_quantification()`**
+
+Then we need to get the relative and absolute quantification data again.
+
+First, open the `forced_targeted_peak_table_temple.xlsx` in `example/POS/lipid_relative_quantification` folder. And add the correct peak integration begin and end time into `forced_targeted_peak_table_temple.xlsx`, and rename it as `forced_targeted_peak_table_temple_manual.xlsx`. This step is same with [Manually check for relative quantification data of internal standards in step 2](file:///Users/shenxt/github/lipidflow/docs/articles/is_relative_quantification.html). Please check the video there.
+
+Then run the `get_relative_quantification()` function for lipids.
+
+```{r, eval=TRUE, warning=FALSE, cache=TRUE}
+get_lipid_absolute_quantification(
+  path = "example",
+  forced_targeted_peak_table_name = "forced_targeted_peak_table_temple_manual.xlsx",
+  is_info_name_pos = "IS_information.xlsx",
+  is_info_name_neg = "IS_information.xlsx",
+  lipid_annotation_table_pos = "lipid_annotation_table_pos.xlsx",
+  lipid_annotation_table_neg = "lipid_annotation_table_neg.xlsx",
+  output_eic = TRUE,
+  ppm = 40,
+  rt.tolerance = 180,
+  threads = 3,
+  rerun = FALSE,
+  which_group_for_rt_confirm = "D25",
+  match_item_pos = match_item_pos,
+  match_item_neg = match_item_neg
+)
+```
+
+Then open the peak shape for `ChE(0_0)`:
+
+```{r, echo=FALSE, eval=TRUE}
+htmltools::tags$iframe(
+  title = "Internal standard",
+  src = "../man/figures/figure37.html",
+  width = "100%",
+  height = "600",
+  scrolling = "no",
+  seamless = "seamless",
+  frameBorder = "0"
+)
+```
+
+Now it is correct.

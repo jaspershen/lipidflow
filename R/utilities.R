@@ -1684,7 +1684,7 @@ fit_gaussian <-
                      height = start.height)
       nlsAns <- try(nls(y ~ gaussian1(x, center, width, height),
                         start = starts,
-                        control = controlList))
+                        control = controlList), silent = TRUE)
     } else {
       if (is.null(start.floor)) {
         start.floor <- quantile(y, seq(0, 1, 0.1))[2]
@@ -1700,7 +1700,7 @@ fit_gaussian <-
                      floor),
         start = starts,
         control = controlList
-      ))
+      ), silent = TRUE)
     }
     if (class(nlsAns) == "try-error") {
       centerAns <- start.center

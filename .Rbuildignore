@@ -20,6 +20,7 @@ vignettes/get_is_retention_time_cache
 vignettes/is_relative_quantification_cache
 vignettes/output_result_cache
 vignettes/*_cache
+vignettes/one_step_of_lipidflow_cache
 
 .DS_Store
 
