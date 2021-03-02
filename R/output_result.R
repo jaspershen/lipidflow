@@ -182,11 +182,11 @@ output_result = function(path = ".",
             axis.text = element_text(size = 10),
             axis.title = element_text(size = 10),
             axis.text.x = ggplot2::element_text(
-            angle = 45,
-            hjust = 1,
-            vjust = 1,
-            size = 10
-          )) +
+              angle = 45,
+              hjust = 1,
+              vjust = 1,
+              size = 10
+            )) +
           ggplot2::facet_wrap(facets = ggplot2::vars(from),
                               ncol = 1,
                               scales = "free_y")
@@ -232,6 +232,10 @@ output_result = function(path = ".",
           which.min() %>%
           head(1) %>%
           `[`(is_name, .)
+        
+        if(length(temp_is_name) == 0){
+          next
+        }
         
         temp_data1 <-
           is_table_neg[match(temp_is_name, is_tag_neg$name), ] %>%
@@ -332,11 +336,11 @@ output_result = function(path = ".",
         axis.text = element_text(size = 10),
         axis.title = element_text(size = 10),
         axis.text.x = ggplot2::element_text(
-        angle = 45,
-        hjust = 1,
-        vjust = 1,
-        size = 10
-      ))
+          angle = 45,
+          hjust = 1,
+          vjust = 1,
+          size = 10
+        ))
     
     ggsave(
       temp_plot,
@@ -355,7 +359,7 @@ output_result = function(path = ".",
       height = 7
     )
   }
-
+  
   cat("\n")
   cat(crayon::bgRed("Done.\n"))
 }
