@@ -279,6 +279,25 @@ get_lipid_absolute_quantification <-
           rerun = rerun
         )
       }
+    }else{
+      get_relative_quantification(
+        path = file.path(path, "POS/"),
+        output_path_name = "is_relative_quantification",
+        targeted_table_name = "IS_info_new.xlsx",
+        sample_info = sample_info_pos,
+        targeted_table_type = "is",
+        polarity = "positive",
+        chol_rt = chol_rt,
+        output_integrate = output_integrate,
+        forced_targeted_peak_table_name = forced_targeted_peak_table_name,
+        fit.gaussian = fit.gaussian,
+        integrate_xcms = integrate_xcms,
+        output_eic = output_eic,
+        ppm = ppm,
+        rt.tolerance = rt.tolerance,
+        threads = threads,
+        rerun = rerun
+      )
     }
 
     ###lipid
@@ -306,8 +325,26 @@ get_lipid_absolute_quantification <-
           threads = threads,
           rerun = rerun
         )
-        
       }
+    }else{
+      get_relative_quantification(
+        path = file.path(path, "POS"),
+        output_path_name = "lipid_relative_quantification",
+        targeted_table_name = lipid_annotation_table_pos,
+        sample_info = sample_info_pos,
+        targeted_table_type = "lipid",
+        polarity = "positive",
+        chol_rt = chol_rt,
+        output_integrate = output_integrate,
+        forced_targeted_peak_table_name = forced_targeted_peak_table_name,
+        fit.gaussian = fit.gaussian,
+        integrate_xcms = integrate_xcms,
+        output_eic = output_eic,
+        ppm = ppm,
+        rt.tolerance = rt.tolerance,
+        threads = threads,
+        rerun = rerun
+      )
     }
         
 
@@ -352,6 +389,25 @@ get_lipid_absolute_quantification <-
           rerun = rerun
         )
       }
+    }else{
+      get_relative_quantification(
+        path = file.path(path, "NEG/"),
+        output_path_name = "is_relative_quantification",
+        targeted_table_name = "IS_info_new.xlsx",
+        sample_info = sample_info_neg,
+        targeted_table_type = "is",
+        polarity = "negative",
+        chol_rt = chol_rt,
+        output_integrate = output_integrate,
+        forced_targeted_peak_table_name = forced_targeted_peak_table_name,
+        fit.gaussian = fit.gaussian,
+        integrate_xcms = integrate_xcms,
+        output_eic = output_eic,
+        ppm = ppm,
+        rt.tolerance = rt.tolerance,
+        threads = threads,
+        rerun = rerun
+      )
     }
     
 
@@ -382,6 +438,25 @@ get_lipid_absolute_quantification <-
           rerun = rerun
         )
       }
+    }else{
+      get_relative_quantification(
+        path = file.path(path, "NEG"),
+        output_path_name = "lipid_relative_quantification",
+        targeted_table_name = lipid_annotation_table_neg,
+        sample_info = sample_info_neg,
+        targeted_table_type = "lipid",
+        polarity = "negative",
+        chol_rt = chol_rt,
+        output_integrate = output_integrate,
+        forced_targeted_peak_table_name = forced_targeted_peak_table_name,
+        fit.gaussian = fit.gaussian,
+        integrate_xcms = integrate_xcms,
+        output_eic = output_eic,
+        ppm = ppm,
+        rt.tolerance = rt.tolerance,
+        threads = threads,
+        rerun = rerun
+      )
     }
 
     ############################################################################
