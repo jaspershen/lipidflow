@@ -229,6 +229,9 @@ get_lipid_absolute_quantification <-
     ############################################################################
     #############################relative quantification of IS##################
     ############################################################################
+    cat("\n")
+    cat("\n")
+    cat("\n")
     cat(
       crayon::green(
         "-------------------------------------------------------------------\n"
@@ -541,6 +544,9 @@ get_lipid_absolute_quantification <-
     ############################################################################
     #############################reorganize plot################################
     ############################################################################
+    cat("\n")
+    cat("\n")
+    cat("\n")
     cat(
       crayon::green(
         "-------------------------------------------------------------------\n"
@@ -555,13 +561,14 @@ get_lipid_absolute_quantification <-
     ###positive mode
     absolute_table_pos <-
       readxl::read_xlsx(file.path(path, "Result/lipid_data_um.xlsx"))
-    cat("positive mode...\n")
+    cat(crayon::green("positive mode...\n"))
     reorganize_peak_plot(
       path = file.path(path, "POS/lipid_relative_quantification/"),
       plot_dir = "peak_shape",
       absolute_table = absolute_table_pos,
       match_item = match_item_pos
     )
+    cat("\n")
     
     ###negative mode
     absolute_table_neg <-
@@ -579,6 +586,9 @@ get_lipid_absolute_quantification <-
     ############################################################################
     #############################output results################################
     ############################################################################
+    cat("\n")
+    cat("\n")
+    cat("\n")
     cat(
       crayon::green(
         "-------------------------------------------------------------------\n"
