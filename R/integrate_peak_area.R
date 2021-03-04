@@ -1,19 +1,19 @@
-# x = c(835.872, 836.887, 837.906, 838.923, 839.936, 840.950, 859.363)
-# y = c(29696.63, 34761.17, 44937.46, 52899.88, 46161.51, 37265.93, 20317.86)
-# 
-# integrate_under_curve_area <-
-#   function(x,
-#            y,
-#            method = c("linear", "spline"),
-#            fit_loess = FALSE) {
-#     if (length(unique(x)) < 2) {
-#       return(NA)
-#     }
-#     
-#   }
-# 
-# 
-# 
+# # x = c(835.872, 836.887, 837.906, 838.923, 839.936, 840.950, 859.363)
+# # y = c(29696.63, 34761.17, 44937.46, 52899.88, 46161.51, 37265.93, 20317.86)
+# # 
+# # integrate_under_curve_area <-
+# #   function(x,
+# #            y,
+# #            method = c("linear", "spline"),
+# #            fit_loess = FALSE) {
+# #     if (length(unique(x)) < 2) {
+# #       return(NA)
+# #     }
+# #     
+# #   }
+# # 
+# # 
+# # 
 # auc = function (x,
 #                 y,
 #                 from = min(x, na.rm = TRUE),
@@ -67,11 +67,12 @@
 #   }
 #   res
 # }
-# 
-# 
-# 
+# # 
+# # 
+# # 
 # # get data
-# 
+# x = xy$x
+# y = xy$y
 # plot(x, y, type = "b")
 # 
 # # using sintegral in Bolstad2

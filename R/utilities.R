@@ -1225,10 +1225,11 @@ extract_targeted_peaks <-
                 x = temp_raw_info@rtime,
                 y = temp_raw_info@intensity,
                 stringsAsFactors = FALSE
-              ) %>%
-              dplyr::filter(!is.na(y))
+              ) 
             
-            if (sum(!is.na(xy$y)) <= 6) {
+            xy$y[is.na(xy$y)] = 0
+            
+            if (sum(xy$y != 0) <= 6) {
               value <- 0
             } else{
               myfunction <- splinefun(xy$x, xy$y, method = "natural")
@@ -1238,6 +1239,10 @@ extract_targeted_peaks <-
                 upper = max(xy$x)
               )$value,
               silent = TRUE)
+              if(value1 < 0){
+                
+                next()
+              }
               
               if (class(value1)[1] == "try-error") {
                 value1 <- NA
@@ -1301,6 +1306,7 @@ extract_targeted_peaks <-
       
     }
     
+    # 
     ###manual check
     if (!is.null(forced_targeted_peak_table_name)) {
       cat(crayon::green("Manually check..\n"))
@@ -1325,18 +1331,20 @@ extract_targeted_peaks <-
               y = temp_raw_info@intensity,
               stringsAsFactors = FALSE
             ) %>%
-            dplyr::filter(!is.na(y)) %>%
+            # dplyr::filter(!is.na(y)) %>%
             dplyr::filter(
               x >= as.numeric(forced_targeted_peak_table$begin_rt[i]) &
                 x <= as.numeric(forced_targeted_peak_table$end_rt[i])
             )
           
-          if(nrow(xy) < 6){
+          xy$y[is.na(xy$y)] = 0
+          
+          if(sum(xy$y != 0) < 6){
             example_temp <-
               matrix(nrow = 0, ncol = 8) %>%
               as.data.frame()
             
-            colnames(example_temp)  <-
+            colnames(example_temp) <-
               c("name",
                 "rt",
                 "rtmin",
@@ -1349,7 +1357,6 @@ extract_targeted_peaks <-
               example_temp %>%
               as.matrix()
             
-            
             # raw_info[temp_name, temp_sample][[1]]@rtime <-
             #   NA
             # 
@@ -1360,7 +1367,6 @@ extract_targeted_peaks <-
               0
             
           }else{
-            
             myfunction <- splinefun(xy$x, xy$y, method = "natural")
             value1 <- try(expr = integrate(
               f = myfunction,
@@ -1368,6 +1374,13 @@ extract_targeted_peaks <-
               upper = max(xy$x)
             )$value,
             silent = TRUE)
+            
+            if(value1 < 0){
+              
+              if(value1 < 0){
+                next()
+              }
+            }
             
             if (class(value1)[1] == "try-error") {
               value1 <- NA
