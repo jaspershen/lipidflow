@@ -1349,14 +1349,15 @@ extract_targeted_peaks <-
               example_temp %>%
               as.matrix()
             
-            raw_info[temp_name, temp_sample][[1]]@rtime <-
-              NA
             
-            raw_info[temp_name, temp_sample][[1]]@intensity <-
-              NA
+            # raw_info[temp_name, temp_sample][[1]]@rtime <-
+            #   NA
+            # 
+            # raw_info[temp_name, temp_sample][[1]]@intensity <-
+            #   NA
             
             output_quantification_table[output_quantification_table$name == temp_name, temp_sample] <-
-              value
+              0
             
           }else{
             
