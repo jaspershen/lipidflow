@@ -1376,7 +1376,7 @@ extract_targeted_peaks <-
             ##add information to raw_info
             raw_info[temp_name, temp_sample][[1]]@chromPeaks <-
               data.frame(
-                rt = fit_result$center,
+                rt = median(xy$x),
                 rtmin = min(xy$x),
                 rtmax = max(xy$x),
                 into = value,
@@ -1434,7 +1434,7 @@ extract_targeted_peaks <-
               .x = data,
               .y = names(data),
               .f = function(data1, peak_name) {
-                cat(peak_name, " ")
+                # cat(peak_name, " ")
                 if (nrow(as.data.frame(data1@chromPeaks)) == 0) {
                   peak_name <- logical(0)
                 }
