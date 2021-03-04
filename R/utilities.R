@@ -654,7 +654,7 @@ combine_pos_neg_quantification <- function(path = ".",
     as.data.frame()
   
   class_data_ug_ml = 
-  class_data_ug_ml %>% 
+    class_data_ug_ml %>% 
     as.data.frame() %>% 
     tibble::rownames_to_column(var = "Class")
   
@@ -1066,7 +1066,7 @@ extract_targeted_peaks <-
            rt.tolerance = 90,
            threads = 3,
            facet = TRUE) {
-
+    
     peak_table <-
       suppressMessages(readxl::read_xlsx(file.path(path , targeted_targeted_peak_table_name)))
     output_path = file.path(path, output_path_name)
@@ -1167,7 +1167,6 @@ extract_targeted_peaks <-
     rownames(raw_info) <- peak_table$name
     colnames(raw_info) <- result@phenoData@data$sample_group
     # raw_info_old <- raw_info
-    
     ##output quantification information
     output_quantification_table <-
       peak_value %>%
@@ -1232,100 +1231,16 @@ extract_targeted_peaks <-
             if (sum(!is.na(xy$y)) <= 6) {
               value <- 0
             } else{
-              
-              fit_result <-
-                try(expr = fit_gaussian(x = xy$x, y = xy$y),
-                    silent = TRUE)
-              
-              if (class(fit_result)[1] == "try-error") {
-                xy <-
-                  data.frame(xy, z = 0)
-              } else{
-                xy <-
-                  data.frame(xy, z = fit_result$y)
-              }
-              
-              
-              # plot(xy$x, xy$y, type = "b")
-              # points(xy$x, xy$z, type = "b", col = "red")
-              #
-              # abline(v = fit_result$center)
-              # abline(v = fit_result$center - fit_result$width * 2)
-              # abline(v = fit_result$center + fit_result$width * 2)
-              # abline(h = 0)
-              
-              l1 <-
-                loess(y ~ x, xy, control = loess.control(surface = "direct"))
-              # l2 <-
-              #   loess(z ~ x, xy, control = loess.control(surface = "direct"))
-              f1 <- function(x) {
-                predict(l1, newdata = x)
-              }
-              # f1 <- approxfun(xy$x, xy$y)
-              # f2 <- function(x)
-              #   predict(l2, newdata = x)
-              # f2 <- approxfun(xy$x, xy$z)
-              
+              myfunction <- splinefun(xy$x, xy$y, method = "natural")
               value1 <- try(expr = integrate(
-                f = f1,
+                f = myfunction,
                 lower = min(xy$x),
                 upper = max(xy$x)
               )$value,
               silent = TRUE)
-              #
-              # value2 <- try(integrate(f = f2,
-              #                         lower = min(xy$x),
-              #                         upper = max(xy$x))$value, silent = TRUE
-              # )
               
               if (class(value1)[1] == "try-error") {
                 value1 <- NA
-              }
-              #
-              # if(class(value2) == "try-error"){
-              #   value2 <- NA
-              # }
-              
-              fit_error <-
-                abs(as.numeric(fit_result$residual)) / xy$y
-              
-              max_idx <- which.max(xy$z)
-              
-              item1 <-
-                try(expr = shapiro.test(x = xy$z)$p.value > 0.05,
-                    silent = TRUE)
-              
-              if (class(item1)[1] == "try-error") {
-                item1 <- FALSE
-              }
-              
-              item2 <-
-                (sum(fit_error < 0.3) >= nrow(xy) / 2) &
-                (abs(max_idx - nrow(xy) / 2) < nrow(xy) * 0.3 / 2)
-              
-              if (item1 | item2) {
-                value <- value1
-                ##add information to raw_info
-                raw_info[temp_name, temp_sample][[1]]@chromPeaks <-
-                  data.frame(
-                    rt = fit_result$center,
-                    rtmin = min(xy$x),
-                    rtmax = max(xy$x),
-                    into = value,
-                    maxo = max(xy$y),
-                    sn = NA
-                  ) %>%
-                  as.matrix()
-                
-                raw_info[temp_name, temp_sample][[1]]@rtime <-
-                  xy$x
-                raw_info[temp_name, temp_sample][[1]]@intensity <-
-                  xy$y
-                
-                raw_info[temp_name, temp_sample][[1]]@productMz <-
-                  xy$z
-              } else{
-                value <- value
               }
             }
             output_quantification_table[output_quantification_table$name == temp_name, temp_sample] <-
@@ -1334,6 +1249,7 @@ extract_targeted_peaks <-
         }
       }
     }
+    
     
     ###add mz and adduct
     output_quantification_table <-
@@ -1395,6 +1311,7 @@ extract_targeted_peaks <-
       
       if (nrow(forced_targeted_peak_table) > 0) {
         for (i in 1:nrow(forced_targeted_peak_table)) {
+          # cat(i, " ")
           # cat(forced_targeted_peak_table$name[i], "\n")
           temp_name <- forced_targeted_peak_table$name[i]
           temp_sample <- forced_targeted_peak_table$sample[i]
@@ -1414,54 +1331,70 @@ extract_targeted_peaks <-
                 x <= as.numeric(forced_targeted_peak_table$end_rt[i])
             )
           
-          # fit_result <-
-          #   try(expr = fit_gaussian(x = xy$x, y = xy$y), silent = TRUE
-          #   )
-          #
-          # xy <-
-          #   data.frame(xy, z = fit_result$y)
-          
-          l1 <- loess(y ~ x, xy,
-                      control = loess.control(surface = "direct"))
-          
-          f1 <- function(x) {
-            predict(l1, newdata = x)
+          if(nrow(xy) < 6){
+            example_temp <-
+              matrix(nrow = 0, ncol = 8) %>%
+              as.data.frame()
+            
+            colnames(example_temp)  <-
+              c("name",
+                "rt",
+                "rtmin",
+                "rtmax",
+                "into",
+                "intb",
+                "maxo",
+                "sn")
+            raw_info[temp_name, temp_sample][[1]]@chromPeaks <-
+              example_temp %>%
+              as.matrix()
+            
+            raw_info[temp_name, temp_sample][[1]]@rtime <-
+              NA
+            
+            raw_info[temp_name, temp_sample][[1]]@intensity <-
+              NA
+            
+            output_quantification_table[output_quantification_table$name == temp_name, temp_sample] <-
+              value
+            
+          }else{
+            
+            myfunction <- splinefun(xy$x, xy$y, method = "natural")
+            value1 <- try(expr = integrate(
+              f = myfunction,
+              lower = min(xy$x),
+              upper = max(xy$x)
+            )$value,
+            silent = TRUE)
+            
+            if (class(value1)[1] == "try-error") {
+              value1 <- NA
+            }
+            
+            value <- value1
+            ##add information to raw_info
+            raw_info[temp_name, temp_sample][[1]]@chromPeaks <-
+              data.frame(
+                rt = fit_result$center,
+                rtmin = min(xy$x),
+                rtmax = max(xy$x),
+                into = value,
+                maxo = max(xy$y),
+                sn = NA
+              ) %>%
+              as.matrix()
+            
+            raw_info[temp_name, temp_sample][[1]]@rtime <-
+              xy$x
+            
+            raw_info[temp_name, temp_sample][[1]]@intensity <-
+              xy$y
+            
+            output_quantification_table[output_quantification_table$name == temp_name, temp_sample] <-
+              value
+            
           }
-          
-          value1 <- try(expr = integrate(f = f1,
-                                         lower = min(xy$x),
-                                         upper = max(xy$x))$value,
-                        silent = TRUE)
-          
-          if (class(value1) == "try-error") {
-            value1 <- NA
-          }
-          
-          value <- value1
-          ##add information to raw_info
-          raw_info[temp_name, temp_sample][[1]]@chromPeaks <-
-            data.frame(
-              rt = fit_result$center,
-              rtmin = min(xy$x),
-              rtmax = max(xy$x),
-              into = value,
-              maxo = max(xy$y),
-              sn = NA
-            ) %>%
-            as.matrix()
-          
-          raw_info[temp_name, temp_sample][[1]]@rtime <-
-            xy$x
-          
-          raw_info[temp_name, temp_sample][[1]]@intensity <-
-            xy$y
-          
-          # raw_info[temp_name, temp_sample][[1]]@productMz <-
-          #   xy$z
-          
-          output_quantification_table[output_quantification_table$name == temp_name, temp_sample] <-
-            value
-          
         }
       }
       
@@ -1494,12 +1427,14 @@ extract_targeted_peaks <-
         .x = as.data.frame(raw_info),
         .y = colnames(as.data.frame(raw_info)),
         .f = function(data, sample_name) {
+          # cat(sample_name, " ")
           names(data) <- rownames(raw_info)
           temp <-
             purrr::map2(
               .x = data,
               .y = names(data),
               .f = function(data1, peak_name) {
+                cat(peak_name, " ")
                 if (nrow(as.data.frame(data1@chromPeaks)) == 0) {
                   peak_name <- logical(0)
                 }
@@ -1697,7 +1632,7 @@ fit_gaussian <-
       )
       nlsAns <- try(nls(
         y ~ gaussian1(x, center, width, height,
-                     floor),
+                      floor),
         start = starts,
         control = controlList
       ), silent = TRUE)
@@ -2277,9 +2212,9 @@ from_quantification_table_to_rt_table <-
     1:length(unique_name) %>%
       purrr::walk(function(idx) {
         openxlsx::freezePane(wb,
-                   sheet = idx,
-                   firstRow = TRUE,
-                   firstCol = TRUE)
+                             sheet = idx,
+                             firstRow = TRUE,
+                             firstCol = TRUE)
         temp =
           table[table$name == unique_name[idx], , drop = FALSE]
         
@@ -2323,8 +2258,8 @@ from_quantification_table_to_rt_table <-
       })
     
     openxlsx::saveWorkbook(wb,
-                 file.path(path, "IS_RT_table_for_check.xlsx"),
-                 overwrite = TRUE)
+                           file.path(path, "IS_RT_table_for_check.xlsx"),
+                           overwrite = TRUE)
     
   }
 

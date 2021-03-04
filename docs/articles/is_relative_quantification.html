@@ -147,7 +147,7 @@
 
       
 
-      </header><script src="is_relative_quantification_files/header-attrs-2.6/header-attrs.js"></script><link href="is_relative_quantification_files/vembedr-0.1.4/css/vembedr.css" rel="stylesheet">
+      </header><script src="is_relative_quantification_files/header-attrs-2.6/header-attrs.js"></script><link href="is_relative_quantification_files/vembedr-0.1.4.9002/css/vembedr.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -155,7 +155,7 @@
                         <h4 class="author">Xiaotao Shen PhD (<a href="https://www.shenxt.info/" class="uri">https://www.shenxt.info/</a>)</h4>
                                     <h4 class="author">Chuchu wang PhD</h4>
             <address class="author_afil">
-      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-03-01</h4>
+      School of Medicine, Stanford University<br><h4 class="date">Created on 2021-02-09 and updated on 2021-03-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jaspershen/lipidflow/blob/master/vignettes/is_relative_quantification.Rmd"><code>vignettes/is_relative_quantification.Rmd</code></a></small>
       <div class="hidden name"><code>is_relative_quantification.Rmd</code></div>
@@ -262,6 +262,7 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/get_relative_quantification.html">get_relative_quantification</a></span><span class="op">(</span>
   path <span class="op">=</span> <span class="st">"example/POS"</span>,
+  output_path_name <span class="op">=</span> <span class="st">"is_relative_quantification"</span>,
   targeted_table_name <span class="op">=</span> <span class="st">"IS_info_new.xlsx"</span>,
   sample_info <span class="op">=</span> <span class="va">sample_info_pos</span>,
   targeted_table_type <span class="op">=</span> <span class="st">"is"</span>,
@@ -273,16 +274,9 @@
   threads <span class="op">=</span> <span class="fl">5</span>,
   rerun <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; Reading raw data, it will take a while...</span>
-<span class="co">#&gt; Reading 18519 spectra from file D25_1.mzXML</span>
-<span class="co">#&gt; Reading 18473 spectra from file D25_2.mzXML</span>
-<span class="co">#&gt; Reading 18464 spectra from file M19_1.mzXML</span>
-<span class="co">#&gt; Reading 18381 spectra from file M19_2.mzXML</span>
-<span class="co">#&gt; ✓ OK</span>
-<span class="co">#&gt; Extracting peaks, it will take a while...✓ OK</span>
-<span class="co">#&gt; </span>
+<span class="co">#&gt; 15:0-18:1(d7) DAG  15:0-18:1(d7) PA (Na Salt)  15:0-18:1(d7) PC  15:0-18:1(d7) PE  15:0-18:1(d7) PG (Na Salt)  15:0-18:1(d7) PI (NH4 Salt)  15:0-18:1(d7) PS (Na Salt)  15:0-18:1(d7)-15:0 TAG  18:1 (d7) MG  18:1(d7) Chol Ester  18:1(d7) Lyso PC  18:1(d7) Lyso PE  C18(Plasm)-18:1(d9) PC  C18(Plasm)-18:1(d9) PE  Cholesterol (d7)  d18:1 (d7)-15:0 Cer  d18:1-18:1(d9) SM  rac-16: 0 (d5) PI (3, 5) P2  rac-16: 0 (d5) PI (5) P  Cholesterol  15:0-18:1(d7) DAG  15:0-18:1(d7) PA (Na Salt)  15:0-18:1(d7) PC  15:0-18:1(d7) PE  15:0-18:1(d7) PG (Na Salt)  15:0-18:1(d7) PI (NH4 Salt)  15:0-18:1(d7) PS (Na Salt)  15:0-18:1(d7)-15:0 TAG  18:1 (d7) MG  18:1(d7) Chol Ester  18:1(d7) Lyso PC  18:1(d7) Lyso PE  C18(Plasm)-18:1(d9) PC  C18(Plasm)-18:1(d9) PE  Cholesterol (d7)  d18:1 (d7)-15:0 Cer  d18:1-18:1(d9) SM  rac-16: 0 (d5) PI (3, 5) P2  rac-16: 0 (d5) PI (5) P  Cholesterol  15:0-18:1(d7) DAG  15:0-18:1(d7) PA (Na Salt)  15:0-18:1(d7) PC  15:0-18:1(d7) PE  15:0-18:1(d7) PG (Na Salt)  15:0-18:1(d7) PI (NH4 Salt)  15:0-18:1(d7) PS (Na Salt)  15:0-18:1(d7)-15:0 TAG  18:1 (d7) MG  18:1(d7) Chol Ester  18:1(d7) Lyso PC  18:1(d7) Lyso PE  C18(Plasm)-18:1(d9) PC  C18(Plasm)-18:1(d9) PE  Cholesterol (d7)  d18:1 (d7)-15:0 Cer  d18:1-18:1(d9) SM  rac-16: 0 (d5) PI (3, 5) P2  rac-16: 0 (d5) PI (5) P  Cholesterol  15:0-18:1(d7) DAG  15:0-18:1(d7) PA (Na Salt)  15:0-18:1(d7) PC  15:0-18:1(d7) PE  15:0-18:1(d7) PG (Na Salt)  15:0-18:1(d7) PI (NH4 Salt)  15:0-18:1(d7) PS (Na Salt)  15:0-18:1(d7)-15:0 TAG  18:1 (d7) MG  18:1(d7) Chol Ester  18:1(d7) Lyso PC  18:1(d7) Lyso PE  C18(Plasm)-18:1(d9) PC  C18(Plasm)-18:1(d9) PE  Cholesterol (d7)  d18:1 (d7)-15:0 Cer  d18:1-18:1(d9) SM  rac-16: 0 (d5) PI (3, 5) P2  rac-16: 0 (d5) PI (5) P  Cholesterol  </span>
 <span class="co">#&gt; Output peak shapes...</span>
-<span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  20  </span>
+<span class="co">#&gt; 1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  </span>
 <span class="co">#&gt; Done</span></code></pre></div>
 <p><strong>The meanings of parameters:</strong></p>
 <ol style="list-style-type: decimal">

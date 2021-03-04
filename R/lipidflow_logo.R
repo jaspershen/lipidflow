@@ -19,7 +19,7 @@
 #' @importFrom ggplot2 element_line element_text
 #' @importFrom MSnbase readMSData
 #' @importFrom ProtGenerics spectra
-#' @importFrom stats lm loess predict coef fitted integrate loess.control median nls
+#' @importFrom stats lm loess predict coef fitted integrate loess.control median nls splinefun
 #' @importFrom stats nls.control quantile residuals rt sd shapiro.test
 #' @importFrom plotly ggplotly
 #' @importFrom Rdisop getMass getMolecule

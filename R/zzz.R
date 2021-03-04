@@ -72,7 +72,9 @@ globalVariables(
     "sample.name",
     "group",
     "sample_info_pos",
-    "sample_info_neg"
+    "sample_info_neg",
+    "fit_result",
+    ""
   )
 )
 

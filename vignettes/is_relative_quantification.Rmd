@@ -129,6 +129,7 @@ Then run `get_relative_quantification()` to get the relative quantification data
 ```{r, eval=TRUE, warning=FALSE, cache=TRUE}
 get_relative_quantification(
   path = "example/POS",
+  output_path_name = "is_relative_quantification",
   targeted_table_name = "IS_info_new.xlsx",
   sample_info = sample_info_pos,
   targeted_table_type = "is",

@@ -60,7 +60,6 @@ get_relative_quantification <-
            rerun = FALSE) {
     polarity = match.arg(polarity)
     targeted_table_type = match.arg(targeted_table_type)
-    # browser()
     ##check data
     if (all(dir(path) != targeted_table_name)) {
       stop(targeted_table_name, " is not in directory ", path)

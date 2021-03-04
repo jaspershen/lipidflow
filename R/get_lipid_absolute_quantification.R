@@ -134,7 +134,6 @@ get_lipid_absolute_quantification <-
       stop(which_group_for_rt_confirm, " is not in POS or NEG folder.")
     }
     
-    
     ############################################################################
     #############################get the RTs of each IS#########################
     ############################################################################
@@ -177,7 +176,6 @@ get_lipid_absolute_quantification <-
         file = file.path(path, "POS/IS_info_new.xlsx"),
         asTable = TRUE
       )
-      
       
       ###negative mode
       is_info_table <-
@@ -251,7 +249,9 @@ get_lipid_absolute_quantification <-
       stringr::str_split(pattern = "\\/") %>%
       do.call(rbind, .) %>%
       as.data.frame()
+    
     colnames(sample_info_pos) = c("group", "sample.name")
+    
     sample_info_pos =
       sample_info_pos[, c(2, 1)]
     
@@ -350,8 +350,6 @@ get_lipid_absolute_quantification <-
       )
     }
         
-
-    
     ###negative mode
     ##get sample information
     sample_info_neg =
@@ -412,8 +410,6 @@ get_lipid_absolute_quantification <-
         rerun = rerun
       )
     }
-    
-
     
     ###lipid
     cat(crayon::green("Lipid negative mode...\n"))
